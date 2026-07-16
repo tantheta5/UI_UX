@@ -682,5 +682,19 @@
     </nav>
   </div>
 
+  <script>
+    // Check if we came from creation flow
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('from') === 'creation') {
+      // Modify CTA button to go to Blend Created screen
+      const ctaBtn = document.querySelector('.btn-return');
+      ctaBtn.setAttribute('onclick', "location.href='../9._blend_created/code.html'");
+      ctaBtn.querySelector('span').innerText = 'Continue';
+      
+      // Modify Back button
+      const backBtn = document.querySelector('.back-btn');
+      backBtn.setAttribute('onclick', "location.href='../9._blend_created/code.html'");
+    }
+  </script>
 </body>
 </html>

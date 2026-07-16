@@ -524,9 +524,36 @@
       align-items: center;
       justify-content: center;
     }
+
+    /* Toast styling */
+    .toast {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translate(-50%, 20px);
+      background-color: var(--color-ink);
+      color: var(--color-bg);
+      padding: 10px 20px;
+      border-radius: var(--r-full);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      box-shadow: var(--sh-lg);
+      z-index: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 250ms var(--ease-out), transform 250ms var(--ease-out);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
   </style>
 </head>
 <body>
+
+  <!-- Save Toast -->
+  <div class="toast" id="saveToast">Saved to playlist</div>
 
   <div class="mobile-container" id="scrollContainer">
     <!-- Header -->
@@ -610,7 +637,7 @@
               <line x1="12" y1="15" x2="12" y2="3"></line>
             </svg>
           </button>
-          <button class="action-icon">
+          <button class="action-icon" onclick="showSaveToast()">
             <!-- Add -->
             <svg viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="10"></circle>
@@ -618,7 +645,7 @@
               <line x1="8" y1="12" x2="16" y2="12"></line>
             </svg>
           </button>
-          <button class="action-icon">
+          <button class="action-icon" onclick="location.href='../13._share_blend/code.html'">
             <!-- Share -->
             <svg viewBox="0 0 24 24">
               <circle cx="18" cy="5" r="3"></circle>
@@ -697,7 +724,7 @@
     
     // Render tracks
     tracksContainer.innerHTML = tracks.map((track, index) => `
-      <div class="track-row">
+      <div class="track-row" onclick="location.href='../13._now_playing/code.html'">
         <div class="track-left">
           <div class="track-media">
             <img data-alt="A clean, minimalist album cover art in grayscale. The design features abstract architectural lines or soft geometric shapes. The lighting is diffused and balanced, creating a high-end and professional visual that fits a modern music application's wireframe aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTS7BTYCsLOV-U1B4CGc4bsbI-HUmvOALdvlNGXv5aLqIGx-vNLUotnR6tWN250NL7ZTOXeCJ80A44NlTF1zXXBxZYrFvDKa4qA3MXzNS0MN4_fKlUDB9wHlijFmFyQHkNdeWuaLL8Y9jftusOgmLMzcoBAO4bt2I7yBevVelRdUO5R3Z2gB3xenkEg_U5JFnUMuJb8PuXDWaThFG9QVnicH3isWuXgZRmeIvvbeDnR8gf8dJ6t8pF">
@@ -711,7 +738,7 @@
             </div>
           </div>
         </div>
-        <button class="track-row-action">
+        <button class="track-row-action" onclick="event.stopPropagation();">
           <svg viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="1"></circle>
             <circle cx="12" cy="5" r="1"></circle>
@@ -738,6 +765,14 @@
           <polygon points="5 3 19 12 5 21 5 3"></polygon>
         `;
       }
+    }
+
+    function showSaveToast() {
+      const toast = document.getElementById('saveToast');
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
     }
 
     // Scroll listener for sticky header title update
