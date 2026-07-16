@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumen — Processing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: #0D0B09;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      color: #FAF8F6;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+    }
+
+    /* ── UI overlay ── */
+    .ui {
+      position: fixed;
+      z-index: 10;
+      bottom: 72px;          /* anchored to bottom of viewport */
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      width: max-content;
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(250,248,246,0.35);
+      margin-bottom: 10px;
+      animation: fadeIn 1.6s ease forwards;
+      opacity: 0;
+    }
+
+    .headline {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 22px;
+      font-style: italic;
+      font-weight: 400;
+      color: rgba(250,248,246,0.75);
+      letter-spacing: -0.01em;
+      margin-bottom: 24px;
+      animation: fadeIn 1.6s 0.2s ease forwards;
+      opacity: 0;
+    }
+
+    /* Animated progress bar */
+    .bar-wrap {
+      width: 140px;
+      height: 2px;
+      border-radius: 99px;
+      background: rgba(250,248,246,0.08);
+      overflow: hidden;
+      animation: fadeIn 1.6s 0.4s ease forwards;
+      opacity: 0;
+    }
+
+    .bar {
+      height: 100%;
+      border-radius: 99px;
+      /* Chrome gradient */
+      background: linear-gradient(90deg, #C98B86 0%, #A89BC2 35%, #8AA68E 70%, #E2A87F 100%);
+      animation: barSweep 2.6s cubic-bezier(0.65,0,0.35,1) infinite;
+    }
+
+    @keyframes barSweep {
+      0%   { width: 0%;  margin-left: 0%;   }
+      50%  { width: 65%; margin-left: 18%;  }
+      100% { width: 0%;  margin-left: 100%; }
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="c"></canvas>
+
+  <div class="ui">
+    <span class="eyebrow">Loading your experience</span>
+    <span class="headline">Please wait a moment…</span>
+    <div class="bar-wrap"><div class="bar"></div></div>
+  </div>
+
+  <script>
+  /* ─────────────────────────────────────────────────────────
+     LUMEN PROCESSING SPHERE
+     Pure canvas, no audio, infinite ambient animation.
+     Chrome palette: #C98B86 · #A89BC2 · #8AA68E · #E2A87F
+  ───────────────────────────────────────────────────────── */
+
+  const c   = document.getElementById('c');
+  const ctx = c.getContext('2d');
+
+  /* Resize canvas to fill window */
+  function resize() { c.width = window.innerWidth; c.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  /* ── Chrome palette (RGB arrays) ── */
+  const ROSE     = [201, 139, 134]; // #C98B86
+  const LAV      = [168, 155, 194]; // #A89BC2
+  const SAGE     = [138, 166, 142]; // #8AA68E
+  const APRICOT  = [226, 168, 127]; // #E2A87F
+  const ROSE_D   = [168, 105, 100]; // #A86964
+  const LAV_D    = [132, 122, 160]; // #847AA0
+  const SAGE_D   = [107, 135, 112]; // #6B8770
+  const ROSE_S   = [244, 218, 214]; // #F4DAD6
+  const LAV_S    = [229, 222, 240]; // #E5DEF0
+  const APR_S    = [246, 224, 206]; // #F6E0CE
+
+  function rgba(col, a = 1) {
+    return `rgba(${col[0]},${col[1]},${col[2]},${a})`;
+  }
+
+  /* Linear interpolation between two RGB colours */
+  function lerpCol(a, b, t) {
+    return [
+      a[0] + (b[0] - a[0]) * t,
+      a[1] + (b[1] - a[1]) * t,
+      a[2] + (b[2] - a[2]) * t,
+    ];
+  }
+
+  /* ── Sphere parameters ── */
+  const R = 185; // base radius in px
+
+  /*
+   * Edge noise — keeps sphere nearly circular.
+   * Max deviation: ±2.5 % of R  →  ±4.6 px at R=185
+   * The shape stays clean and spherical but subtly alive.
+   */
+  function edgeOffset(θ, t) {
+    return R * (
+      1
+      + Math.sin(2  * θ + t * 0.38) * 0.010
+      + Math.sin(3  * θ - t * 0.55) * 0.007
+      + Math.sin(5  * θ + t * 0.27) * 0.005
+      + Math.sin(7  * θ - t * 0.41) * 0.003
+    );
+  }
+
+  /* Build a smooth blob path (very-nearly-circular) */
+  function buildEdgePath(cx, cy, t) {
+    const N = 256;
+    ctx.beginPath();
+    for (let i = 0; i <= N; i++) {
+      const θ = (i / N) * Math.PI * 2;
+      const r = edgeOffset(θ, t);
+      const x = cx + r * Math.cos(θ);
+      const y = cy + r * Math.sin(θ);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+  }
+
+  /* ─── Particle system ─────────────────────────────────── */
+  const PALETTE = [ROSE, LAV, SAGE, APRICOT, ROSE_S, LAV_S, APR_S];
+
+  const PARTICLES = Array.from({ length: 60 }, () => {
+    const orbitR  = R + 28 + Math.random() * 120;
+    return {
+      angle:  Math.random() * Math.PI * 2,
+      orbitR,
+      speed:  (Math.random() - 0.5) * 0.004,
+      size:   Math.random() * 2.4 + 0.5,
+      alpha:  Math.random() * 0.5 + 0.12,
+      col:    PALETTE[Math.floor(Math.random() * PALETTE.length)],
+      phase:  Math.random() * Math.PI * 2,
+      wobble: Math.random() * 10 + 4,
+    };
+  });
+
+  function drawParticles(cx, cy, t) {
+    for (const p of PARTICLES) {
+      p.angle += p.speed;
+      const wobble = Math.sin(t * 1.05 + p.phase) * p.wobble;
+      const dist   = p.orbitR + wobble;
+      const px = cx + dist * Math.cos(p.angle);
+      const py = cy + dist * Math.sin(p.angle);
+
+      /* skip if inside sphere */
+      if (Math.hypot(px - cx, py - cy) < R - 15) continue;
+
+      const a = p.alpha * (0.5 + 0.5 * Math.sin(t * 0.85 + p.phase));
+
+      /* core dot */
+      ctx.beginPath();
+      ctx.arc(px, py, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = rgba(p.col, a);
+      ctx.fill();
+
+      /* soft halo */
+      const h = ctx.createRadialGradient(px, py, 0, px, py, p.size * 5);
+      h.addColorStop(0, rgba(p.col, a * 0.35));
+      h.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.beginPath();
+      ctx.arc(px, py, p.size * 5, 0, Math.PI * 2);
+      ctx.fillStyle = h;
+      ctx.fill();
+    }
+  }
+
+  /* ─── Main draw ───────────────────────────────────────── */
+  let t = 0;
+
+  function draw() {
+    const W = c.width, H = c.height;
+    const cx = W / 2, cy = H / 2 - 90; /* sphere sits in upper portion */
+
+    /* ── CLEAR ── */
+    ctx.clearRect(0, 0, W, H);
+
+    /* ── BACKGROUND ── */
+    ctx.fillStyle = '#0D0B09';
+    ctx.fillRect(0, 0, W, H);
+
+    /* Soft ambient colour wash in background */
+    const bgGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(W, H) * 0.65);
+    bgGrad.addColorStop(0,   rgba(lerpCol(LAV, ROSE, (Math.sin(t * 0.22) + 1) / 2), 0.07));
+    bgGrad.addColorStop(0.5, rgba(APRICOT, 0.03));
+    bgGrad.addColorStop(1,   'rgba(0,0,0,0)');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, W, H);
+
+    /* ── OUTER CORONA / BLOOM ── */
+    /* The halo that makes the sphere glow against the dark background */
+    const coronaColors = [ROSE, LAV, SAGE, APRICOT];
+    const ci = Math.floor((t * 0.15) % coronaColors.length);
+    const cf = (t * 0.15) % 1;
+    const coronaCol = lerpCol(coronaColors[ci], coronaColors[(ci + 1) % coronaColors.length], cf);
+
+    const corona = ctx.createRadialGradient(cx, cy, R * 0.8, cx, cy, R * 2.2);
+    corona.addColorStop(0,   rgba(coronaCol, 0.22));
+    corona.addColorStop(0.35, rgba(lerpCol(LAV, APRICOT, (Math.sin(t * 0.3) + 1) / 2), 0.09));
+    corona.addColorStop(1,   'rgba(0,0,0,0)');
+    ctx.beginPath();
+    ctx.arc(cx, cy, R * 2.2, 0, Math.PI * 2);
+    ctx.fillStyle = corona;
+    ctx.fill();
+
+    /* ── PARTICLES (behind sphere) ── */
+    drawParticles(cx, cy, t);
+
+    /* ── SPHERE ── */
+    ctx.save();
+    buildEdgePath(cx, cy, t);
+    ctx.clip();
+
+    /* The rect we paint within the clip */
+    const SR = R * 1.4;
+    const rx = cx - SR, ry = cy - SR, rw = SR * 2, rh = SR * 2;
+
+    /*
+     * LAYER 1 — Base chrome gradient sweeping slowly across surface.
+     * Direction rotates continuously → mimics a slowly rotating 3D sphere.
+     */
+    const baseAngle = t * 0.10;
+    const bx1 = cx + Math.cos(baseAngle) * SR;
+    const by1 = cy + Math.sin(baseAngle) * SR;
+    const bx2 = cx - Math.cos(baseAngle) * SR;
+    const by2 = cy - Math.sin(baseAngle) * SR;
+
+    const g1 = ctx.createLinearGradient(bx1, by1, bx2, by2);
+    g1.addColorStop(0.00, rgba(ROSE_D,   1));
+    g1.addColorStop(0.22, rgba(ROSE,     1));
+    g1.addColorStop(0.44, rgba(LAV,      1));
+    g1.addColorStop(0.66, rgba(SAGE,     1));
+    g1.addColorStop(0.85, rgba(APRICOT,  1));
+    g1.addColorStop(1.00, rgba(LAV_D,    1));
+    ctx.fillStyle = g1;
+    ctx.fillRect(rx, ry, rw, rh);
+
+    /*
+     * LAYER 2 — Secondary counter-rotating gradient overlay.
+     * Adds depth and prevents colours from looking flat.
+     */
+    const secAngle = -t * 0.065 + 1.8;
+    const g2 = ctx.createLinearGradient(
+      cx + Math.cos(secAngle) * SR * 0.9, cy + Math.sin(secAngle) * SR * 0.9,
+      cx - Math.cos(secAngle) * SR * 0.9, cy - Math.sin(secAngle) * SR * 0.9
+    );
+    g2.addColorStop(0.00, rgba(LAV,    0.55));
+    g2.addColorStop(0.40, rgba(SAGE,   0.30));
+    g2.addColorStop(0.70, rgba(APRICOT,0.40));
+    g2.addColorStop(1.00, rgba(ROSE,   0.25));
+    ctx.globalCompositeOperation = 'soft-light';
+    ctx.fillStyle = g2;
+    ctx.fillRect(rx, ry, rw, rh);
+    ctx.globalCompositeOperation = 'source-over';
+
+    /*
+     * LAYER 3 — Slow drifting colour bloom (third independent motion).
+     * Creates the shifting shimmer seen on NCS-style spheres.
+     */
+    const driftX = cx + Math.cos(t * 0.19 + 2.5) * R * 0.55;
+    const driftY = cy + Math.sin(t * 0.27 + 1.1) * R * 0.45;
+    const shimmerCol = lerpCol(
+      lerpCol(LAV, APRICOT, (Math.sin(t * 0.31) + 1) / 2),
+      SAGE,
+      (Math.sin(t * 0.17 + 1) + 1) / 2
+    );
+    const g3 = ctx.createRadialGradient(driftX, driftY, 0, driftX, driftY, R * 1.1);
+    g3.addColorStop(0,   rgba(shimmerCol, 0.45));
+    g3.addColorStop(0.6, rgba(shimmerCol, 0.12));
+    g3.addColorStop(1,   'rgba(0,0,0,0)');
+    ctx.fillStyle = g3;
+    ctx.fillRect(rx, ry, rw, rh);
+
+    /*
+     * LAYER 4 — Directional diffuse lighting.
+     * Light position drifts very slowly → gives 3D depth.
+     * White toward lit side, near-black shadow on opposite side.
+     */
+    const lightX = cx - R * 0.52 + Math.cos(t * 0.16) * R * 0.14;
+    const lightY = cy - R * 0.50 + Math.sin(t * 0.21) * R * 0.11;
+
+    const diffuse = ctx.createRadialGradient(lightX, lightY, 0, cx, cy, R * 1.30);
+    diffuse.addColorStop(0.00, 'rgba(255,255,255,0.38)');
+    diffuse.addColorStop(0.30, 'rgba(255,255,255,0.08)');
+    diffuse.addColorStop(0.60, 'rgba(0,0,0,0)');
+    diffuse.addColorStop(1.00, 'rgba(0,0,0,0.58)');
+    ctx.fillStyle = diffuse;
+    ctx.fillRect(rx, ry, rw, rh);
+
+    /*
+     * LAYER 5 — Specular highlight (hard gloss spot).
+     * Small, bright, positioned close to the light source.
+     * Stays within top-left quadrant, drifts subtly.
+     */
+    const specX = lightX + R * 0.08;
+    const specY = lightY + R * 0.05;
+    const spec = ctx.createRadialGradient(specX, specY, 0, specX, specY, R * 0.34);
+    spec.addColorStop(0.00, 'rgba(255,255,255,0.95)');
+    spec.addColorStop(0.12, 'rgba(255,255,255,0.65)');
+    spec.addColorStop(0.35, 'rgba(255,255,255,0.20)');
+    spec.addColorStop(0.65, 'rgba(255,255,255,0.04)');
+    spec.addColorStop(1.00, 'rgba(255,255,255,0.00)');
+    ctx.fillStyle = spec;
+    ctx.fillRect(rx, ry, rw, rh);
+
+    /*
+     * LAYER 6 — Rim / back-light (warm accent on shadow side).
+     * Opposite of light source. Colour cycles between chrome hues.
+     */
+    const rimX = cx - lightX + cx + Math.cos(t * 0.09) * R * 0.08;
+    const rimY = cy - lightY + cy + Math.sin(t * 0.13) * R * 0.06;
+    const rimCol = lerpCol(APRICOT, LAV, (Math.sin(t * 0.38) + 1) / 2);
+    const rim = ctx.createRadialGradient(rimX, rimY, R * 0.55, rimX, rimY, R * 1.35);
+    rim.addColorStop(0,   rgba(rimCol, 0.48));
+    rim.addColorStop(0.5, rgba(rimCol, 0.18));
+    rim.addColorStop(1,   'rgba(0,0,0,0)');
+    ctx.fillStyle = rim;
+    ctx.fillRect(rx, ry, rw, rh);
+
+    /*
+     * LAYER 7 — Ambient occlusion — deepens shadow at bottom-right.
+     */
+    const ao = ctx.createRadialGradient(cx + R * 0.45, cy + R * 0.50, 0, cx + R * 0.3, cy + R * 0.35, R * 1.15);
+    ao.addColorStop(0,   rgba(LAV_D, 0.50));
+    ao.addColorStop(0.4, rgba(ROSE_D, 0.18));
+    ao.addColorStop(1,   'rgba(0,0,0,0)');
+    ctx.fillStyle = ao;
+    ctx.fillRect(rx, ry, rw, rh);
+
+    ctx.restore(); /* end clip */
+
+    /* ── EDGE GLOW (outside clip, on top) ── */
+    ctx.save();
+    buildEdgePath(cx, cy, t);
+    /* Glow ring 1 — lavender */
+    ctx.shadowColor = rgba(LAV, 0.85);
+    ctx.shadowBlur  = 22;
+    ctx.strokeStyle = rgba(lerpCol(LAV, APRICOT, (Math.sin(t * 0.28) + 1) / 2), 0.45);
+    ctx.lineWidth   = 2.5;
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.save();
+    buildEdgePath(cx, cy, t);
+    /* Glow ring 2 — rose inner rim */
+    ctx.shadowColor = rgba(ROSE, 0.6);
+    ctx.shadowBlur  = 10;
+    ctx.strokeStyle = rgba(ROSE_S, 0.18);
+    ctx.lineWidth   = 1.5;
+    ctx.stroke();
+    ctx.restore();
+
+
+
+
+    /* advance time */
+    t += 0.010;
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+  </script>
+</body>
+</html>

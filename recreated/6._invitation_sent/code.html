@@ -573,24 +573,9 @@
 
     <!-- Main Content -->
     <main>
-      <!-- Central loader -->
-      <div class="visualizer-wrapper">
-        <div class="spinner-track"></div>
-        <div class="spinner-ring"></div>
-        <div class="core-circle">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-          </svg>
-        </div>
-        <div class="floating-badge">
-          <svg viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-        </div>
+      <!-- Sphere Visualizer -->
+      <div class="sphere-wrapper" style="width: 320px; height: 260px; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: -20px;">
+        <canvas id="sphereCanvas" style="width: 320px; height: 320px; position: absolute; top: -30px;"></canvas>
       </div>
 
       <!-- Text Content -->
@@ -701,6 +686,251 @@
     setTimeout(() => {
       location.href = '../8._waiting_for_friend/code.html';
     }, 5000);
+
+    /* ── CANVAS SPHERE ANIMATION ── */
+    const canvas = document.getElementById('sphereCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 320;
+    canvas.height = 320;
+
+    const ROSE     = [201, 139, 134]; // #C98B86
+    const LAV      = [168, 155, 194]; // #A89BC2
+    const SAGE     = [138, 166, 142]; // #8AA68E
+    const APRICOT  = [226, 168, 127]; // #E2A87F
+    const ROSE_D   = [168, 105, 100]; // #A86964
+    const LAV_D    = [132, 122, 160]; // #847AA0
+    const SAGE_D   = [107, 135, 112]; // #6B8770
+    const ROSE_S   = [244, 218, 214]; // #F4DAD6
+    const LAV_S    = [229, 222, 240]; // #E5DEF0
+    const APR_S    = [246, 224, 206]; // #F6E0CE
+
+    function rgba(col, a = 1) {
+      return `rgba(${col[0]},${col[1]},${col[2]},${a})`;
+    }
+
+    function lerpCol(a, b, t) {
+      return [
+        a[0] + (b[0] - a[0]) * t,
+        a[1] + (b[1] - a[1]) * t,
+        a[2] + (b[2] - a[2]) * t,
+      ];
+    }
+
+    const R = 70; // base radius in px
+
+    function edgeOffset(θ, t) {
+      return R * (
+        1
+        + Math.sin(2  * θ + t * 0.38) * 0.010
+        + Math.sin(3  * θ - t * 0.55) * 0.007
+        + Math.sin(5  * θ + t * 0.27) * 0.005
+        + Math.sin(7  * θ - t * 0.41) * 0.003
+      );
+    }
+
+    function buildEdgePath(cx, cy, t) {
+      const N = 128;
+      ctx.beginPath();
+      for (let i = 0; i <= N; i++) {
+        const θ = (i / N) * Math.PI * 2;
+        const r = edgeOffset(θ, t);
+        const x = cx + r * Math.cos(θ);
+        const y = cy + r * Math.sin(θ);
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+    }
+
+    const PALETTE = [ROSE, LAV, SAGE, APRICOT, ROSE_S, LAV_S, APR_S];
+    const PARTICLES = Array.from({ length: 40 }, () => {
+      const orbitR  = R + 12 + Math.random() * 50;
+      return {
+        angle:  Math.random() * Math.PI * 2,
+        orbitR,
+        speed:  (Math.random() - 0.5) * 0.004,
+        size:   Math.random() * 1.5 + 0.5,
+        alpha:  Math.random() * 0.4 + 0.1,
+        col:    PALETTE[Math.floor(Math.random() * PALETTE.length)],
+        phase:  Math.random() * Math.PI * 2,
+        wobble: Math.random() * 6 + 2,
+      };
+    });
+
+    function drawParticles(cx, cy, t) {
+      for (const p of PARTICLES) {
+        p.angle += p.speed;
+        const wobble = Math.sin(t * 1.05 + p.phase) * p.wobble;
+        const dist   = p.orbitR + wobble;
+        const px = cx + dist * Math.cos(p.angle);
+        const py = cy + dist * Math.sin(p.angle);
+
+        if (Math.hypot(px - cx, py - cy) < R - 8) continue;
+
+        const a = p.alpha * (0.5 + 0.5 * Math.sin(t * 0.85 + p.phase));
+
+        ctx.beginPath();
+        ctx.arc(px, py, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = rgba(p.col, a);
+        ctx.fill();
+
+        const h = ctx.createRadialGradient(px, py, 0, px, py, p.size * 4);
+        h.addColorStop(0, rgba(p.col, a * 0.3));
+        h.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.beginPath();
+        ctx.arc(px, py, p.size * 4, 0, Math.PI * 2);
+        ctx.fillStyle = h;
+        ctx.fill();
+      }
+    }
+
+    let t = 0;
+    function draw() {
+      const W = canvas.width, H = canvas.height;
+      const cx = W / 2, cy = H / 2;
+
+      ctx.clearRect(0, 0, W, H);
+
+      // Outer Corona Bloom
+      const coronaColors = [ROSE, LAV, SAGE, APRICOT];
+      const ci = Math.floor((t * 0.15) % coronaColors.length);
+      const cf = (t * 0.15) % 1;
+      const coronaCol = lerpCol(coronaColors[ci], coronaColors[(ci + 1) % coronaColors.length], cf);
+
+      const corona = ctx.createRadialGradient(cx, cy, R * 0.8, cx, cy, R * 2.0);
+      corona.addColorStop(0,   rgba(coronaCol, 0.18));
+      corona.addColorStop(0.4, rgba(lerpCol(LAV, APRICOT, (Math.sin(t * 0.3) + 1) / 2), 0.07));
+      corona.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.beginPath();
+      ctx.arc(cx, cy, R * 2.0, 0, Math.PI * 2);
+      ctx.fillStyle = corona;
+      ctx.fill();
+
+      // Particles behind sphere
+      drawParticles(cx, cy, t);
+
+      // Sphere
+      ctx.save();
+      buildEdgePath(cx, cy, t);
+      ctx.clip();
+
+      const SR = R * 1.4;
+      const rx = cx - SR, ry = cy - SR, rw = SR * 2, rh = SR * 2;
+
+      // Layer 1: Base sweep
+      const baseAngle = t * 0.10;
+      const bx1 = cx + Math.cos(baseAngle) * SR;
+      const by1 = cy + Math.sin(baseAngle) * SR;
+      const bx2 = cx - Math.cos(baseAngle) * SR;
+      const by2 = cy - Math.sin(baseAngle) * SR;
+
+      const g1 = ctx.createLinearGradient(bx1, by1, bx2, by2);
+      g1.addColorStop(0.00, rgba(ROSE_D,   1));
+      g1.addColorStop(0.22, rgba(ROSE,     1));
+      g1.addColorStop(0.44, rgba(LAV,      1));
+      g1.addColorStop(0.66, rgba(SAGE,     1));
+      g1.addColorStop(0.85, rgba(APRICOT,  1));
+      g1.addColorStop(1.00, rgba(LAV_D,    1));
+      ctx.fillStyle = g1;
+      ctx.fillRect(rx, ry, rw, rh);
+
+      // Layer 2: Overlay gradient
+      const secAngle = -t * 0.065 + 1.8;
+      const g2 = ctx.createLinearGradient(
+        cx + Math.cos(secAngle) * SR * 0.9, cy + Math.sin(secAngle) * SR * 0.9,
+        cx - Math.cos(secAngle) * SR * 0.9, cy - Math.sin(secAngle) * SR * 0.9
+      );
+      g2.addColorStop(0.00, rgba(LAV,    0.55));
+      g2.addColorStop(0.40, rgba(SAGE,   0.30));
+      g2.addColorStop(0.70, rgba(APRICOT,0.40));
+      g2.addColorStop(1.00, rgba(ROSE,   0.25));
+      ctx.globalCompositeOperation = 'soft-light';
+      ctx.fillStyle = g2;
+      ctx.fillRect(rx, ry, rw, rh);
+      ctx.globalCompositeOperation = 'source-over';
+
+      // Layer 3: Shimmer bloom
+      const driftX = cx + Math.cos(t * 0.19 + 2.5) * R * 0.55;
+      const driftY = cy + Math.sin(t * 0.27 + 1.1) * R * 0.45;
+      const shimmerCol = lerpCol(
+        lerpCol(LAV, APRICOT, (Math.sin(t * 0.31) + 1) / 2),
+        SAGE,
+        (Math.sin(t * 0.17 + 1) + 1) / 2
+      );
+      const g3 = ctx.createRadialGradient(driftX, driftY, 0, driftX, driftY, R * 1.1);
+      g3.addColorStop(0,   rgba(shimmerCol, 0.45));
+      g3.addColorStop(0.6, rgba(shimmerCol, 0.12));
+      g3.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = g3;
+      ctx.fillRect(rx, ry, rw, rh);
+
+      // Layer 4: Diffuse light 3D
+      const lightX = cx - R * 0.52 + Math.cos(t * 0.16) * R * 0.14;
+      const lightY = cy - R * 0.50 + Math.sin(t * 0.21) * R * 0.11;
+
+      const diffuse = ctx.createRadialGradient(lightX, lightY, 0, cx, cy, R * 1.30);
+      diffuse.addColorStop(0.00, 'rgba(255,255,255,0.38)');
+      diffuse.addColorStop(0.30, 'rgba(255,255,255,0.08)');
+      diffuse.addColorStop(0.60, 'rgba(0,0,0,0)');
+      diffuse.addColorStop(1.00, 'rgba(0,0,0,0.58)');
+      ctx.fillStyle = diffuse;
+      ctx.fillRect(rx, ry, rw, rh);
+
+      // Layer 5: Specular highlight
+      const specX = lightX + R * 0.08;
+      const specY = lightY + R * 0.05;
+      const specGrad = ctx.createRadialGradient(specX, specY, 0, specX, specY, R * 0.34);
+      specGrad.addColorStop(0.00, 'rgba(255,255,255,0.95)');
+      specGrad.addColorStop(0.12, 'rgba(255,255,255,0.65)');
+      specGrad.addColorStop(0.35, 'rgba(255,255,255,0.20)');
+      specGrad.addColorStop(0.65, 'rgba(255,255,255,0.04)');
+      specGrad.addColorStop(1.00, 'rgba(255,255,255,0.00)');
+      ctx.fillStyle = specGrad;
+      ctx.fillRect(rx, ry, rw, rh);
+
+      // Layer 6: Rim light
+      const rimX = cx - lightX + cx + Math.cos(t * 0.09) * R * 0.08;
+      const rimY = cy - lightY + cy + Math.sin(t * 0.13) * R * 0.06;
+      const rimCol = lerpCol(APRICOT, LAV, (Math.sin(t * 0.38) + 1) / 2);
+      const rim = ctx.createRadialGradient(rimX, rimY, R * 0.55, rimX, rimY, R * 1.35);
+      rim.addColorStop(0,   rgba(rimCol, 0.48));
+      rim.addColorStop(0.5, rgba(rimCol, 0.18));
+      rim.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = rim;
+      ctx.fillRect(rx, ry, rw, rh);
+
+      // Layer 7: AO
+      const ao = ctx.createRadialGradient(cx + R * 0.45, cy + R * 0.50, 0, cx + R * 0.3, cy + R * 0.35, R * 1.15);
+      ao.addColorStop(0,   rgba(LAV_D, 0.50));
+      ao.addColorStop(0.4, rgba(ROSE_D, 0.18));
+      ao.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = ao;
+      ctx.fillRect(rx, ry, rw, rh);
+
+      ctx.restore(); // end clip
+
+      // Edge Glow
+      ctx.save();
+      buildEdgePath(cx, cy, t);
+      ctx.shadowColor = rgba(LAV, 0.85);
+      ctx.shadowBlur  = 16;
+      ctx.strokeStyle = rgba(lerpCol(LAV, APRICOT, (Math.sin(t * 0.28) + 1) / 2), 0.45);
+      ctx.lineWidth   = 2;
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.save();
+      buildEdgePath(cx, cy, t);
+      ctx.shadowColor = rgba(ROSE, 0.6);
+      ctx.shadowBlur  = 8;
+      ctx.strokeStyle = rgba(ROSE_S, 0.18);
+      ctx.lineWidth   = 1;
+      ctx.stroke();
+      ctx.restore();
+
+      t += 0.010;
+      requestAnimationFrame(draw);
+    }
+    draw();
   </script>
 </body>
 </html>
