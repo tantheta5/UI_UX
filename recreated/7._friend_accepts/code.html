@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blend Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Typography */
+      --font-serif: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+
+      --fs-xs: 0.75rem;    /* 12 */
+      --fs-sm: 0.875rem;   /* 14 */
+      --fs-base: 1rem;     /* 16 */
+      --fs-md: 1.125rem;   /* 18 */
+      --fs-lg: 1.375rem;   /* 22 */
+      --fs-xl: 1.75rem;    /* 28 */
+      --fs-2xl: 2.25rem;   /* 36 */
+      --fs-3xl: 3rem;      /* 48 */
+
+      --fw-light: 300;
+      --fw-regular: 400;
+      --fw-medium: 500;
+      --fw-semibold: 600;
+      --fw-bold: 700;
+
+      --lh-tight: 1.1;
+      --lh-snug: 1.25;
+      --lh-normal: 1.5;
+      --lh-relaxed: 1.7;
+
+      --ls-tight: -0.02em;
+      --ls-normal: 0;
+      --ls-wide: 0.04em;
+      --ls-widest: 0.18em;
+
+      /* Colors — surfaces */
+      --color-bg: #FAF8F6;
+      --color-bg-alt: #F3EFEA;
+      --color-surface: #FFFFFF;
+      --color-surface-2: #FBF9F6;
+      --color-surface-3: #F5F1EC;
+      --color-border: #E8E1D8;
+      --color-border-soft: #EFE9E0;
+
+      /* Colors — ink */
+      --color-ink: #1F1B16;
+      --color-ink-2: #4A433B;
+      --color-ink-3: #6F665B;
+      --color-ink-4: #9A9082;
+      --color-ink-5: #BFB5A6;
+
+      /* Primary — soft rose */
+      --color-primary: #C98B86;
+      --color-primary-deep: #A86964;
+      --color-primary-soft: #F4DAD6;
+      --color-primary-tint: #FBEEEC;
+
+      /* Spacing — 8px system */
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 20px;
+      --sp-6: 24px;
+      --sp-7: 32px;
+      --sp-8: 40px;
+      --sp-9: 48px;
+      --sp-10: 64px;
+
+      /* Radius */
+      --r-xs: 4px;
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 16px;
+      --r-xl: 20px;
+      --r-full: 999px;
+
+      /* Shadows */
+      --sh-xs: 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-sm: 0 2px 6px rgba(31, 27, 22, 0.05), 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-md: 0 6px 18px rgba(31, 27, 22, 0.06), 0 2px 6px rgba(31, 27, 22, 0.04);
+      --sh-lg: 0 14px 36px rgba(31, 27, 22, 0.08), 0 6px 14px rgba(31, 27, 22, 0.05);
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --tr-base: 240ms var(--ease-out);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--fs-base);
+      line-height: var(--lh-normal);
+      color: var(--color-ink);
+      background-color: var(--color-bg-alt);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .mobile-container {
+      max-width: 430px;
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--color-surface);
+      border-left: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding-top: 56px; /* header */
+      padding-bottom: 64px; /* bottom nav */
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 56px;
+      background-color: rgba(250, 248, 246, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-border-soft);
+      display: flex;
+      align-items: center;
+      padding: 0 var(--sp-4);
+      z-index: 100;
+      justify-content: space-between;
+    }
+
+    .back-btn, .more-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-ink);
+      background: transparent;
+      border: none;
+      transition: background 150ms var(--ease-out);
+    }
+
+    .back-btn:hover, .more-btn:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-md);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    main {
+      padding: var(--sp-6) var(--sp-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-6);
+      flex-grow: 1;
+      justify-content: center;
+    }
+
+    /* Ambient atmospheric background blur decoration */
+    .bg-glow-1 {
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 160px;
+      height: 160px;
+      border-radius: var(--r-full);
+      background: var(--grad-chrome-soft);
+      filter: blur(40px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .bg-glow-2 {
+      position: absolute;
+      bottom: 80px;
+      left: -40px;
+      width: 160px;
+      height: 160px;
+      border-radius: var(--r-full);
+      background: var(--grad-chrome-soft);
+      filter: blur(40px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    /* Hero section */
+    .hero-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: var(--sp-4);
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 128px;
+      height: 128px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-outer-ring {
+      position: absolute;
+      inset: -8px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--r-full);
+      opacity: 0.3;
+    }
+
+    .avatar-circle {
+      width: 128px;
+      height: 128px;
+      border-radius: var(--r-full);
+      background: var(--grad-chrome);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-surface);
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-bold);
+      border: 2px solid var(--color-border-soft);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .avatar-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+      mix-blend-mode: multiply;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-lg);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    .hero-desc {
+      font-size: var(--fs-sm);
+      color: var(--color-ink-2);
+      line-height: var(--lh-relaxed);
+      max-width: 300px;
+    }
+
+    /* Bento feature cards */
+    .bento-cards {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+    }
+
+    .bento-card {
+      display: flex;
+      gap: var(--sp-4);
+      padding: var(--sp-4);
+      background-color: var(--color-surface-2);
+      border: 1px solid var(--color-border-soft);
+      border-radius: var(--r-xl);
+    }
+
+    .icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-sm);
+      background-color: var(--color-surface-3);
+      color: var(--color-ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .icon-box svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+    }
+
+    .card-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .card-title {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    .card-desc {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-3);
+      line-height: var(--lh-normal);
+    }
+
+    /* Action buttons */
+    .actions-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+
+    .btn {
+      width: 100%;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sans);
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-medium);
+      border-radius: var(--r-full);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 150ms var(--ease-out), background-color 150ms var(--ease-out);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      box-shadow: var(--sh-sm);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-primary-deep);
+    }
+
+    .btn-secondary {
+      background-color: var(--color-surface);
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    .expiry-text {
+      font-size: var(--fs-xs);
+      font-style: italic;
+      color: var(--color-ink-4);
+      text-align: center;
+      margin-top: var(--sp-1);
+    }
+
+    /* Fixed Bottom Navigation (Library active) */
+    nav.bottom-nav {
+      position: fixed;
+      bottom: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 64px;
+      background-color: var(--color-surface-2);
+      border-top: 1px solid var(--color-border-soft);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+      padding: 0 var(--sp-4);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--color-ink-3);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      gap: 2px;
+      width: 72px;
+      height: 100%;
+      transition: color 150ms var(--ease-out);
+    }
+
+    .nav-item svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    .nav-item:hover {
+      color: var(--color-ink);
+    }
+
+    .nav-item.active {
+      color: var(--color-primary-deep);
+    }
+
+    .nav-item.active svg {
+      stroke: var(--color-primary-deep);
+      stroke-width: 2;
+    }
+
+    .nav-active-pill {
+      background-color: var(--color-primary-tint);
+      padding: var(--sp-1) var(--sp-4);
+      border-radius: var(--r-full);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-container">
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+
+    <!-- Header -->
+    <header>
+      <button class="back-btn" onclick="location.href='../6._invitation_sent/code.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+      <div class="header-title">Blend Invitation</div>
+      <button class="more-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="1"></circle>
+          <circle cx="12" cy="5" r="1"></circle>
+          <circle cx="12" cy="19" r="1"></circle>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="avatar-wrapper">
+          <div class="avatar-outer-ring"></div>
+          <div class="avatar-circle">
+            <img data-alt="A minimalist professional portrait of a person named Alex, shot in a high-contrast black and white style. The background is a clean, neutral gallery wall. The lighting is soft and directional, emphasizing facial structure while maintaining a clean, modern aesthetic consistent with a functional minimalist design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOax7iVRvsWhHI_63mIv-JF3dTSRsijsWkA0dQBA3Uxs63ZL_U1m90GF7RnqvZ-dPSc_E_Tw27ZFrYD1T8xAzokfoX2UzdbjT2OeprnZsgt0T71PqwqPzivNnzz4LsGrZl7nKqKn7FCsEu7FTSO0naEGuibgH3asdjwUorKkU7me5BzAluC8EEaWh6V60Df0H2_yQsCG3iFTHbFnIGvL_0XJtNqlD5eAlMppauQDnCHco95GuVVjZ9">
+          </div>
+        </div>
+        <h2 class="hero-title">Alex invited you to Blend</h2>
+        <p class="hero-desc">A shared playlist that combines your musical tastes with Alex's daily favorites.</p>
+      </section>
+
+      <!-- Bento Cards -->
+      <div class="bento-cards">
+        <!-- Feature 1 -->
+        <div class="bento-card">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </div>
+          <div class="card-text">
+            <span class="card-title">Dynamic Updates</span>
+            <span class="card-desc">The playlist updates daily as both of you listen to new tracks.</span>
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="bento-card">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div class="card-text">
+            <span class="card-title">Taste Match</span>
+            <span class="card-desc">See how much your music tastes overlap with a personalized score.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Area -->
+      <div class="actions-section">
+        <button class="btn btn-primary" onclick="location.href='../8._processing/code.html'">Accept</button>
+        <button class="btn btn-secondary" onclick="location.href='../1._home/code.html'">Decline</button>
+        <p class="expiry-text">Invitations expire in 7 days</p>
+      </div>
+    </main>
+
+    <!-- Bottom Navigation Bar (Library Active) -->
+    <nav class="bottom-nav">
+      <!-- Home -->
+      <a class="nav-item" href="../1._home/code.html">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      <!-- Search -->
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span>Search</span>
+      </a>
+
+      <!-- Library (Active) -->
+      <a class="nav-item active" href="../2._library/code.html">
+        <span class="nav-active-pill">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+          </svg>
+          <span>Library</span>
+        </span>
+      </a>
+
+      <!-- Premium -->
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        <span>Premium</span>
+      </a>
+    </nav>
+  </div>
+
+</body>
+</html>

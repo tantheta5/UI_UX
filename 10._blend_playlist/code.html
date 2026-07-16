@@ -1,0 +1,289 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#2f3132",
+                      "tertiary-fixed-dim": "#c6c6c6",
+                      "surface-container-highest": "#e2e2e3",
+                      "surface-tint": "#5e5e5e",
+                      "error-container": "#ffdad6",
+                      "surface": "#f9f9fa",
+                      "primary-fixed": "#e2e2e2",
+                      "primary-fixed-dim": "#c6c6c6",
+                      "on-secondary-fixed": "#1a1b22",
+                      "surface-bright": "#f9f9fa",
+                      "on-primary-fixed": "#1b1b1b",
+                      "on-error-container": "#93000a",
+                      "background": "#f9f9fa",
+                      "error": "#ba1a1a",
+                      "surface-dim": "#dadadb",
+                      "on-secondary": "#ffffff",
+                      "inverse-on-surface": "#f0f1f2",
+                      "surface-container-high": "#e8e8e9",
+                      "on-background": "#1a1c1d",
+                      "primary": "#000000",
+                      "outline-variant": "#cfc4c5",
+                      "on-surface-variant": "#4c4546",
+                      "on-tertiary-container": "#848484",
+                      "on-primary-container": "#848484",
+                      "surface-container-low": "#f3f3f4",
+                      "on-primary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface": "#1a1c1d",
+                      "secondary-fixed": "#e3e1ec",
+                      "surface-variant": "#e2e2e3",
+                      "secondary-container": "#e3e1ec",
+                      "tertiary": "#000000",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "on-secondary-container": "#63646c",
+                      "on-primary-fixed-variant": "#474747",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-fixed": "#e2e2e2",
+                      "on-secondary-fixed-variant": "#46464e",
+                      "on-error": "#ffffff",
+                      "surface-container": "#eeeeef",
+                      "inverse-primary": "#c6c6c6",
+                      "tertiary-container": "#1b1b1b",
+                      "outline": "#7e7576",
+                      "on-tertiary-fixed": "#1b1b1b",
+                      "secondary-fixed-dim": "#c6c5cf",
+                      "primary-container": "#1b1b1b",
+                      "secondary": "#5d5e66"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-desktop": "32px",
+                      "gutter": "16px",
+                      "md": "16px",
+                      "margin-mobile": "16px",
+                      "base": "4px",
+                      "xl": "32px",
+                      "sm": "8px",
+                      "2xl": "48px",
+                      "lg": "24px",
+                      "xs": "4px",
+                      "3xl": "64px"
+              },
+              "fontFamily": {
+                      "label-sm": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline-xl": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-xl-mobile": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-xl-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #f9f9fa;
+            color: #1a1c1d;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .blend-header-gradient {
+            background: linear-gradient(180deg, #eeeeef 0%, #f9f9fa 100%);
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4d4d8;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+<!-- Top App Bar (Shared Component Strategy) -->
+<header class="fixed top-0 w-full z-50 bg-surface border-b border-outline-variant flex items-center justify-between px-margin-mobile h-14 w-full">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Now Playing</h1>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary">more_vert</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="mt-14 max-w-2xl mx-auto">
+<!-- Header Section -->
+<section class="blend-header-gradient px-margin-mobile pt-8 pb-6 flex flex-col items-center">
+<!-- Artwork Placeholder -->
+<div class="relative w-64 h-64 mb-6">
+<div class="w-full h-full bg-surface-container-highest border border-outline-variant rounded-xl flex items-center justify-center overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover grayscale opacity-80" data-alt="A minimalist grayscale digital artwork representing two converging paths. The style is clean and architectural, utilizing stark shadows and crisp lines against a neutral off-white background. Two distinct geometric shapes overlap in the center to create a new shared form, symbolizing the blend of two musical tastes. High-key studio lighting ensures a professional and modern look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFrUq1z_3B0CvpdP-zKhQ8QTX7rRhN_2xU_5VByvKdV2fr7XGL5QhEuzIk2q51B5Ky_8OgE3tUE1p2HXnwOn07ExAQmiduGpzQK8Ob-j5I88zYuzBBDP622wCgR5480FaeDU-L2d1bQX2Z1jXfttuO-hrqBLkDEGrkfScV08WSw8cyUbVpwVxLbgsZ60rPMRgUeByYexelFwGZpGpRcZaq2s0Oygh8av71fk89Vbv2JGDtVuH2ZNFH">
+</div>
+<!-- 85% Match Badge -->
+<div class="absolute -bottom-3 -right-3 bg-primary text-on-primary px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-sm text-label-sm font-bold">85% Match</span>
+</div>
+</div>
+<!-- Title & Subtitle -->
+<div class="text-center mb-6">
+<h2 class="font-headline-xl text-headline-xl mb-1">Alex &amp; Jordan</h2>
+<div class="flex items-center justify-center gap-2 text-on-surface-variant">
+<span class="font-body-sm text-body-sm">Updated Daily</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span class="font-body-sm text-body-sm">50 tracks</span>
+</div>
+</div>
+<!-- Grouped Avatars -->
+<div class="flex items-center -space-x-3 mb-8">
+<div class="w-12 h-12 rounded-full border-4 border-surface bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A minimalist studio portrait of a person with a neutral expression, shot in high-contrast black and white. The background is a flat, medium gray. The lighting is soft and directional, highlighting the contours of the face with professional elegance. The aesthetic is clean, modern, and aligned with a premium tech product user profile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8Zsf3GjoIuW4XptF7VnmvTO2eJ4ba-0TrhtNhKpd4e8Tf50ZlPc20meZt2iydcfYCA9CAyg8T4BIYCcR_NviAMXQwN2GjxgGw95C__vzRt3fIU7xsTL-ovjV3_t6d0zAod5wrsoTEW45RcDO9bdkhNNNgreB-q5xqCX0r1ZSBJz8cmQFIv0eZ8ifOfOkWzNzwyfp0A3Xt3wo2r8YRkwlcwET3QK1Vx6MQnGh9rEUT2bMPKUqZWLZf">
+</div>
+<div class="w-12 h-12 rounded-full border-4 border-surface bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A high-quality black and white profile picture of a young professional. The person is looking slightly off-camera with a subtle, friendly expression. The lighting is bright and even, creating a clean light-mode atmosphere. Minimalist aesthetic with a solid white background, emphasizing high-fidelity clarity and modern UX design principles." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBme0TgVld1SUI-ay7_hAGx__mX3Jg4BgZyM7abmi2QYyzwrK0LrQ13qUS_yZlnbn0LuTWH_wrascAfuFDRMEm7LGrkxk5LDE8I7RCcEEImtWCRs8RTTeK6Q5QiI7K7-wLcBVXvJ8zgwcZeBqiYn8DTrw-b8F8uMcwSZbao7vpFA8dy6DRmgs4GgdPfk3XCEJcBYCHA9ere7iqwAWOTa8jrummvfvwd6hn1kFqWBPAtqduiuWxaMJJc">
+</div>
+</div>
+<!-- Action Row -->
+<div class="w-full flex items-center justify-between gap-4 px-4">
+<div class="flex items-center gap-6">
+<button class="w-14 h-14 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-md active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[28px]">shuffle</span>
+</button>
+</div>
+<div class="flex items-center gap-5">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">download</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">add_circle</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">share</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Track List -->
+<section class="px-margin-mobile pb-12">
+<div class="space-y-1">
+<!-- Track Item Template (Repeated) -->
+<script>
+                    const tracks = [
+                        { title: "Midnight City", artist: "M83", user: "Alex" },
+                        { title: "Starboy", artist: "The Weeknd", user: "Jordan" },
+                        { title: "Nightcall", artist: "Kavinsky", user: "Alex" },
+                        { title: "Blinding Lights", artist: "The Weeknd", user: "Jordan" },
+                        { title: "Ocean Drive", artist: "Duke Dumont", user: "Alex" },
+                        { title: "Levitating", artist: "Dua Lipa", user: "Jordan" },
+                        { title: "Tame Impala", artist: "The Less I Know the Better", user: "Alex" },
+                        { title: "After Hours", artist: "The Weeknd", user: "Jordan" }
+                    ];
+
+                    document.write(tracks.map((track, i) => `
+                        <div class="group flex items-center justify-between p-2 rounded-lg hover:bg-surface-container transition-colors cursor-pointer">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-surface-container-highest border border-outline-variant rounded flex-shrink-0 overflow-hidden">
+                                    <img src="placeholder" data-alt="A clean, minimalist album cover art in grayscale. The design features abstract architectural lines or soft geometric shapes. The lighting is diffused and balanced, creating a high-end and professional visual that fits a modern music application's wireframe aesthetic. No text or logos, just pure visual composition." class="w-full h-full object-cover grayscale">
+                                </div>
+                                <div class="overflow-hidden">
+                                    <h4 class="font-body-md text-body-md font-semibold text-on-surface truncate">${track.title}</h4>
+                                    <div class="flex items-center gap-1.5">
+                                        <p class="font-body-sm text-body-sm text-on-surface-variant truncate">${track.artist}</p>
+                                        <span class="w-0.5 h-0.5 rounded-full bg-outline"></span>
+                                        <span class="text-[10px] uppercase tracking-wider font-bold text-outline">${track.user}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined">more_horiz</span>
+                            </button>
+                        </div>
+                    `).join(''));
+                </script>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Shared Component Strategy) -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface-container border-t border-outline-variant flex justify-around items-center h-16 w-full px-4 pb-safe">
+<!-- Home -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-transform duration-150 active:scale-90" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<!-- Search -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-transform duration-150 active:scale-90" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-sm text-label-sm">Search</span>
+</a>
+<!-- Library (Active based on "Playlist" intent) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1 transition-transform duration-150 active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">library_music</span>
+<span class="font-label-sm text-label-sm">Library</span>
+</a>
+<!-- Premium -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-transform duration-150 active:scale-90" href="#">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-label-sm text-label-sm">Premium</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for play button
+        const playBtn = document.querySelector('.bg-primary');
+        playBtn.addEventListener('click', function() {
+            const icon = this.querySelector('.material-symbols-outlined');
+            if (icon.innerText === 'play_arrow') {
+                icon.innerText = 'pause';
+                icon.style.fontVariationSettings = "'FILL' 1";
+            } else {
+                icon.innerText = 'play_arrow';
+                icon.style.fontVariationSettings = "'FILL' 1";
+            }
+        });
+
+        // Sticky header behavior
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('shadow-sm');
+                header.querySelector('h1').innerText = 'Alex & Jordan';
+            } else {
+                header.classList.remove('shadow-sm');
+                header.querySelector('h1').innerText = 'Now Playing';
+            }
+        });
+    </script>
+</body></html>

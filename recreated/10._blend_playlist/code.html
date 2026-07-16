@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blend Playlist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Typography */
+      --font-serif: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+
+      --fs-xs: 0.75rem;    /* 12 */
+      --fs-sm: 0.875rem;   /* 14 */
+      --fs-base: 1rem;     /* 16 */
+      --fs-md: 1.125rem;   /* 18 */
+      --fs-lg: 1.375rem;   /* 22 */
+      --fs-xl: 1.75rem;    /* 28 */
+      --fs-2xl: 2.25rem;   /* 36 */
+      --fs-3xl: 3rem;      /* 48 */
+
+      --fw-light: 300;
+      --fw-regular: 400;
+      --fw-medium: 500;
+      --fw-semibold: 600;
+      --fw-bold: 700;
+
+      --lh-tight: 1.1;
+      --lh-snug: 1.25;
+      --lh-normal: 1.5;
+      --lh-relaxed: 1.7;
+
+      --ls-tight: -0.02em;
+      --ls-normal: 0;
+      --ls-wide: 0.04em;
+      --ls-widest: 0.18em;
+
+      /* Colors — surfaces */
+      --color-bg: #FAF8F6;
+      --color-bg-alt: #F3EFEA;
+      --color-surface: #FFFFFF;
+      --color-surface-2: #FBF9F6;
+      --color-surface-3: #F5F1EC;
+      --color-border: #E8E1D8;
+      --color-border-soft: #EFE9E0;
+
+      /* Colors — ink */
+      --color-ink: #1F1B16;
+      --color-ink-2: #4A433B;
+      --color-ink-3: #6F665B;
+      --color-ink-4: #9A9082;
+      --color-ink-5: #BFB5A6;
+
+      /* Primary — soft rose */
+      --color-primary: #C98B86;
+      --color-primary-deep: #A86964;
+      --color-primary-soft: #F4DAD6;
+      --color-primary-tint: #FBEEEC;
+
+      /* Spacing — 8px system */
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 20px;
+      --sp-6: 24px;
+      --sp-7: 32px;
+      --sp-8: 40px;
+      --sp-9: 48px;
+      --sp-10: 64px;
+
+      /* Radius */
+      --r-xs: 4px;
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 16px;
+      --r-xl: 20px;
+      --r-full: 999px;
+
+      /* Shadows */
+      --sh-xs: 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-sm: 0 2px 6px rgba(31, 27, 22, 0.05), 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-md: 0 6px 18px rgba(31, 27, 22, 0.06), 0 2px 6px rgba(31, 27, 22, 0.04);
+      --sh-lg: 0 14px 36px rgba(31, 27, 22, 0.08), 0 6px 14px rgba(31, 27, 22, 0.05);
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --tr-base: 240ms var(--ease-out);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--fs-base);
+      line-height: var(--lh-normal);
+      color: var(--color-ink);
+      background-color: var(--color-bg-alt);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .mobile-container {
+      max-width: 430px;
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--color-surface);
+      border-left: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding-top: 56px; /* header */
+      padding-bottom: 64px; /* bottom nav */
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 56px;
+      background-color: rgba(250, 248, 246, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-border-soft);
+      display: flex;
+      align-items: center;
+      padding: 0 var(--sp-4);
+      z-index: 100;
+      justify-content: space-between;
+      transition: box-shadow 150ms var(--ease-out);
+    }
+
+    .back-btn, .more-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-ink);
+      background: transparent;
+      border: none;
+      transition: background 150ms var(--ease-out);
+    }
+
+    .back-btn:hover, .more-btn:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-md);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    /* Playlist top header section */
+    .playlist-header-sec {
+      background: linear-gradient(to bottom, var(--color-surface-3) 0%, var(--color-surface) 100%);
+      padding: var(--sp-6) var(--sp-5) var(--sp-4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-4);
+    }
+
+    .artwork-wrapper {
+      position: relative;
+      width: 180px;
+      height: 180px;
+    }
+
+    .artwork-box {
+      width: 100%;
+      height: 100%;
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--sh-md);
+      background: var(--grad-chrome-soft);
+    }
+
+    .artwork-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+      mix-blend-mode: multiply;
+    }
+
+    /* Interactive Match Link */
+    .match-badge {
+      position: absolute;
+      bottom: -10px;
+      right: -10px;
+      background-color: var(--color-ink);
+      color: var(--color-bg);
+      border-radius: var(--r-full);
+      padding: 6px 14px;
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-semibold);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-1);
+      box-shadow: var(--sh-md);
+      border: 1.5px solid var(--color-surface);
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 150ms var(--ease-out);
+    }
+
+    .match-badge:active {
+      transform: scale(0.95);
+    }
+
+    .match-badge svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    .playlist-meta {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-1);
+    }
+
+    .playlist-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-medium);
+      color: var(--color-ink);
+    }
+
+    .playlist-stats {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+    }
+
+    .dot-separator {
+      width: 4px;
+      height: 4px;
+      background-color: var(--color-border);
+      border-radius: 50%;
+    }
+
+    /* Stacked avatars */
+    .avatars-stack {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: var(--sp-1);
+    }
+
+    .stacked-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-full);
+      border: 3px solid var(--color-surface);
+      background-color: var(--color-surface-2);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .stacked-avatar:not(:first-child) {
+      margin-left: -10px;
+    }
+
+    .stacked-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Action buttons row */
+    .action-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--sp-2) 0;
+    }
+
+    .action-left {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-4);
+    }
+
+    .action-right {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+    }
+
+    .play-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--r-full);
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--sh-sm);
+      border: none;
+      cursor: pointer;
+    }
+
+    .play-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    .action-icon {
+      color: var(--color-ink-3);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--r-full);
+      background: transparent;
+      border: none;
+    }
+
+    .action-icon:hover {
+      color: var(--color-ink);
+      background-color: var(--color-surface-3);
+    }
+
+    .action-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+    }
+
+    /* Track list section */
+    .tracks-section {
+      padding: 0 var(--sp-4) var(--sp-6);
+    }
+
+    .tracks-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-1);
+    }
+
+    .track-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--sp-2) var(--sp-1);
+      border-radius: var(--r-md);
+      cursor: pointer;
+      transition: background-color 150ms var(--ease-out);
+    }
+
+    .track-row:hover {
+      background-color: var(--color-surface-2);
+    }
+
+    .track-left {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      min-width: 0;
+    }
+
+    .track-media {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--r-xs);
+      overflow: hidden;
+      background: var(--grad-chrome-soft);
+      flex-shrink: 0;
+    }
+
+    .track-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      mix-blend-mode: multiply;
+    }
+
+    .track-details {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .track-title {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .track-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: var(--fs-xs);
+      color: var(--color-ink-3);
+    }
+
+    .track-user-badge {
+      font-size: 9px;
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-wide);
+      color: var(--color-primary-deep);
+    }
+
+    .track-row-action {
+      color: var(--color-ink-4);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--r-full);
+    }
+
+    .track-row-action:hover {
+      color: var(--color-ink-2);
+      background-color: var(--color-surface-3);
+    }
+
+    .track-row-action svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    /* Fixed Bottom Navigation (Library active) */
+    nav.bottom-nav {
+      position: fixed;
+      bottom: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 64px;
+      background-color: var(--color-surface-2);
+      border-top: 1px solid var(--color-border-soft);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+      padding: 0 var(--sp-4);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--color-ink-3);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      gap: 2px;
+      width: 72px;
+      height: 100%;
+      transition: color 150ms var(--ease-out);
+    }
+
+    .nav-item svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    .nav-item:hover {
+      color: var(--color-ink);
+    }
+
+    .nav-item.active {
+      color: var(--color-primary-deep);
+    }
+
+    .nav-item.active svg {
+      stroke: var(--color-primary-deep);
+      stroke-width: 2;
+    }
+
+    .nav-active-pill {
+      background-color: var(--color-primary-tint);
+      padding: var(--sp-1) var(--sp-4);
+      border-radius: var(--r-full);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-container" id="scrollContainer">
+    <!-- Header -->
+    <header id="playlistHeader">
+      <button class="back-btn" onclick="location.href='../9._blend_created/code.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+      <div class="header-title" id="headerTitle">Now Playing</div>
+      <button class="more-btn" onclick="location.href='../18._blend_settings/code.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="1"></circle>
+          <circle cx="12" cy="5" r="1"></circle>
+          <circle cx="12" cy="19" r="1"></circle>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Main Content -->
+    <!-- Gradient head section -->
+    <section class="playlist-header-sec">
+      <div class="artwork-wrapper">
+        <div class="artwork-box">
+          <img data-alt="A minimalist grayscale digital artwork representing two converging paths. The style is clean and architectural, utilizing stark shadows and crisp lines against a neutral off-white background. Two distinct geometric shapes overlap in the center to create a new shared form, symbolizing the blend of two musical tastes. High-key studio lighting ensures a professional and modern look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFrUq1z_3B0CvpdP-zKhQ8QTX7rRhN_2xU_5VByvKdV2fr7XGL5QhEuzIk2q51B5Ky_8OgE3tUE1p2HXnwOn07ExAQmiduGpzQK8Ob-j5I88zYuzBBDP622wCgR5480FaeDU-L2d1bQX2Z1jXfttuO-hrqBLkDEGrkfScV08WSw8cyUbVpwVxLbgsZ60rPMRgUeByYexelFwGZpGpRcZaq2s0Oygh8av71fk89Vbv2JGDtVuH2ZNFH">
+        </div>
+        <!-- 85% Match badge, linking to Insights -->
+        <a class="match-badge" href="../11._music_taste_match/code.html">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+          </svg>
+          <span>85% Match</span>
+        </a>
+      </div>
+
+      <div class="playlist-meta">
+        <h2 class="playlist-title">Alex & Jordan</h2>
+        <div class="playlist-stats">
+          <span>Updated Daily</span>
+          <div class="dot-separator"></div>
+          <span>50 tracks</span>
+        </div>
+      </div>
+
+      <div class="avatars-stack">
+        <div class="stacked-avatar">
+          <img data-alt="A minimalist studio portrait of a person with a neutral expression, shot in high-contrast black and white." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8Zsf3GjoIuW4XptF7VnmvTO2eJ4ba-0TrhtNhKpd4e8Tf50ZlPc20meZt2iydcfYCA9CAyg8T4BIYCcR_NviAMXQwN2GjxgGw95C__vzRt3fIU7xsTL-ovjV3_t6d0zAod5wrsoTEW45RcDO9bdkhNNNgreB-q5xqCX0r1ZSBJz8cmQFIv0eZ8ifOfOkWzNzwyfp0A3Xt3wo2r8YRkwlcwET3QK1Vx6MQnGh9rEUT2bMPKUqZWLZf">
+        </div>
+        <div class="stacked-avatar">
+          <img data-alt="A high-quality black and white profile picture of a young professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBme0TgVld1SUI-ay7_hAGx__mX3Jg4BgZyM7abmi2QYyzwrK0LrQ13qUS_yZlnbn0LuTWH_wrascAfuFDRMEm7LGrkxk5LDE8I7RCcEEImtWCRs8RTTeK6Q5QiI7K7-wLcBVXvJ8zgwcZeBqiYn8DTrw-b8F8uMcwSZbao7vpFA8dy6DRmgs4GgdPfk3XCEJcBYCHA9ere7iqwAWOTa8jrummvfvwd6hn1kFqWBPAtqduiuWxaMJJc">
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="action-row">
+        <div class="action-left">
+          <button class="play-btn" id="playBtn" onclick="location.href='../13._now_playing/code.html'">
+            <svg viewBox="0 0 24 24" id="playIcon">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </button>
+          <button class="action-icon">
+            <!-- Shuffle -->
+            <svg viewBox="0 0 24 24">
+              <polyline points="16 3 21 3 21 8"></polyline>
+              <line x1="4" y1="20" x2="21" y2="3"></line>
+              <polyline points="21 16 21 21 16 21"></polyline>
+              <line x1="15" y1="15" x2="21" y2="21"></line>
+              <line x1="4" y1="4" x2="9" y2="9"></line>
+            </svg>
+          </button>
+        </div>
+
+        <div class="action-right">
+          <button class="action-icon" onclick="location.href='../15._download_confirmation/code.html'">
+            <!-- Download -->
+            <svg viewBox="0 0 24 24">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </button>
+          <button class="action-icon">
+            <!-- Add -->
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="16"></line>
+              <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+          </button>
+          <button class="action-icon">
+            <!-- Share -->
+            <svg viewBox="0 0 24 24">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Track List -->
+    <section class="tracks-section">
+      <div class="tracks-list" id="tracksContainer">
+        <!-- JS will populate rows to inject exact items -->
+      </div>
+    </section>
+
+    <!-- Bottom Navigation Bar (Library Active) -->
+    <nav class="bottom-nav">
+      <!-- Home -->
+      <a class="nav-item" href="../1._home/code.html">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      <!-- Search -->
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span>Search</span>
+      </a>
+
+      <!-- Library (Active) -->
+      <a class="nav-item active" href="../2._library/code.html">
+        <span class="nav-active-pill">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+          </svg>
+          <span>Library</span>
+        </span>
+      </a>
+
+      <!-- Premium -->
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        <span>Premium</span>
+      </a>
+    </nav>
+  </div>
+
+  <script>
+    const tracks = [
+      { title: "Midnight City", artist: "M83", user: "Alex" },
+      { title: "Starboy", artist: "The Weeknd", user: "Jordan" },
+      { title: "Nightcall", artist: "Kavinsky", user: "Alex" },
+      { title: "Blinding Lights", artist: "The Weeknd", user: "Jordan" },
+      { title: "Ocean Drive", artist: "Duke Dumont", user: "Alex" },
+      { title: "Levitating", artist: "Dua Lipa", user: "Jordan" },
+      { title: "The Less I Know the Better", artist: "Tame Impala", user: "Alex" },
+      { title: "After Hours", artist: "The Weeknd", user: "Jordan" }
+    ];
+
+    const tracksContainer = document.getElementById('tracksContainer');
+    
+    // Render tracks
+    tracksContainer.innerHTML = tracks.map((track, index) => `
+      <div class="track-row">
+        <div class="track-left">
+          <div class="track-media">
+            <img data-alt="A clean, minimalist album cover art in grayscale. The design features abstract architectural lines or soft geometric shapes. The lighting is diffused and balanced, creating a high-end and professional visual that fits a modern music application's wireframe aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTS7BTYCsLOV-U1B4CGc4bsbI-HUmvOALdvlNGXv5aLqIGx-vNLUotnR6tWN250NL7ZTOXeCJ80A44NlTF1zXXBxZYrFvDKa4qA3MXzNS0MN4_fKlUDB9wHlijFmFyQHkNdeWuaLL8Y9jftusOgmLMzcoBAO4bt2I7yBevVelRdUO5R3Z2gB3xenkEg_U5JFnUMuJb8PuXDWaThFG9QVnicH3isWuXgZRmeIvvbeDnR8gf8dJ6t8pF">
+          </div>
+          <div class="track-details">
+            <span class="track-title">${track.title}</span>
+            <div class="track-meta">
+              <span>${track.artist}</span>
+              <div class="dot-separator" style="width: 2px; height: 2px;"></div>
+              <span class="track-user-badge">${track.user}</span>
+            </div>
+          </div>
+        </div>
+        <button class="track-row-action">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="1"></circle>
+            <circle cx="12" cy="5" r="1"></circle>
+            <circle cx="12" cy="19" r="1"></circle>
+          </svg>
+        </button>
+      </div>
+    `).join('');
+
+    // Toggle Play state
+    let isPlaying = false;
+    function togglePlay() {
+      isPlaying = !isPlaying;
+      const playIcon = document.getElementById('playIcon');
+      if (isPlaying) {
+        // Pause icon SVG
+        playIcon.innerHTML = `
+          <rect x="6" y="4" width="4" height="16"></rect>
+          <rect x="14" y="4" width="4" height="16"></rect>
+        `;
+      } else {
+        // Play icon SVG
+        playIcon.innerHTML = `
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        `;
+      }
+    }
+
+    // Scroll listener for sticky header title update
+    const scrollContainer = document.getElementById('scrollContainer');
+    const header = document.getElementById('playlistHeader');
+    const headerTitle = document.getElementById('headerTitle');
+
+    scrollContainer.addEventListener('scroll', () => {
+      if (scrollContainer.scrollTop > 180) {
+        header.style.boxShadow = 'var(--sh-xs)';
+        headerTitle.innerText = 'Alex & Jordan';
+      } else {
+        header.style.boxShadow = 'none';
+        headerTitle.innerText = 'Now Playing';
+      }
+    });
+  </script>
+</body>
+</html>

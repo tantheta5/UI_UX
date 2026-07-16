@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invite Friend</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Typography */
+      --font-serif: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+
+      --fs-xs: 0.75rem;    /* 12 */
+      --fs-sm: 0.875rem;   /* 14 */
+      --fs-base: 1rem;     /* 16 */
+      --fs-md: 1.125rem;   /* 18 */
+      --fs-lg: 1.375rem;   /* 22 */
+      --fs-xl: 1.75rem;    /* 28 */
+      --fs-2xl: 2.25rem;   /* 36 */
+      --fs-3xl: 3rem;      /* 48 */
+
+      --fw-light: 300;
+      --fw-regular: 400;
+      --fw-medium: 500;
+      --fw-semibold: 600;
+      --fw-bold: 700;
+
+      --lh-tight: 1.1;
+      --lh-snug: 1.25;
+      --lh-normal: 1.5;
+      --lh-relaxed: 1.7;
+
+      --ls-tight: -0.02em;
+      --ls-normal: 0;
+      --ls-wide: 0.04em;
+      --ls-widest: 0.18em;
+
+      /* Colors — surfaces */
+      --color-bg: #FAF8F6;
+      --color-bg-alt: #F3EFEA;
+      --color-surface: #FFFFFF;
+      --color-surface-2: #FBF9F6;
+      --color-surface-3: #F5F1EC;
+      --color-border: #E8E1D8;
+      --color-border-soft: #EFE9E0;
+
+      /* Colors — ink */
+      --color-ink: #1F1B16;
+      --color-ink-2: #4A433B;
+      --color-ink-3: #6F665B;
+      --color-ink-4: #9A9082;
+      --color-ink-5: #BFB5A6;
+
+      /* Primary — soft rose */
+      --color-primary: #C98B86;
+      --color-primary-deep: #A86964;
+      --color-primary-soft: #F4DAD6;
+      --color-primary-tint: #FBEEEC;
+
+      /* Spacing — 8px system */
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 20px;
+      --sp-6: 24px;
+      --sp-7: 32px;
+      --sp-8: 40px;
+      --sp-9: 48px;
+      --sp-10: 64px;
+
+      /* Radius */
+      --r-xs: 4px;
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 16px;
+      --r-xl: 20px;
+      --r-full: 999px;
+
+      /* Shadows */
+      --sh-xs: 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-sm: 0 2px 6px rgba(31, 27, 22, 0.05), 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-md: 0 6px 18px rgba(31, 27, 22, 0.06), 0 2px 6px rgba(31, 27, 22, 0.04);
+      --sh-lg: 0 14px 36px rgba(31, 27, 22, 0.08), 0 6px 14px rgba(31, 27, 22, 0.05);
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --tr-base: 240ms var(--ease-out);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--fs-base);
+      line-height: var(--lh-normal);
+      color: var(--color-ink);
+      background-color: var(--color-bg-alt);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .mobile-container {
+      max-width: 430px;
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--color-surface);
+      border-left: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding-top: 56px; /* for header */
+      padding-bottom: 140px; /* space for fixed footer actions */
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 56px;
+      background-color: rgba(250, 248, 246, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-border-soft);
+      display: flex;
+      align-items: center;
+      padding: 0 var(--sp-4);
+      z-index: 100;
+      justify-content: space-between;
+    }
+
+    .back-btn, .more-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-ink);
+      background: transparent;
+      border: none;
+      transition: background 150ms var(--ease-out);
+    }
+
+    .back-btn:hover, .more-btn:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-md);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    main {
+      padding: var(--sp-5) var(--sp-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-5);
+    }
+
+    .search-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-1);
+    }
+
+    .search-group label {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-semibold);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-wide);
+      color: var(--color-ink-3);
+      padding-left: var(--sp-1);
+    }
+
+    .search-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      color: var(--color-ink-4);
+      pointer-events: none;
+      width: 18px;
+      height: 18px;
+    }
+
+    .search-input {
+      width: 100%;
+      height: 44px;
+      padding: var(--sp-2) var(--sp-4) var(--sp-2) 44px;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--r-md);
+      font-family: var(--font-sans);
+      font-size: var(--fs-sm);
+      color: var(--color-ink);
+      transition: border-color 150ms var(--ease-out);
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--color-primary);
+    }
+
+    /* Link share card */
+    .link-share-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--sp-4);
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border-soft);
+      border-radius: var(--r-xl);
+      box-shadow: var(--sh-xs);
+    }
+
+    .link-share-left {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+    }
+
+    .link-icon-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--r-full);
+      background-color: var(--color-surface-3);
+      color: var(--color-ink-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .link-icon-circle svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+    }
+
+    .link-share-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .link-share-title {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    .link-share-desc {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-3);
+    }
+
+    .btn-share {
+      padding: 8px 16px;
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      font-family: var(--font-sans);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      border-radius: var(--r-full);
+      border: none;
+      cursor: pointer;
+      box-shadow: var(--sh-sm);
+    }
+
+    .btn-share:hover {
+      background-color: var(--color-primary-deep);
+    }
+
+    /* Select Friends Section */
+    .friends-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+
+    .friends-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-md);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+      padding-left: var(--sp-1);
+    }
+
+    .friends-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+
+    /* Row styled label acting as checkbox trigger */
+    .friend-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--sp-3) var(--sp-4);
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border-soft);
+      border-radius: var(--r-lg);
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 150ms var(--ease-out), border-color 150ms var(--ease-out);
+    }
+
+    .friend-row:hover {
+      background-color: var(--color-surface-2);
+    }
+
+    .friend-left {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      min-width: 0;
+    }
+
+    .friend-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--r-full);
+      overflow: hidden;
+      background: var(--grad-chrome-soft);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .friend-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+      mix-blend-mode: multiply;
+    }
+
+    .friend-info {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .friend-name {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .friend-email {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-3);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+
+    /* Checkbox on right */
+    .checkbox-box {
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid var(--color-ink-5);
+      border-radius: var(--r-xs);
+      background-color: var(--color-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 150ms var(--ease-out), border-color 150ms var(--ease-out);
+      flex-shrink: 0;
+    }
+
+    .checkbox-box svg {
+      width: 12px;
+      height: 12px;
+      stroke: white;
+      stroke-width: 3;
+      fill: none;
+      display: none;
+    }
+
+    /* Input checkbox hidden logic */
+    input.hidden-checkbox {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    input.hidden-checkbox:checked ~ .friend-row {
+      border-color: var(--color-primary);
+      background-color: var(--color-primary-tint);
+    }
+
+    input.hidden-checkbox:checked ~ .friend-row .checkbox-box {
+      background-color: var(--color-ink);
+      border-color: var(--color-ink);
+    }
+
+    input.hidden-checkbox:checked ~ .friend-row .checkbox-box svg {
+      display: block;
+    }
+
+    /* Sticky Bottom Actions */
+    footer.fixed-bottom {
+      position: fixed;
+      bottom: 0;
+      max-width: 430px;
+      width: 100%;
+      background-color: var(--color-surface);
+      border-top: 1px solid var(--color-border-soft);
+      padding: var(--sp-4) var(--sp-5) var(--sp-5);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2);
+    }
+
+    .btn-send {
+      width: 100%;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sans);
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-medium);
+      border-radius: var(--r-full);
+      border: none;
+      cursor: not-allowed;
+      background-color: var(--color-border);
+      color: var(--color-ink-4);
+      transition: background-color 150ms var(--ease-out), color 150ms var(--ease-out), transform 150ms var(--ease-out);
+    }
+
+    .btn-send.active {
+      cursor: pointer;
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      box-shadow: var(--sh-sm);
+    }
+
+    .btn-send.active:active {
+      transform: scale(0.98);
+    }
+
+    /* Mock Bottom Navigation (Search tab active) */
+    .dummy-nav {
+      height: 64px;
+      border-top: 1px solid var(--color-border-soft);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background-color: var(--color-surface-2);
+    }
+
+    .dummy-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--color-ink-3);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      width: 72px;
+      cursor: pointer;
+      gap: 2px;
+    }
+
+    .dummy-nav-item.active {
+      color: var(--color-primary-deep);
+    }
+
+    .dummy-nav-active-pill {
+      background-color: var(--color-primary-tint);
+      padding: var(--sp-1) var(--sp-4);
+      border-radius: var(--r-full);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dummy-nav-item svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    .dummy-nav-item.active svg {
+      stroke: var(--color-primary-deep);
+      stroke-width: 2;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-container">
+    <!-- Header -->
+    <header>
+      <div class="header-left">
+        <button class="back-btn" onclick="location.href='../4._blend_introduction/code.html'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </button>
+        <div class="header-title">Invite Friend</div>
+      </div>
+      <button class="more-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="1"></circle>
+          <circle cx="12" cy="5" r="1"></circle>
+          <circle cx="12" cy="19" r="1"></circle>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Search -->
+      <div class="search-group">
+        <label for="contactSearch">Search by name or email</label>
+        <div class="search-wrapper">
+          <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input class="search-input" type="text" id="contactSearch" placeholder="Search contacts..." oninput="filterContacts()">
+        </div>
+      </div>
+
+      <!-- Invite via Link card -->
+      <div class="link-share-card">
+        <div class="link-share-left">
+          <div class="link-icon-circle">
+            <svg viewBox="0 0 24 24">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+          </div>
+          <div class="link-share-text">
+            <span class="link-share-title">Invite via Link</span>
+            <span class="link-share-desc">Anyone with the link can join</span>
+          </div>
+        </div>
+        <button class="btn-share" onclick="location.href='../6._invitation_sent/code.html'">Share Link</button>
+      </div>
+
+      <!-- Select Friends Checklist -->
+      <section class="friends-section">
+        <h3 class="friends-title">Select Friends to Invite</h3>
+        <div class="friends-list" id="friendsList">
+          <!-- Friend Item 1 -->
+          <div class="friend-item-wrapper">
+            <input class="hidden-checkbox" type="checkbox" id="friend1" onchange="onFriendSelect()">
+            <label class="friend-row" for="friend1">
+              <div class="friend-left">
+                <div class="friend-avatar">
+                  <img data-alt="A clean, grayscale minimalist portrait of a young person in profile, set against a solid light gray background. The lighting is soft and flat, emphasizing the functional wireframe aesthetic. The style is strictly neutral, using subtle tonal shifts instead of color to define form." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3kRLQ_yRrBvGbJHYMkfsa4Qh9dBUn37cau5Wpc1XphgQ-1I-_jr_lSdAJSroGwKCH4wHaMwDS_Cu5IMCMNt9SzG-z6UfncwZYGrgridIxZlXVKhBqv_zsnv5mKaaYNj8LSQjMiXAez0a7fqUnuHhP4Th66PMDVLYjCkTlZiUY5-UTpoNoxV8Sd5gQrLn5pfxhUS9qGrPNUJOnOl9qGjxfE2uWYHYm532DYC49T232Lx6YI0yUORh7">
+                </div>
+                <div class="friend-info">
+                  <span class="friend-name">Alex Thompson</span>
+                  <span class="friend-email">alex.t@example.com</span>
+                </div>
+              </div>
+              <div class="checkbox-box">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+            </label>
+          </div>
+
+          <!-- Friend Item 2 -->
+          <div class="friend-item-wrapper">
+            <input class="hidden-checkbox" type="checkbox" id="friend2" onchange="onFriendSelect()">
+            <label class="friend-row" for="friend2">
+              <div class="friend-left">
+                <div class="friend-avatar">
+                  <img data-alt="A minimalist grayscale headshot of a middle-aged woman with glasses, smiling softly. The image is rendered in high-contrast black and white with a clean architectural background in the distance. The overall feel is professional, modern, and aligned with a low-fidelity design framework." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmi3a3ko_LGL-mOXN-YPJmTHTebvBPF9_KENz63QAGGk5r7VuTzZcScP_mcZ6UhR_4dOxO1MfcyHdj8NVLs2S1xY6uZ1_UXgxKe7VgRaotlBTqL2HUfpac_OuOZIrm_axBFYttHMvYUmhJE9UaWI4dq7cBxucHOcFAjREhWxzfbU8yq4w9kKWkKjjPhT8jYdpydDVdhdb7gWCl6LZ0y9dOYCWn9A1I0Sh9L8Qp-kzZfMrJQ5sIau9_">
+                </div>
+                <div class="friend-info">
+                  <span class="friend-name">Jordan Reed</span>
+                  <span class="friend-email">jordan_r@design.io</span>
+                </div>
+              </div>
+              <div class="checkbox-box">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+            </label>
+          </div>
+
+          <!-- Friend Item 3 -->
+          <div class="friend-item-wrapper">
+            <input class="hidden-checkbox" type="checkbox" id="friend3" onchange="onFriendSelect()">
+            <label class="friend-row" for="friend3">
+              <div class="friend-left">
+                <div class="friend-avatar">
+                  <img data-alt="A close-up grayscale portrait of an individual with textured hair, lit from the side to create dramatic but clean shadows. The background is a flat neutral gray. This image is part of a series for a professional UI wireframe, focusing on clarity and demographic diversity without using vibrant colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALepvm932mPOI9Tpz6C2cW_E5gQHtLsBMkaTLhnYBMVAHqnNhXOUAGgNl2mLRsF3ZKYbLTQtIoF2RE_oWlmrn2qxh8Yj5iLQXUQGqhDQmkFYfixVlV16_3fH8pEIU3I24yyeFKy9uQJ2yomogcbWel1_i1p0v4v_y2Vwv5XhOjBuCC0QZ06hEqzDtsnq-5LjtjyW4TuI22UoQVr7Z5sR2CwQQqQ9guvFxBcAN0jKVLXOy6oz_SynBM">
+                </div>
+                <div class="friend-info">
+                  <span class="friend-name">Casey Morgan</span>
+                  <span class="friend-email">casey.m@web.com</span>
+                </div>
+              </div>
+              <div class="checkbox-box">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+            </label>
+          </div>
+
+          <!-- Friend Item 4 -->
+          <div class="friend-item-wrapper">
+            <input class="hidden-checkbox" type="checkbox" id="friend4" onchange="onFriendSelect()">
+            <label class="friend-row" for="friend4">
+              <div class="friend-left">
+                <div class="friend-avatar">
+                  <img data-alt="A clean, minimalist headshot of a creative professional in a grayscale palette. The subject is wearing a simple dark turtleneck against a plain off-white studio background. The lighting is diffused and professional, suitable for a high-end application's contact list wireframe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMjkcIqcFnETBuqpllvT7uRD8xWz_w3J0mKT70hi7L8rBTj0_Mv0NPW81Nt5tZPeSBV4yH0anjn0nUlTRiTQIhJfkEWTy-9f4AADjAoO-QMHb-XrCl70gkhsVAj6oYsZ5I8BGskc7sCf4EWoza1A6ZBp08tN4MqsgmW7NitRFZ2ZgeN5kWzl3QNUElJZR0IjEBSs5JbYRg9u7Cq3RPr6ZFOIUxG9bmQ2c3X_kTbk7gs_ID4Vgpsngm">
+                </div>
+                <div class="friend-info">
+                  <span class="friend-name">Taylor Vance</span>
+                  <span class="friend-email">tvance@network.net</span>
+                </div>
+              </div>
+              <div class="checkbox-box">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+            </label>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Actions & Navigation Shell -->
+    <footer class="fixed-bottom">
+      <button class="btn-send" id="sendBtn" disabled onclick="location.href='../6._invitation_sent/code.html'">Send Invitations</button>
+      
+      <!-- Dummy bottom nav row matching shell -->
+      <div class="dummy-nav">
+        <div class="dummy-nav-item">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+          <span>Home</span>
+        </div>
+        <div class="dummy-nav-item active">
+          <div class="dummy-nav-active-pill">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <span>Search</span>
+          </div>
+        </div>
+        <div class="dummy-nav-item">
+          <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+          <span>Library</span>
+        </div>
+        <div class="dummy-nav-item">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <span>Premium</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function onFriendSelect() {
+      const checkboxes = document.querySelectorAll('input.hidden-checkbox');
+      let count = 0;
+      checkboxes.forEach(cb => {
+        if (cb.checked) count++;
+      });
+
+      const sendBtn = document.getElementById('sendBtn');
+      if (count > 0) {
+        sendBtn.disabled = false;
+        sendBtn.classList.add('active');
+        sendBtn.innerText = `Send Invitation${count > 1 ? 's' : ''} (${count})`;
+      } else {
+        sendBtn.disabled = true;
+        sendBtn.classList.remove('active');
+        sendBtn.innerText = 'Send Invitations';
+      }
+    }
+
+    function filterContacts() {
+      const query = document.getElementById('contactSearch').value.toLowerCase();
+      const rows = document.querySelectorAll('#friendsList .friend-item-wrapper');
+
+      rows.forEach(row => {
+        const name = row.querySelector('.friend-name').innerText.toLowerCase();
+        const email = row.querySelector('.friend-email').innerText.toLowerCase();
+
+        if (name.includes(query) || email.includes(query)) {
+          row.style.display = 'block';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

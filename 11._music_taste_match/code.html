@@ -1,0 +1,268 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Music Taste Match - Insights</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for horizontal lists */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#5e5e5e",
+                        "primary-fixed": "#e2e2e2",
+                        "outline-variant": "#cfc4c5",
+                        "on-tertiary-container": "#848484",
+                        "surface-bright": "#f9f9fa",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#4c4546",
+                        "surface-container-low": "#f3f3f4",
+                        "on-surface": "#1a1c1d",
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-secondary-fixed-variant": "#46464e",
+                        "on-primary-container": "#848484",
+                        "surface-variant": "#e2e2e3",
+                        "secondary-fixed": "#e3e1ec",
+                        "on-primary-fixed-variant": "#474747",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "on-secondary-container": "#63646c",
+                        "secondary-container": "#e3e1ec",
+                        "tertiary-container": "#1b1b1b",
+                        "outline": "#7e7576",
+                        "primary-container": "#1b1b1b",
+                        "tertiary": "#000000",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#dadadb",
+                        "on-secondary-fixed": "#1a1b22",
+                        "surface-container-high": "#e8e8e9",
+                        "inverse-primary": "#c6c6c6",
+                        "surface": "#f9f9fa",
+                        "surface-container": "#eeeeef",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#2f3132",
+                        "surface-container-highest": "#e2e2e3",
+                        "on-background": "#1a1c1d",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "primary": "#000000",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#c6c5cf",
+                        "error-container": "#ffdad6",
+                        "background": "#f9f9fa",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "secondary": "#5d5e66",
+                        "on-primary-fixed": "#1b1b1b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "3xl": "64px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "margin-mobile": "16px",
+                        "2xl": "48px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "margin-desktop": "32px",
+                        "lg": "24px",
+                        "base": "4px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-xl-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-xl-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md antialiased mb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface border-b border-outline-variant flex items-center justify-between px-margin-mobile h-14 w-full">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-surface-container-high transition-colors duration-200">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Music Taste Match</h1>
+</div>
+<button class="p-2 -mr-2 rounded-full hover:bg-surface-container-high transition-colors duration-200">
+<span class="material-symbols-outlined text-primary">more_vert</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="pt-20 px-margin-mobile flex flex-col gap-xl max-w-2xl mx-auto">
+<!-- Match Score Header Section -->
+<section class="flex flex-col items-center text-center py-lg animate-fade-in">
+<div class="relative w-48 h-48 flex items-center justify-center mb-lg">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-highest" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-primary" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-dasharray="552.92" stroke-dashoffset="44.23" stroke-width="12"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="font-headline-xl text-headline-xl text-primary">92%</span>
+<span class="font-label-md text-label-md uppercase tracking-widest text-secondary">Match</span>
+</div>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-sm">Exceptional Match</h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed max-w-sm">
+                Your musical DNA is remarkably similar. You both thrive in high-energy rhythmic patterns.
+            </p>
+</section>
+<!-- Shared Artists Section -->
+<section class="flex flex-col gap-md">
+<h3 class="font-label-md text-label-md text-secondary uppercase px-1">Shared Artists</h3>
+<div class="flex overflow-x-auto gap-lg hide-scrollbar py-2">
+<!-- Artist 1 -->
+<div class="flex flex-col items-center gap-sm shrink-0">
+<div class="w-20 h-20 rounded-full border border-outline-variant bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A minimalist black and white portrait of a musician in a professional studio setting, with dramatic overhead lighting casting deep shadows. The aesthetic is clean, sharp, and grayscale, focusing on the texture of the performer's attire and the sleek lines of the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAX2sut10UtGRrnQcYSMrGVJwEJ_UhQ1hePappe5mNleTLpUvpMmDZXXp1BSsDdsKTH4OxAwqWVmRjsymnMBlAzo6FSWXtpg5jHIIVPRktpJkcgIvW26xu2nS9R46hyFMxrri4OxXRT5FPCH_0gcqhCzmTv_pkBhRnHxk0gMxy6Fb2YkwRLwcdK6KL8Feqel0rBjrl8Ev8VsmNM-dWsHD3jZRfcsWIl6YZCc4jQAu0RO4aX8PHgJCgx">
+</div>
+<span class="font-label-sm text-label-sm text-on-surface">Artist One</span>
+</div>
+<!-- Artist 2 -->
+<div class="flex flex-col items-center gap-sm shrink-0">
+<div class="w-20 h-20 rounded-full border border-outline-variant bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A minimalist studio photography shot of a collaborative band duo against a neutral gray backdrop. The lighting is soft and diffused, creating a calm and professional atmosphere. The focus is on their silhouette and minimalist styling in a high-end wireframe design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhid2AAQGzQTBKzd1FscHHZ0st18eJF-cho1SKBaoA9EkR6NJRq9JMbJlxI_KH75Pp4pbs48bX9tPoAlmRHyTeuZZnLL4-nmUh4bgdnGRpqOAc7VGUI4STbkvapGLfDTDRaDG3obfGl6l8fnlLQWR7gSK2RsNTs_MrCVXHUqKPOaWnC5Ey9ayp7kGTuDZn-X8abDJj_o0DZrML7iLUx9b_S23Zd_JjapfdCkOEOYoWXZHs69cVGIBx">
+</div>
+<span class="font-label-sm text-label-sm text-on-surface">Band Two</span>
+</div>
+<!-- Artist 3 -->
+<div class="flex flex-col items-center gap-sm shrink-0">
+<div class="w-20 h-20 rounded-full border border-outline-variant bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up of a vocalist's silhouette against a backlit frosted glass pane, creating a dreamlike, high-contrast monochrome image. The mood is artistic and moody, aligning with a premium minimalist app design. The textures are grainy yet refined." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBF0ephb9br0YBLe4yLGxEUwsIhhnVJ4SUjZoMKsvc12sXidzk8gwPtb2da0j4L21kRpNjAoXi-4uUe-EOtxIwm8pE1NPbkgakWAF-LchbJiJDvmBocIn6uDAY9BKqfe_oRkP6NwNqdBmjjyDwAlZPjm3EF87ZTflrHUPGMzkd40nrysZRIR9qMKQorlLJ7_hWMsFn9ffG7q4_20P6pqw0YdcDGw5yXrxMUq4sZOKe85KpAy-6MD3uP">
+</div>
+<span class="font-label-sm text-label-sm text-on-surface">Vocalist Three</span>
+</div>
+<!-- Artist 4 -->
+<div class="flex flex-col items-center gap-sm shrink-0">
+<div class="w-20 h-20 rounded-full border border-outline-variant bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Experimental digital rendering of a musician's profile, using simple geometric shapes and low-contrast grayscale tones. The lighting highlights the structural form of the head and shoulders, maintaining a clean architectural feel consistent with a UI wireframe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCc0hNCbKkkxfNjfHsQf2Eer3ZbKeTHS0Jk47xIGa9KIRJOW6_noxIL7VVjg9KGdcb-Pw34pv1vtHwVWbb16BdYdMqR88aq0VeIrSfWgRd27pSkArhHxT3TNJaFtBD46sGVynWqn6UpdE5dEI4SKz5_rg2CqD3V2Oi6m3aYT4s9XXsDcWIkv5GP7vSp3qOHi_9j35KWrBsm1WjFj9Xyoo387mVwpNP7QK9a2Uuff_7zOZ4alpWXR3ab">
+</div>
+<span class="font-label-sm text-label-sm text-on-surface">Producer Four</span>
+</div>
+</div>
+</section>
+<!-- Shared Genres Section -->
+<section class="flex flex-col gap-md">
+<h3 class="font-label-md text-label-md text-secondary uppercase px-1">Shared Genres</h3>
+<div class="flex flex-wrap gap-sm">
+<span class="px-md py-xs rounded-full bg-surface-container-high border border-outline-variant text-label-sm font-label-sm">Techno</span>
+<span class="px-md py-xs rounded-full bg-surface-container-high border border-outline-variant text-label-sm font-label-sm">Ambient</span>
+<span class="px-md py-xs rounded-full bg-surface-container-high border border-outline-variant text-label-sm font-label-sm">Post-Punk</span>
+<span class="px-md py-xs rounded-full bg-surface-container-high border border-outline-variant text-label-sm font-label-sm">Neo-Classical</span>
+<span class="px-md py-xs rounded-full bg-surface-container-high border border-outline-variant text-label-sm font-label-sm">Lo-Fi</span>
+<span class="px-md py-xs rounded-full bg-surface-container-high border border-outline-variant text-label-sm font-label-sm">Industrial</span>
+</div>
+</section>
+<!-- Listening Insights Section -->
+<section class="flex flex-col gap-md">
+<h3 class="font-label-md text-label-md text-secondary uppercase px-1">Listening Insights</h3>
+<div class="p-lg rounded-xl border border-outline-variant bg-surface-container-low flex flex-col gap-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary">insights</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary">Late-Night Sync</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                    You both listen to experimental electronic mostly in the early hours of the morning. Analysis shows a 92% correlation in BPM preferences and a shared affinity for non-traditional song structures.
+                </p>
+<div class="pt-md mt-sm border-t border-outline-variant flex justify-between items-center">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-low bg-surface-dim flex items-center justify-center text-[10px] font-bold">JD</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-low bg-primary text-on-primary flex items-center justify-center text-[10px] font-bold">MK</div>
+</div>
+<span class="text-label-sm font-label-sm text-secondary">Updated 2h ago</span>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="pt-lg pb-3xl">
+<button class="w-full h-14 bg-primary text-on-primary rounded-full font-headline-md flex items-center justify-center gap-md hover:opacity-90 active:scale-[0.98] transition-all">
+<span>Return to Playlist</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface-container border-t border-outline-variant flex justify-around items-center h-16 w-full px-4 pb-safe">
+<!-- Home -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<!-- Search -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-sm text-label-sm mt-1">Search</span>
+</a>
+<!-- Library (Active) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1 scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">library_music</span>
+<span class="font-label-sm text-label-sm mt-1">Library</span>
+</a>
+<!-- Premium -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-label-sm text-label-sm mt-1">Premium</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for chips
+        document.querySelectorAll('span.px-md').forEach(chip => {
+            chip.addEventListener('click', function() {
+                this.classList.toggle('bg-primary');
+                this.classList.toggle('text-on-primary');
+                this.classList.toggle('bg-surface-container-high');
+            });
+        });
+    </script>
+</body></html>

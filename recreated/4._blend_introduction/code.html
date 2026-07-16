@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blend with friends</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Typography */
+      --font-serif: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+
+      --fs-xs: 0.75rem;    /* 12 */
+      --fs-sm: 0.875rem;   /* 14 */
+      --fs-base: 1rem;     /* 16 */
+      --fs-md: 1.125rem;   /* 18 */
+      --fs-lg: 1.375rem;   /* 22 */
+      --fs-xl: 1.75rem;    /* 28 */
+      --fs-2xl: 2.25rem;   /* 36 */
+      --fs-3xl: 3rem;      /* 48 */
+
+      --fw-light: 300;
+      --fw-regular: 400;
+      --fw-medium: 500;
+      --fw-semibold: 600;
+      --fw-bold: 700;
+
+      --lh-tight: 1.1;
+      --lh-snug: 1.25;
+      --lh-normal: 1.5;
+      --lh-relaxed: 1.7;
+
+      --ls-tight: -0.02em;
+      --ls-normal: 0;
+      --ls-wide: 0.04em;
+      --ls-widest: 0.18em;
+
+      /* Colors — surfaces */
+      --color-bg: #FAF8F6;
+      --color-bg-alt: #F3EFEA;
+      --color-surface: #FFFFFF;
+      --color-surface-2: #FBF9F6;
+      --color-surface-3: #F5F1EC;
+      --color-border: #E8E1D8;
+      --color-border-soft: #EFE9E0;
+
+      /* Colors — ink */
+      --color-ink: #1F1B16;
+      --color-ink-2: #4A433B;
+      --color-ink-3: #6F665B;
+      --color-ink-4: #9A9082;
+      --color-ink-5: #BFB5A6;
+
+      /* Primary — soft rose */
+      --color-primary: #C98B86;
+      --color-primary-deep: #A86964;
+      --color-primary-soft: #F4DAD6;
+      --color-primary-tint: #FBEEEC;
+
+      /* Spacing — 8px system */
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 20px;
+      --sp-6: 24px;
+      --sp-7: 32px;
+      --sp-8: 40px;
+      --sp-9: 48px;
+      --sp-10: 64px;
+
+      /* Radius */
+      --r-xs: 4px;
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 16px;
+      --r-xl: 20px;
+      --r-full: 999px;
+
+      /* Shadows */
+      --sh-xs: 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-sm: 0 2px 6px rgba(31, 27, 22, 0.05), 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-md: 0 6px 18px rgba(31, 27, 22, 0.06), 0 2px 6px rgba(31, 27, 22, 0.04);
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --tr-base: 240ms var(--ease-out);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--fs-base);
+      line-height: var(--lh-normal);
+      color: var(--color-ink);
+      background-color: var(--color-bg-alt);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .mobile-container {
+      max-width: 430px;
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--color-surface);
+      border-left: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding-top: 56px; /* for header */
+      padding-bottom: 140px; /* space for fixed footer actions */
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 56px;
+      background-color: rgba(250, 248, 246, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-border-soft);
+      display: flex;
+      align-items: center;
+      padding: 0 var(--sp-4);
+      z-index: 100;
+      justify-content: space-between;
+    }
+
+    .back-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-ink);
+      background: transparent;
+      border: none;
+      transition: background 150ms var(--ease-out);
+    }
+
+    .back-btn:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-md);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    main {
+      padding: var(--sp-6) var(--sp-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-6);
+    }
+
+    /* Bento visual */
+    .bento-visual {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 90px);
+      gap: var(--sp-2);
+    }
+
+    .bento-cell {
+      background-color: var(--color-surface-2);
+      border: 1px solid var(--color-border-soft);
+      border-radius: var(--r-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      color: var(--color-ink-3);
+    }
+
+    .bento-cell svg {
+      width: 24px;
+      height: 24px;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      fill: none;
+    }
+
+    .bento-large {
+      grid-column: span 3;
+      grid-row: span 2;
+      justify-content: flex-start;
+      align-items: flex-end;
+      padding: var(--sp-4);
+      background: var(--grad-chrome-soft);
+    }
+
+    .bento-large-icon-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 96px;
+      height: 96px;
+      color: var(--color-surface);
+      opacity: 0.45;
+    }
+
+    .bento-large-icon-bg svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Overlapping Avatars inside Bento */
+    .avatar-stack {
+      display: flex;
+      align-items: center;
+      z-index: 5;
+    }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--r-full);
+      border: 3px solid var(--color-surface);
+      background-color: var(--color-surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-bold);
+      color: var(--color-ink);
+      flex-shrink: 0;
+    }
+
+    .avatar:not(:first-child) {
+      margin-left: -12px;
+    }
+
+    .avatar-user {
+      background-color: var(--color-primary-soft);
+    }
+
+    .avatar-friend {
+      background-color: var(--color-accent-soft);
+    }
+
+    .avatar-add {
+      background-color: var(--color-ink);
+      color: var(--color-bg);
+    }
+
+    .avatar-add svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 3;
+      fill: none;
+    }
+
+    /* Content Title and intro */
+    .intro-text {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+
+    .intro-text h1 {
+      font-family: var(--font-serif);
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-medium);
+      color: var(--color-ink);
+    }
+
+    .intro-text p {
+      font-size: var(--fs-sm);
+      color: var(--color-ink-2);
+      line-height: var(--lh-relaxed);
+    }
+
+    /* Feature List items */
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+
+    .feature-item {
+      display: flex;
+      gap: var(--sp-4);
+      padding: var(--sp-4);
+      background-color: var(--color-surface-2);
+      border: 1px solid var(--color-border-soft);
+      border-radius: var(--r-lg);
+    }
+
+    .feature-icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--r-md);
+      background-color: var(--color-surface-3);
+      color: var(--color-ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .feature-icon-box svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+    }
+
+    .feature-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .feature-title {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    .feature-desc {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-3);
+      line-height: var(--lh-normal);
+    }
+
+    /* Footer sticky actions */
+    footer.fixed-bottom {
+      position: fixed;
+      bottom: 0;
+      max-width: 430px;
+      width: 100%;
+      background-color: var(--color-surface);
+      border-top: 1px solid var(--color-border-soft);
+      padding: var(--sp-4) var(--sp-5) var(--sp-5);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+
+    .btn {
+      width: 100%;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      font-family: var(--font-sans);
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-medium);
+      border-radius: var(--r-full);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 150ms var(--ease-out), background-color 150ms var(--ease-out);
+      text-decoration: none;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      box-shadow: var(--sh-sm);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-primary-deep);
+    }
+
+    .btn-primary svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .btn-secondary {
+      background-color: var(--color-surface);
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--color-surface-3);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-container">
+    <!-- Header -->
+    <header>
+      <button class="back-btn" onclick="location.href='../2._library/code.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+      <div class="header-title">Blend</div>
+      <div style="width: 36px;"></div> <!-- Spacer -->
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Bento Visualizer -->
+      <div class="bento-visual">
+        <div class="bento-cell bento-large">
+          <div class="bento-large-icon-bg">
+            <svg viewBox="0 0 24 24">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <!-- Avatar Stack -->
+          <div class="avatar-stack">
+            <div class="avatar avatar-user">ME</div>
+            <div class="avatar avatar-friend">FR</div>
+            <div class="avatar avatar-add">
+              <svg viewBox="0 0 24 24">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="bento-cell">
+          <svg viewBox="0 0 24 24">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        </div>
+
+        <div class="bento-cell">
+          <svg viewBox="0 0 24 24">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Intro Text -->
+      <div class="intro-text">
+        <h1>Blend with friends</h1>
+        <p>Create a shared experience. Blend combines your musical taste with your friends' to generate a daily updated playlist that evolves with everyone in the group.</p>
+      </div>
+
+      <!-- Feature List -->
+      <div class="feature-list">
+        <!-- Item 1 -->
+        <div class="feature-item">
+          <div class="feature-icon-box">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div class="feature-info">
+            <span class="feature-title">Daily Updates</span>
+            <span class="feature-desc">Your shared playlist refreshes every day with new tracks you and your friends will all love.</span>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="feature-item">
+          <div class="feature-icon-box">
+            <svg viewBox="0 0 24 24">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+          </div>
+          <div class="feature-info">
+            <span class="feature-title">Taste Match</span>
+            <span class="feature-desc">See how your listening habits compare across the group with unique shared scores.</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom Actions sticky -->
+    <footer class="fixed-bottom">
+      <button class="btn btn-primary" onclick="location.href='../5._invite_friend/code.html'">
+        <span>Invite Friend</span>
+        <svg viewBox="0 0 24 24">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </button>
+      <button class="btn btn-secondary" onclick="location.href='../2._library/code.html'">Cancel</button>
+    </footer>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Blend Created - Success</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2f3132",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "surface-container-highest": "#e2e2e3",
+                    "surface-tint": "#5e5e5e",
+                    "error-container": "#ffdad6",
+                    "surface": "#f9f9fa",
+                    "primary-fixed": "#e2e2e2",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-secondary-fixed": "#1a1b22",
+                    "surface-bright": "#f9f9fa",
+                    "on-primary-fixed": "#1b1b1b",
+                    "on-error-container": "#93000a",
+                    "background": "#f9f9fa",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#dadadb",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "surface-container-high": "#e8e8e9",
+                    "on-background": "#1a1c1d",
+                    "primary": "#000000",
+                    "outline-variant": "#cfc4c5",
+                    "on-surface-variant": "#4c4546",
+                    "on-tertiary-container": "#848484",
+                    "on-primary-container": "#848484",
+                    "surface-container-low": "#f3f3f4",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1a1c1d",
+                    "secondary-fixed": "#e3e1ec",
+                    "surface-variant": "#e2e2e3",
+                    "secondary-container": "#e3e1ec",
+                    "tertiary": "#000000",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "on-secondary-container": "#63646c",
+                    "on-primary-fixed-variant": "#474747",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#e2e2e2",
+                    "on-secondary-fixed-variant": "#46464e",
+                    "on-error": "#ffffff",
+                    "surface-container": "#eeeeef",
+                    "inverse-primary": "#c6c6c6",
+                    "tertiary-container": "#1b1b1b",
+                    "outline": "#7e7576",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "secondary-fixed-dim": "#c6c5cf",
+                    "primary-container": "#1b1b1b",
+                    "secondary": "#5d5e66"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-desktop": "32px",
+                    "gutter": "16px",
+                    "md": "16px",
+                    "margin-mobile": "16px",
+                    "base": "4px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "2xl": "48px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "3xl": "64px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-xl-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-xl-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9fa;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .artwork-shadow {
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col items-center">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-margin-mobile h-14 w-full bg-surface border-b border-outline-variant">
+<button class="w-10 h-10 flex items-center justify-start text-primary transition-colors duration-200 hover:bg-surface-container-high rounded-full">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Now Playing</h1>
+<button class="w-10 h-10 flex items-center justify-end text-primary transition-colors duration-200 hover:bg-surface-container-high rounded-full">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col items-center justify-center w-full max-w-[600px] px-margin-mobile pt-20 pb-24 fade-in">
+<!-- Artwork Success Section -->
+<div class="w-full flex flex-col items-center space-y-lg text-center">
+<!-- Large Artwork Placeholder with Animation/Visual Interest -->
+<div class="relative w-full aspect-square max-w-[320px] rounded-lg overflow-hidden border border-outline-variant artwork-shadow group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A sleek, high-end digital music album cover featuring minimalist grayscale geometry. The design uses overlapping circles and clean lines to represent a collaborative musical blend. The lighting is soft and professional, reflecting a modern light-mode interface. The color palette is strictly monochrome, with deep black and clean white surfaces creating a sophisticated, functional minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJr537VvB129fVFv38hLTiXh4k4i20qTrIWwwKF_AmIn5W3CVr9NpjYrCBCTazkNYeS-77rTpmJuoYRX_IiLnBsu5JM-IhAFHZDhm5UD5VuoKvKJHVsqu8B24DjUeYl3dK1UP6obFP3dWgM-_rxB2FPv_kzjZ3gLu5pA6te0l0R6lfKdSqKdNRBDV6iQgB9cJ7W1AAvOzWqdmz7JJTfymeaxXWb_-9r3rODBMn7WX69bTGz73F7tt0">
+<!-- Success Badge Overlay -->
+<div class="absolute top-4 right-4 bg-primary text-on-primary w-12 h-12 rounded-full flex items-center justify-center shadow-lg border border-white/20">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- Text Content -->
+<div class="space-y-sm px-4">
+<h2 class="font-headline-xl-mobile text-headline-xl-mobile font-bold text-on-background">Blend Created!</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[280px] mx-auto">
+                    Your shared playlist with Alex is ready.
+                </p>
+</div>
+<!-- Action Cluster -->
+<div class="w-full flex flex-col space-y-sm pt-md">
+<button class="w-full h-12 bg-primary text-on-primary font-label-md text-label-md rounded-lg transition-transform active:scale-[0.98] flex items-center justify-center space-x-2">
+<span class="material-symbols-outlined text-[20px]">play_circle</span>
+<span>Open Playlist</span>
+</button>
+<button class="w-full h-12 bg-surface-container border border-outline-variant text-on-surface font-label-md text-label-md rounded-lg transition-transform active:scale-[0.98] flex items-center justify-center space-x-2">
+<span class="material-symbols-outlined text-[20px]">share</span>
+<span>Share</span>
+</button>
+</div>
+</div>
+<!-- Success Confirmation Micro-list -->
+<div class="w-full mt-xl border border-outline-variant rounded-xl bg-surface-container-lowest p-md space-y-md">
+<div class="flex items-center space-x-md">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A high-contrast black and white portrait of a person with a neutral expression, styled as a minimalist avatar for a professional user profile. The background is a clean white studio setting with soft lighting that emphasizes the architectural shapes of the face." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMyRhJJ7JSaateGuu13Z3nQGzA0NY-E7Kcb-z7Nnxf9JaeEo04HBoKjvWil0VdV0wGCkWfg6WOiqDlJg3en6B_nmwIUuU7KgkCtpOIeNM_K7fOftdDlNGhkn78VFGqXJPQhJKjEJofKmqJgEJ4YpKc_70XEXb5Qpfk38AeBx3u7MJPIpb_UfBPY7t0TF1dVVw20ptXnuBuq1zMitOGHEIvfYDbbzLjObK11Hibjf6qhIZSyy6I_dLQ">
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">You</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">50% influence</span>
+</div>
+</div>
+<div class="h-[1px] w-full bg-outline-variant/30"></div>
+<div class="flex items-center space-x-md">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional minimalist avatar of a friend, presented in grayscale. The lighting is high-key and soft, fitting a modern digital design aesthetic. The subject is centered and clearly defined against a light gray studio background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6d6sOy7GqRLh31qRb8tt_yFHordW1bKb669nH6V2eJ-nI-ib0M8jTegffc9nx-gKjht323fMbGqbET7TTMnr6P0oy2o4NCc0AHx5BavIZJtj61gqzXT4FN-vQe4XPN8UrfztaxC9SVBHLTjE4SnyrNHcsnfQf_AcZmdPiu9UbO4tRHp40rIPEQvP4tvMZ7D_e-Jz1DwlYX7Rdqz5N6vM2yN-oO1gpQAfDo-WS3yn6kFN4Fktp8yT1">
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Alex</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">50% influence</span>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center h-16 w-full px-4 pb-safe bg-surface-container border-t border-outline-variant">
+<!-- Home Tab -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-transform duration-150 active:scale-90" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<!-- Search Tab -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-transform duration-150 active:scale-90" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-sm text-label-sm mt-1">Search</span>
+</a>
+<!-- Library Tab (Active) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1 transition-transform duration-150 active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">library_music</span>
+<span class="font-label-sm text-label-sm mt-1">Library</span>
+</a>
+<!-- Premium Tab -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-transform duration-150 active:scale-90" href="#">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-label-sm text-label-sm mt-1">Premium</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for primary button
+        document.querySelector('button.bg-primary').addEventListener('click', function() {
+            this.classList.add('scale-95');
+            setTimeout(() => this.classList.remove('scale-95'), 150);
+        });
+
+        // Background Atmosphere effect: Subtle subtle shifting gradient for a "living" wireframe
+        document.body.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 5;
+            const y = (e.clientY / window.innerHeight) * 5;
+            document.body.style.backgroundPosition = `${x}% ${y}%`;
+        });
+    </script>
+</body></html>

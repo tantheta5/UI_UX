@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library with Blend</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Typography */
+      --font-serif: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+
+      --fs-xs: 0.75rem;    /* 12 */
+      --fs-sm: 0.875rem;   /* 14 */
+      --fs-base: 1rem;     /* 16 */
+      --fs-md: 1.125rem;   /* 18 */
+      --fs-lg: 1.375rem;   /* 22 */
+      --fs-xl: 1.75rem;    /* 28 */
+      --fs-2xl: 2.25rem;   /* 36 */
+      --fs-3xl: 3rem;      /* 48 */
+
+      --fw-light: 300;
+      --fw-regular: 400;
+      --fw-medium: 500;
+      --fw-semibold: 600;
+      --fw-bold: 700;
+
+      --lh-tight: 1.1;
+      --lh-snug: 1.25;
+      --lh-normal: 1.5;
+      --lh-relaxed: 1.7;
+
+      --ls-tight: -0.02em;
+      --ls-normal: 0;
+      --ls-wide: 0.04em;
+      --ls-widest: 0.18em;
+
+      /* Colors — surfaces */
+      --color-bg: #FAF8F6;
+      --color-bg-alt: #F3EFEA;
+      --color-surface: #FFFFFF;
+      --color-surface-2: #FBF9F6;
+      --color-surface-3: #F5F1EC;
+      --color-border: #E8E1D8;
+      --color-border-soft: #EFE9E0;
+
+      /* Colors — ink */
+      --color-ink: #1F1B16;
+      --color-ink-2: #4A433B;
+      --color-ink-3: #6F665B;
+      --color-ink-4: #9A9082;
+      --color-ink-5: #BFB5A6;
+
+      /* Primary — soft rose */
+      --color-primary: #C98B86;
+      --color-primary-deep: #A86964;
+      --color-primary-soft: #F4DAD6;
+      --color-primary-tint: #FBEEEC;
+
+      /* Spacing — 8px system */
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 20px;
+      --sp-6: 24px;
+      --sp-7: 32px;
+      --sp-8: 40px;
+      --sp-9: 48px;
+      --sp-10: 64px;
+
+      /* Radius */
+      --r-xs: 4px;
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 16px;
+      --r-xl: 20px;
+      --r-full: 999px;
+
+      /* Shadows */
+      --sh-xs: 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-sm: 0 2px 6px rgba(31, 27, 22, 0.05), 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-md: 0 6px 18px rgba(31, 27, 22, 0.06), 0 2px 6px rgba(31, 27, 22, 0.04);
+      --sh-lg: 0 14px 36px rgba(31, 27, 22, 0.08), 0 6px 14px rgba(31, 27, 22, 0.05);
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --tr-base: 240ms var(--ease-out);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--fs-base);
+      line-height: var(--lh-normal);
+      color: var(--color-ink);
+      background-color: var(--color-bg-alt);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .mobile-container {
+      max-width: 430px;
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--color-surface);
+      border-left: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding-top: 56px; /* header */
+      padding-bottom: 120px; /* bottom nav + mini player */
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 56px;
+      background-color: rgba(250, 248, 246, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-border-soft);
+      display: flex;
+      align-items: center;
+      padding: 0 var(--sp-4);
+      z-index: 100;
+      justify-content: space-between;
+    }
+
+    .profile-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--r-full);
+      background-color: var(--color-surface-3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-ink-3);
+    }
+
+    .profile-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .action-icons {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+    }
+
+    .header-icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-ink);
+      background: transparent;
+      border: none;
+      transition: background 150ms var(--ease-out);
+    }
+
+    .header-icon-btn:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    .header-icon-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-md);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+      flex: 1;
+      margin-left: var(--sp-3);
+    }
+
+    main {
+      padding: var(--sp-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+    }
+
+    /* Filter chips */
+    .filter-chips-row {
+      display: flex;
+      gap: var(--sp-2);
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+
+    .filter-chips-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chip {
+      padding: 8px 16px;
+      border-radius: var(--r-full);
+      border: 1px solid var(--color-border);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      color: var(--color-ink-3);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 150ms var(--ease-out), color 150ms var(--ease-out);
+    }
+
+    .chip.active {
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      border-color: var(--color-primary);
+    }
+
+    /* Sort bar */
+    .sort-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 var(--sp-1);
+    }
+
+    .sort-btn {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-1);
+      font-size: var(--fs-xs);
+      color: var(--color-ink-3);
+      cursor: pointer;
+      background: transparent;
+      border: none;
+    }
+
+    .sort-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    .view-btn {
+      color: var(--color-ink-3);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--r-full);
+    }
+
+    .view-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+    }
+
+    /* Library list rows */
+    .library-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+
+    .library-item {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-4);
+      padding: var(--sp-2) var(--sp-1);
+      cursor: pointer;
+      border-radius: var(--r-md);
+      text-decoration: none;
+      color: inherit;
+      transition: background-color 150ms var(--ease-out);
+    }
+
+    .library-item:hover {
+      background-color: var(--color-surface-2);
+    }
+
+    /* Custom Blend Artwork with Overlay Avatars */
+    .blend-art-box {
+      position: relative;
+      width: 64px;
+      height: 64px;
+      border-radius: var(--r-lg);
+      background: linear-gradient(135deg, var(--color-surface-3) 0%, var(--color-border) 100%);
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .blend-art-box svg.wave-art {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0.25;
+      color: var(--color-ink);
+    }
+
+    .blend-art-icon {
+      font-size: 28px;
+      color: var(--color-ink-3);
+      z-index: 1;
+    }
+
+    .participant-avatars {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      display: flex;
+      margin-left: -6px;
+      z-index: 2;
+    }
+
+    .part-avatar {
+      width: 22px;
+      height: 22px;
+      border-radius: var(--r-full);
+      border: 1.5px solid var(--color-surface);
+      overflow: hidden;
+      background-color: var(--color-surface-3);
+    }
+
+    .part-avatar:not(:first-child) {
+      margin-left: -8px;
+    }
+
+    .part-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Standard Art Box */
+    .standard-art-box {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--r-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .art-liked {
+      background-color: var(--color-ink);
+      color: var(--color-bg);
+    }
+
+    .art-liked svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--color-primary-soft);
+      stroke: var(--color-primary-deep);
+      stroke-width: 1.5;
+    }
+
+    .art-episodes {
+      background-color: var(--color-surface-3);
+      border: 1px solid var(--color-border);
+      color: var(--color-primary-deep);
+    }
+
+    .art-episodes svg {
+      width: 28px;
+      height: 28px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+    }
+
+    .art-playlist {
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+    }
+
+    .art-playlist img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      mix-blend-mode: multiply;
+    }
+
+    .item-details {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-title {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-1);
+      font-size: var(--fs-xs);
+      color: var(--color-ink-3);
+      margin-top: 2px;
+    }
+
+    .item-meta svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    /* Fixed Mini Player above Bottom Nav */
+    .mini-player {
+      position: fixed;
+      bottom: 64px;
+      left: var(--sp-2);
+      right: var(--sp-2);
+      max-width: calc(430px - var(--sp-4));
+      margin: 0 auto;
+      height: 52px;
+      background-color: var(--color-ink);
+      border-radius: var(--r-md);
+      padding: var(--sp-2) var(--sp-3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--sh-md);
+      z-index: 99;
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+    }
+
+    .mini-left {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      min-width: 0;
+      flex: 1;
+    }
+
+    .mini-art {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-xs);
+      overflow: hidden;
+      background: var(--grad-chrome-soft);
+      flex-shrink: 0;
+    }
+
+    .mini-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+      mix-blend-mode: multiply;
+    }
+
+    .mini-info {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .mini-title {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-semibold);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mini-artist {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-4);
+    }
+
+    .mini-right {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+    }
+
+    .mini-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    .mini-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+    }
+
+    /* Small bottom progress bar inside player */
+    .mini-progress-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: 0 0 var(--r-md) var(--r-md);
+      overflow: hidden;
+    }
+
+    .mini-progress-fill {
+      height: 100%;
+      width: 37%;
+      background-color: var(--color-primary);
+    }
+
+    /* Fixed Bottom Navigation (Library active) */
+    nav.bottom-nav {
+      position: fixed;
+      bottom: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 64px;
+      background-color: var(--color-surface-2);
+      border-top: 1px solid var(--color-border-soft);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+      padding: 0 var(--sp-4);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--color-ink-3);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      gap: 2px;
+      width: 72px;
+      height: 100%;
+      transition: color 150ms var(--ease-out);
+    }
+
+    .nav-item svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    .nav-item:hover {
+      color: var(--color-ink);
+    }
+
+    .nav-item.active {
+      color: var(--color-primary-deep);
+    }
+
+    .nav-item.active svg {
+      stroke: var(--color-primary-deep);
+      stroke-width: 2;
+    }
+
+    .nav-active-pill {
+      background-color: var(--color-primary-tint);
+      padding: var(--sp-1) var(--sp-4);
+      border-radius: var(--r-full);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-container">
+    <!-- Header -->
+    <header>
+      <div class="profile-btn">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+      <div class="header-title">Your Library</div>
+      <div class="action-icons">
+        <button class="header-icon-btn">
+          <svg viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+        <button class="header-icon-btn" onclick="location.href='../3._create_menu/code.html'">
+          <svg viewBox="0 0 24 24">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Scrollable Filter Chips -->
+      <section class="filter-chips-row">
+        <span class="chip active">Playlists</span>
+        <span class="chip">Artists</span>
+        <span class="chip">Albums</span>
+        <span class="chip">Podcasts</span>
+      </section>
+
+      <!-- Sorting row -->
+      <section class="sort-bar">
+        <button class="sort-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polyline points="15 3 21 9 17 9"></polyline>
+            <polyline points="9 21 3 15 7 15"></polyline>
+            <line x1="21" y1="9" x2="9" y2="9"></line>
+            <line x1="3" y1="15" x2="15" y2="15"></line>
+          </svg>
+          <span>Recents</span>
+        </button>
+
+        <button class="view-btn">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+        </button>
+      </section>
+
+      <!-- Library Playlist Rows -->
+      <section class="library-list">
+        <!-- Alex & Jordan Blend Playlist (Interactive link to playlist screen) -->
+        <a class="library-item" href="../10._blend_playlist/code.html">
+          <div class="blend-art-box">
+            <!-- Simulated Wave SVG Pattern -->
+            <svg class="wave-art" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <path d="M0,50 Q25,0 50,50 T100,50 M0,30 Q25,80 50,30 T100,30" fill="none" stroke="currentColor" stroke-width="2"></path>
+            </svg>
+            <span class="blend-art-icon">✨</span>
+            <div class="participant-avatars">
+              <div class="part-avatar">
+                <img data-alt="Minimalist grayscale profile portrait of Alex." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBULpcuNm9CuuTXkTBN7gshVoGLT_MKYfWeXx1-dTNIDojVOWk7x9ZoQWl6ZnbT9H6ZPxCHZVhqVbPUJOs7-MAtGGR8TRFEkv-3uEB02-761xccktUYH488bvKkzcJiUrkREgR0d9os2kK-Akx6831iO5JX0qe9SXcuntyHWBPCek-bcnSnRSNGTbBtc1qHnRfj9Jdzj41to7T_7GbFn1RjSobRzKMB-uN2iO5bmgtxhILNVcsGJE2r">
+              </div>
+              <div class="part-avatar">
+                <img data-alt="Minimalist grayscale profile portrait of Jordan." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRwWiOkSzvC0DyxFjCJJt3RGMPiaMOUi_WRGLEKTwPMMaevI0uAVYqBCWq9xYsnzRzK2H8j_zUAph8yWi1bwn9YmcUz7yGrigkwkG8zqi21O5woyOaAE3IpRJNL5bBiLnq5lrbQiSExpz2iLUfsv5CFO_WOQFLMkaWhd2rhfliIyAUSIN0gE_fqgbbBwEMkkPiQLZ6sQt6r0abyJ3N1mWzpEzRanr3rpXrf2wx7NCVud7ZaoHGhzKU">
+              </div>
+            </div>
+          </div>
+          <div class="item-details">
+            <span class="item-title">Alex & Jordan</span>
+            <div class="item-meta">
+              <svg viewBox="0 0 24 24">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+              </svg>
+              <span>Playlist • Blend</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Liked Songs -->
+        <div class="library-item">
+          <div class="standard-art-box art-liked">
+            <svg viewBox="0 0 24 24">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </div>
+          <div class="item-details">
+            <span class="item-title">Liked Songs</span>
+            <div class="item-meta">
+              <span>Playlist • 428 songs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- New Episodes -->
+        <div class="library-item">
+          <div class="standard-art-box art-episodes">
+            <svg viewBox="0 0 24 24">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </div>
+          <div class="item-details">
+            <span class="item-title">New Episodes</span>
+            <div class="item-meta">
+              <span>Updated 2 days ago</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Standard Playlist Item 1 -->
+        <div class="library-item">
+          <div class="standard-art-box art-playlist">
+            <img data-alt="Brutalist concrete stairs in grayscale." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLDDa5yhRo5agrle2ppEtWYXreOR5ftc9z0mYDP3Tzpd27GwJZGv_VtYD7jSWmvJLNz8Ic_MIiY25utgKIoe-cKUjSWvqzcYlvs7tM015P7xslHi1VW-_I2IZsAqlhAjjdQ0gr7sQg6PnX93Ss373UUElz2hPr5gtThJapSIckVLTeQiinbpxPc3OCBygtC8cHPXsGHKq6pOaMJwZ5NkMyrbRr66M7xNiQbaSg9t2Dn8S8aS_J4AMr">
+          </div>
+          <div class="item-details">
+            <span class="item-title">Late Night Focus</span>
+            <div class="item-meta">
+              <span>Playlist • By You</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Standard Playlist Item 2 -->
+        <div class="library-item">
+          <div class="standard-art-box art-playlist">
+            <img data-alt="Calm lake ripples at dawn in grayscale." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNPucQEK-E8l9Ob2S3YAA4qX90Ggp7lJGJ9oKwGMQMZFtRGon518WVdu_-DPj8vvgPvftwpwCOtjWiTCKDPkqez4TfPMjLM9EwHNHRzc5DuPV6mn14m9kUNOxPF0yfCRriPvx5bA7UQJIKJho1UBS3HJs3lSg3SO8VzJw1IDLEP0ET_KhM9yNxlHY27axkkfASVvVTU7G_QzsLGiyw4MB3AV-vLiOrc_s0PxQrrDmuYypMJeIcWidF">
+          </div>
+          <div class="item-details">
+            <span class="item-title">Lo-fi Morning</span>
+            <div class="item-meta">
+              <span>Playlist • By You</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Standard Playlist Item 3 -->
+        <div class="library-item">
+          <div class="standard-art-box art-playlist">
+            <img data-alt="Synthesizer knobs close up details in grayscale." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9DULpochN8aoBVA3UeXlDdLl0dnaoH7OZbL6pa7ebcEioGFE1KBbmFSUCj6UfxrAXtfRcqazyuU2CEnPZ1v7HTOYsqyBQqYt2Q1dF5hCWHoKy8FQg1ampgyhO7JmbT-o9-Hvo2X4Z3CX3ciSXNYbQoAscTL5y-xruW8L1mtWIw06IVEE3LyaaGrgZ5ZdlQLZ7ZMHG_PApPtWjrH2KiQ1v-6M0NGGfOju5VHBxN3Vf0eoJy8iTdoua">
+          </div>
+          <div class="item-details">
+            <span class="item-title">Electronic Currents</span>
+            <div class="item-meta">
+              <span>Artist • Moderat</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Mini player docked at bottom -->
+    <a class="mini-player" href="../13._now_playing/code.html">
+      <div class="mini-left">
+        <div class="mini-art">
+          <img data-alt="Macro vinyl record grooves in grayscale." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK83vGRsr1fK4I6t02MGQrqrFJJlJ-4CyL8M7M8FdpvZPoUApfEDw0wHkb1XoLq8CKk1BUFR56OK30qS72HiBzZEaRjzeaVihBqjIiQsuEo2aKVibmqZGl3TnXnixG01CHjbGElGliZlDkKBWbFSnMZPUaEeUq6eknZdpvWaHxf2r7X2mwOWG_hnuZ8jbOFgq26cn5_sxnKx6zXhxHlzdq906-pb217ETpIX-ocYvDnaQHtOpgu4mQ">
+        </div>
+        <div class="mini-info">
+          <span class="mini-title">Ghost Hardware</span>
+          <span class="mini-artist">Burial</span>
+        </div>
+      </div>
+      <div class="mini-right">
+        <button class="mini-btn" onclick="event.preventDefault();">
+          <svg viewBox="0 0 24 24">
+            <rect x="4" y="4" width="16" height="11" rx="2" ry="2"></rect>
+            <rect x="12" y="15" width="4" height="5" rx="1" ry="1"></rect>
+            <line x1="2" y1="20" x2="22" y2="20"></line>
+          </svg>
+        </button>
+        <button class="mini-btn" onclick="event.preventDefault();">
+          <svg viewBox="0 0 24 24">
+            <polygon points="5 3 19 12 5 21 5 3" style="fill: currentColor;"></polygon>
+          </svg>
+        </button>
+      </div>
+      <div class="mini-progress-bar">
+        <div class="mini-progress-fill"></div>
+      </div>
+    </a>
+
+    <!-- Bottom Navigation Bar (Library Active) -->
+    <nav class="bottom-nav">
+      <!-- Home -->
+      <a class="nav-item" href="../1._home/code.html">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      <!-- Search -->
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span>Search</span>
+      </a>
+
+      <!-- Library (Active) -->
+      <a class="nav-item active" href="../2._library/code.html">
+        <span class="nav-active-pill">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+          </svg>
+          <span>Library</span>
+        </span>
+      </a>
+
+      <!-- Premium -->
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        <span>Premium</span>
+      </a>
+    </nav>
+  </div>
+
+</body>
+</html>

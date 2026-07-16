@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blend Created</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Typography */
+      --font-serif: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+
+      --fs-xs: 0.75rem;    /* 12 */
+      --fs-sm: 0.875rem;   /* 14 */
+      --fs-base: 1rem;     /* 16 */
+      --fs-md: 1.125rem;   /* 18 */
+      --fs-lg: 1.375rem;   /* 22 */
+      --fs-xl: 1.75rem;    /* 28 */
+      --fs-2xl: 2.25rem;   /* 36 */
+      --fs-3xl: 3rem;      /* 48 */
+
+      --fw-light: 300;
+      --fw-regular: 400;
+      --fw-medium: 500;
+      --fw-semibold: 600;
+      --fw-bold: 700;
+
+      --lh-tight: 1.1;
+      --lh-snug: 1.25;
+      --lh-normal: 1.5;
+      --lh-relaxed: 1.7;
+
+      --ls-tight: -0.02em;
+      --ls-normal: 0;
+      --ls-wide: 0.04em;
+      --ls-widest: 0.18em;
+
+      /* Colors — surfaces */
+      --color-bg: #FAF8F6;
+      --color-bg-alt: #F3EFEA;
+      --color-surface: #FFFFFF;
+      --color-surface-2: #FBF9F6;
+      --color-surface-3: #F5F1EC;
+      --color-border: #E8E1D8;
+      --color-border-soft: #EFE9E0;
+
+      /* Colors — ink */
+      --color-ink: #1F1B16;
+      --color-ink-2: #4A433B;
+      --color-ink-3: #6F665B;
+      --color-ink-4: #9A9082;
+      --color-ink-5: #BFB5A6;
+
+      /* Primary — soft rose */
+      --color-primary: #C98B86;
+      --color-primary-deep: #A86964;
+      --color-primary-soft: #F4DAD6;
+      --color-primary-tint: #FBEEEC;
+
+      /* Spacing — 8px system */
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 20px;
+      --sp-6: 24px;
+      --sp-7: 32px;
+      --sp-8: 40px;
+      --sp-9: 48px;
+      --sp-10: 64px;
+
+      /* Radius */
+      --r-xs: 4px;
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 16px;
+      --r-xl: 20px;
+      --r-full: 999px;
+
+      /* Shadows */
+      --sh-xs: 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-sm: 0 2px 6px rgba(31, 27, 22, 0.05), 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-md: 0 6px 18px rgba(31, 27, 22, 0.06), 0 2px 6px rgba(31, 27, 22, 0.04);
+      --sh-lg: 0 14px 36px rgba(31, 27, 22, 0.08), 0 6px 14px rgba(31, 27, 22, 0.05);
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --tr-base: 240ms var(--ease-out);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--fs-base);
+      line-height: var(--lh-normal);
+      color: var(--color-ink);
+      background-color: var(--color-bg-alt);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .mobile-container {
+      max-width: 430px;
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--color-surface);
+      border-left: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding-top: 56px; /* header */
+      padding-bottom: 64px; /* bottom nav */
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 56px;
+      background-color: rgba(250, 248, 246, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-border-soft);
+      display: flex;
+      align-items: center;
+      padding: 0 var(--sp-4);
+      z-index: 100;
+      justify-content: space-between;
+    }
+
+    .back-btn, .more-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-ink);
+      background: transparent;
+      border: none;
+      transition: background 150ms var(--ease-out);
+    }
+
+    .back-btn:hover, .more-btn:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-md);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    main {
+      padding: var(--sp-6) var(--sp-5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-6);
+      flex-grow: 1;
+      justify-content: center;
+    }
+
+    /* Large Artwork block */
+    .artwork-container {
+      position: relative;
+      width: 100%;
+      max-width: 260px;
+      aspect-ratio: 1;
+      border-radius: var(--r-xl);
+      overflow: visible; /* to allow badge to overflow nicely */
+    }
+
+    .artwork-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--sh-md);
+      background: var(--grad-chrome-soft);
+    }
+
+    .artwork-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      mix-blend-mode: multiply;
+    }
+
+    .success-badge {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--r-full);
+      background-color: var(--color-ink);
+      color: var(--color-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--sh-lg);
+      border: 2px solid var(--color-surface);
+      z-index: 10;
+    }
+
+    .success-badge svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+      stroke-width: 3;
+      fill: none;
+    }
+
+    /* Texts */
+    .text-center {
+      text-align: center;
+      max-width: 300px;
+    }
+
+    .text-center h2 {
+      font-family: var(--font-serif);
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-medium);
+      color: var(--color-ink);
+      margin-bottom: var(--sp-2);
+    }
+
+    .text-center p {
+      font-size: var(--fs-sm);
+      color: var(--color-ink-3);
+      line-height: var(--lh-relaxed);
+    }
+
+    /* Actions Stack */
+    .actions-stack {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+
+    .btn {
+      width: 100%;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      font-family: var(--font-sans);
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-medium);
+      border-radius: var(--r-full);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 150ms var(--ease-out), background-color 150ms var(--ease-out);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      box-shadow: var(--sh-sm);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-primary-deep);
+    }
+
+    .btn-primary svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .btn-secondary {
+      background-color: var(--color-surface);
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    .btn-secondary svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+    }
+
+    /* Members card */
+    .members-card {
+      width: 100%;
+      background-color: var(--color-surface-2);
+      border: 1px solid var(--color-border-soft);
+      border-radius: var(--r-xl);
+      padding: var(--sp-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+
+    .member-row {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+    }
+
+    .member-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-full);
+      background: var(--grad-chrome-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+      border: 1px solid var(--color-border-soft);
+      overflow: hidden;
+    }
+
+    .member-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      mix-blend-mode: multiply;
+    }
+
+    .member-info {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .member-name {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    .member-role {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-4);
+    }
+
+    .divider {
+      height: 1px;
+      background-color: var(--color-border-soft);
+    }
+
+    /* Fixed Bottom Navigation (Library Active) */
+    nav.bottom-nav {
+      position: fixed;
+      bottom: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 64px;
+      background-color: var(--color-surface-2);
+      border-top: 1px solid var(--color-border-soft);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+      padding: 0 var(--sp-4);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--color-ink-3);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      gap: 2px;
+      width: 72px;
+      height: 100%;
+      transition: color 150ms var(--ease-out);
+    }
+
+    .nav-item svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    .nav-item:hover {
+      color: var(--color-ink);
+    }
+
+    .nav-item.active {
+      color: var(--color-primary-deep);
+    }
+
+    .nav-item.active svg {
+      stroke: var(--color-primary-deep);
+      stroke-width: 2;
+    }
+
+    .nav-active-pill {
+      background-color: var(--color-primary-tint);
+      padding: var(--sp-1) var(--sp-4);
+      border-radius: var(--r-full);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-container">
+    <!-- Header -->
+    <header>
+      <button class="back-btn" onclick="location.href='../8._processing/code.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+      <div class="header-title">Now Playing</div>
+      <button class="more-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="1"></circle>
+          <circle cx="12" cy="5" r="1"></circle>
+          <circle cx="12" cy="19" r="1"></circle>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Success artwork -->
+      <div class="artwork-container">
+        <div class="artwork-inner">
+          <img data-alt="A sleek, high-end digital music album cover featuring minimalist grayscale geometry. The design uses overlapping circles and clean lines to represent a collaborative musical blend. The lighting is soft and professional, reflecting a modern light-mode interface. The color palette is strictly monochrome, with deep black and clean white surfaces creating a sophisticated, functional minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJr537VvB129fVFv38hLTiXh4k4i20qTrIWwwKF_AmIn5W3CVr9NpjYrCBCTazkNYeS-77rTpmJuoYRX_IiLnBsu5JM-IhAFHZDhm5UD5VuoKvKJHVsqu8B24DjUeYl3dK1UP6obFP3dWgM-_rxB2FPv_kzjZ3gLu5pA6te0l0R6lfKdSqKdNRBDV6iQgB9cJ7W1AAvOzWqdmz7JJTfymeaxXWb_-9r3rODBMn7WX69bTGz73F7tt0">
+        </div>
+        <div class="success-badge">
+          <!-- Checkmark SVG -->
+          <svg viewBox="0 0 24 24">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Text Header -->
+      <div class="text-center">
+        <h2>Blend Created!</h2>
+        <p>Your shared playlist with Alex is ready.</p>
+      </div>
+
+      <!-- Action Stack -->
+      <div class="actions-stack">
+        <button class="btn btn-primary" onclick="location.href='../10._blend_playlist/code.html'">
+          <svg viewBox="0 0 24 24">
+            <polygon points="6 4 20 12 6 20 6 4"></polygon>
+          </svg>
+          <span>Open Playlist</span>
+        </button>
+
+        <button class="btn btn-secondary">
+          <svg viewBox="0 0 24 24">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+          <span>Share</span>
+        </button>
+      </div>
+
+      <!-- Members checklist details -->
+      <div class="members-card">
+        <!-- Row 1 -->
+        <div class="member-row">
+          <div class="member-avatar">
+            <img data-alt="A high-contrast black and white portrait of a person with a neutral expression, styled as a minimalist avatar for a professional user profile. The background is a clean white studio setting with soft lighting that emphasizes the architectural shapes of the face." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMyRhJJ7JSaateGuu13Z3nQGzA0NY-E7Kcb-z7Nnxf9JaeEo04HBoKjvWil0VdV0wGCkWfg6WOiqDlJg3en6B_nmwIUuU7KgkCtpOIeNM_K7fOftdDlNGhkn78VFGqXJPQhJKjEJofKmqJgEJ4YpKc_70XEXb5Qpfk38AeBx3u7MJPIpb_UfBPY7t0TF1dVVw20ptXnuBuq1zMitOGHEIvfYDbbzLjObK11Hibjf6qhIZSyy6I_dLQ">
+          </div>
+          <div class="member-info">
+            <span class="member-name">You</span>
+            <span class="member-role">50% influence</span>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Row 2 -->
+        <div class="member-row">
+          <div class="member-avatar">
+            <img data-alt="A professional minimalist avatar of a friend, presented in grayscale. The lighting is high-key and soft, fitting a modern digital design aesthetic. The subject is centered and clearly defined against a light gray studio background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6d6sOy7GqRLh31qRb8tt_yFHordW1bKb669nH6V2eJ-nI-ib0M8jTegffc9nx-gKjht323fMbGqbET7TTMnr6P0oy2o4NCc0AHx5BavIZJtj61gqzXT4FN-vQe4XPN8UrfztaxC9SVBHLTjE4SnyrNHcsnfQf_AcZmdPiu9UbO4tRHp40rIPEQvP4tvMZ7D_e-Jz1DwlYX7Rdqz5N6vM2yN-oO1gpQAfDo-WS3yn6kFN4Fktp8yT1">
+          </div>
+          <div class="member-info">
+            <span class="member-name">Alex</span>
+            <span class="member-role">50% influence</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom Navigation Bar (Library Active) -->
+    <nav class="bottom-nav">
+      <!-- Home -->
+      <a class="nav-item" href="../1._home/code.html">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      <!-- Search -->
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span>Search</span>
+      </a>
+
+      <!-- Library (Active) -->
+      <a class="nav-item active" href="../2._library/code.html">
+        <span class="nav-active-pill">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+          </svg>
+          <span>Library</span>
+        </span>
+      </a>
+
+      <!-- Premium -->
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        <span>Premium</span>
+      </a>
+    </nav>
+  </div>
+
+</body>
+</html>

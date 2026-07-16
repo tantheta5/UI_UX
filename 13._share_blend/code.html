@@ -1,0 +1,288 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>Share Blend - Now Playing</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2f3132",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "surface-container-highest": "#e2e2e3",
+                    "surface-tint": "#5e5e5e",
+                    "error-container": "#ffdad6",
+                    "surface": "#f9f9fa",
+                    "primary-fixed": "#e2e2e2",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-secondary-fixed": "#1a1b22",
+                    "surface-bright": "#f9f9fa",
+                    "on-primary-fixed": "#1b1b1b",
+                    "on-error-container": "#93000a",
+                    "background": "#f9f9fa",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#dadadb",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "surface-container-high": "#e8e8e9",
+                    "on-background": "#1a1c1d",
+                    "primary": "#000000",
+                    "outline-variant": "#cfc4c5",
+                    "on-surface-variant": "#4c4546",
+                    "on-tertiary-container": "#848484",
+                    "on-primary-container": "#848484",
+                    "surface-container-low": "#f3f3f4",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1a1c1d",
+                    "secondary-fixed": "#e3e1ec",
+                    "surface-variant": "#e2e2e3",
+                    "secondary-container": "#e3e1ec",
+                    "tertiary": "#000000",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "on-secondary-container": "#63646c",
+                    "on-primary-fixed-variant": "#474747",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#e2e2e2",
+                    "on-secondary-fixed-variant": "#46464e",
+                    "on-error": "#ffffff",
+                    "surface-container": "#eeeeef",
+                    "inverse-primary": "#c6c6c6",
+                    "tertiary-container": "#1b1b1b",
+                    "outline": "#7e7576",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "secondary-fixed-dim": "#c6c5cf",
+                    "primary-container": "#1b1b1b",
+                    "secondary": "#5d5e66"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-desktop": "32px",
+                    "gutter": "16px",
+                    "md": "16px",
+                    "margin-mobile": "16px",
+                    "base": "4px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "2xl": "48px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "3xl": "64px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-xl-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-xl-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .scrim {
+            background-color: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(2px);
+        }
+        .bottom-sheet {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .drag-handle {
+            width: 32px;
+            height: 4px;
+            background-color: #D4D4D8;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col overflow-hidden">
+<!-- Top App Bar (Shared Component) -->
+<header class="fixed top-0 w-full z-40 bg-surface text-primary border-b border-outline-variant flex items-center justify-between px-margin-mobile h-14 w-full">
+<button class="w-11 h-11 flex items-center justify-center hover:bg-surface-container-high rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md">Now Playing</h1>
+<button class="w-11 h-11 flex items-center justify-center hover:bg-surface-container-high rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</header>
+<!-- Main Content (Canvas) -->
+<main class="flex-1 mt-14 mb-16 overflow-y-auto px-margin-mobile py-lg flex flex-col items-center">
+<!-- Asymmetric Album Art Layout -->
+<div class="relative w-full max-w-md aspect-square mb-lg group">
+<div class="absolute inset-0 bg-surface-container border border-outline-variant rounded-xl rotate-3 scale-95 transition-transform group-hover:rotate-0"></div>
+<div class="absolute inset-0 bg-surface-container-high border border-outline-variant rounded-xl -rotate-2 scale-95 transition-transform group-hover:rotate-0"></div>
+<div class="relative w-full h-full bg-surface-container-highest border border-outline-variant rounded-xl overflow-hidden flex items-center justify-center">
+<img class="w-full h-full object-cover grayscale opacity-80" data-alt="A minimalist grayscale architectural photograph of a spiral staircase from a low angle, highlighting sharp geometric lines and soft shadows. The lighting is cold and clinical, emphasizing the functional design system. Pristine white and deep black tones dominate the frame." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5n8_IFUgDk1vskHiLo74zW_JB3SkWZhHNHBC7QOaw2AtrxznBTuZUw_HVxm9ElzHpxHY_iScubcHy4lOlB9d1QatO-pEw43W1P18wVzX8rMzL8zzeN1o2SU_pELGF66d7G7aED6_RPEnFiFAcgEg51WFpAE3FPv5n2wWJGEfjSZ61JDxqY8NkRMZAKN4rsmhhQIMkNjagQJZAv_h8uEvy-S7bW-kLjBKIhTckXmEp5JPAyPmdJ5sr">
+<div class="absolute bottom-md left-md right-md">
+<p class="font-headline-lg text-headline-lg text-on-surface">Midnight City</p>
+<p class="font-body-md text-body-md text-on-surface-variant">The Echo Collective</p>
+</div>
+</div>
+</div>
+<!-- Controls Placeholder -->
+<div class="w-full max-w-md flex flex-col gap-lg">
+<div class="w-full bg-surface-container-low h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-1/3"></div>
+</div>
+<div class="flex justify-between items-center px-lg">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="shuffle">shuffle</span>
+<span class="material-symbols-outlined text-on-surface text-4xl" data-icon="skip_previous">skip_previous</span>
+<div class="w-16 h-16 bg-primary text-on-primary rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+<span class="material-symbols-outlined text-on-surface text-4xl" data-icon="skip_next">skip_next</span>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="repeat">repeat</span>
+</div>
+</div>
+</main>
+<!-- Bottom Nav Bar (Shared Component) -->
+<nav class="fixed bottom-0 w-full z-40 bg-surface-container text-primary border-t border-outline-variant flex justify-around items-center h-16 px-4 pb-safe">
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-label-sm text-label-sm">Search</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1">
+<span class="material-symbols-outlined" data-icon="library_music">library_music</span>
+<span class="font-label-sm text-label-sm">Library</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1">
+<span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>
+<span class="font-label-sm text-label-sm">Premium</span>
+</div>
+</nav>
+<!-- Share Overlay (The Task) -->
+<div class="fixed inset-0 z-[60] flex flex-col justify-end" id="share-overlay">
+<!-- Scrim -->
+<div class="absolute inset-0 scrim" onclick="closeShare()"></div>
+<!-- Bottom Sheet -->
+<div class="bottom-sheet relative w-full bg-surface-container-lowest rounded-t-xl p-lg flex flex-col gap-lg shadow-2xl max-w-lg mx-auto transform translate-y-0">
+<!-- Drag Handle -->
+<div class="w-full flex justify-center mb-base">
+<div class="drag-handle"></div>
+</div>
+<div class="flex flex-col gap-xs">
+<h2 class="font-headline-md text-headline-md text-on-surface">Share Blend</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Spread the rhythm with your network</p>
+</div>
+<!-- Bento Grid of Sharing Destinations -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-md">
+<!-- Destination: Copy Link -->
+<button class="flex flex-col items-center gap-sm p-md bg-surface-container-low border border-outline-variant rounded-lg hover:bg-surface-container-high transition-colors group">
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-surface-container-highest group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="content_copy">content_copy</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Copy Link</span>
+</button>
+<!-- Destination: Instagram -->
+<button class="flex flex-col items-center gap-sm p-md bg-surface-container-low border border-outline-variant rounded-lg hover:bg-surface-container-high transition-colors group">
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-surface-container-highest group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="camera">camera</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Instagram</span>
+</button>
+<!-- Destination: Twitter -->
+<button class="flex flex-col items-center gap-sm p-md bg-surface-container-low border border-outline-variant rounded-lg hover:bg-surface-container-high transition-colors group">
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-surface-container-highest group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="nest_multi_room">nest_multi_room</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Twitter</span>
+</button>
+<!-- Destination: Messaging -->
+<button class="flex flex-col items-center gap-sm p-md bg-surface-container-low border border-outline-variant rounded-lg hover:bg-surface-container-high transition-colors group">
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-surface-container-highest group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="chat">chat</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Messages</span>
+</button>
+</div>
+<!-- Preview Card -->
+<div class="w-full p-md bg-surface-container border border-outline-variant rounded-lg flex items-center gap-md">
+<div class="w-12 h-12 bg-surface-container-highest rounded border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover grayscale" data-alt="A macro shot of a single vinyl record groove, captured in high-contrast black and white. The lighting is dramatic, casting deep shadows within the fine ridges of the vinyl. The aesthetic is sophisticated and minimalist, focusing on structural detail and grayscale tonal range." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3hf-1sGbeYIVIeV48aA_4yjs-Ynl8f4XcGdtYniIf8L5GNDnJCkOBd_ZEhR1gwweGQVbnhJ00nd2UscwvHCS1E7LEAbN3fSFgljLau_FCCscGNXDMm50Js57s7kqNk0g_N-o4nczgjOMww1JWvvFaVhpikRktmF9KsECXjhxNOUNVnMHsz_T-YvhEeVC5nZ36KvF8oatMA_E8Pape3_H9C3cuoZ4YGTMWsQYQPzlxXIBhLSX46bW8">
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="font-label-md text-label-md text-on-surface truncate">Midnight City - Radio Edit</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">theblend.app/v/39420</p>
+</div>
+</div>
+<!-- Primary Action Button -->
+<button class="w-full h-12 bg-primary text-on-primary font-label-md text-label-md rounded-lg flex items-center justify-center gap-sm hover:opacity-90 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+                Share
+            </button>
+<button class="w-full h-10 border border-outline-variant text-on-surface-variant font-label-md text-label-md rounded-lg hover:bg-surface-container-low transition-colors" onclick="closeShare()">
+                Cancel
+            </button>
+</div>
+</div>
+<script>
+        function closeShare() {
+            const overlay = document.getElementById('share-overlay');
+            const sheet = overlay.querySelector('.bottom-sheet');
+            
+            sheet.classList.add('translate-y-full');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 300);
+        }
+
+        // Lightweight animation for album art rotation on hover
+        const card = document.querySelector('.group');
+        if (card) {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const xc = rect.width / 2;
+                const yc = rect.height / 2;
+                const dx = x - xc;
+                const dy = y - yc;
+                card.style.transform = `perspective(1000px) rotateY(${dx / 20}deg) rotateX(${-dy / 20}deg)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg)`;
+            });
+        }
+    </script>
+</body></html>

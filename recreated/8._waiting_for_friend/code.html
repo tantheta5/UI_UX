@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waiting for Friend</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Typography */
+      --font-serif: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+
+      --fs-xs: 0.75rem;    /* 12 */
+      --fs-sm: 0.875rem;   /* 14 */
+      --fs-base: 1rem;     /* 16 */
+      --fs-md: 1.125rem;   /* 18 */
+      --fs-lg: 1.375rem;   /* 22 */
+      --fs-xl: 1.75rem;    /* 28 */
+      --fs-2xl: 2.25rem;   /* 36 */
+      --fs-3xl: 3rem;      /* 48 */
+
+      --fw-light: 300;
+      --fw-regular: 400;
+      --fw-medium: 500;
+      --fw-semibold: 600;
+      --fw-bold: 700;
+
+      --lh-tight: 1.1;
+      --lh-snug: 1.25;
+      --lh-normal: 1.5;
+      --lh-relaxed: 1.7;
+
+      --ls-tight: -0.02em;
+      --ls-normal: 0;
+      --ls-wide: 0.04em;
+      --ls-widest: 0.18em;
+
+      /* Colors — surfaces */
+      --color-bg: #FAF8F6;
+      --color-bg-alt: #F3EFEA;
+      --color-surface: #FFFFFF;
+      --color-surface-2: #FBF9F6;
+      --color-surface-3: #F5F1EC;
+      --color-border: #E8E1D8;
+      --color-border-soft: #EFE9E0;
+
+      /* Colors — ink */
+      --color-ink: #1F1B16;
+      --color-ink-2: #4A433B;
+      --color-ink-3: #6F665B;
+      --color-ink-4: #9A9082;
+      --color-ink-5: #BFB5A6;
+
+      /* Primary — soft rose */
+      --color-primary: #C98B86;
+      --color-primary-deep: #A86964;
+      --color-primary-soft: #F4DAD6;
+      --color-primary-tint: #FBEEEC;
+
+      /* Spacing — 8px system */
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 20px;
+      --sp-6: 24px;
+      --sp-7: 32px;
+      --sp-8: 40px;
+      --sp-9: 48px;
+      --sp-10: 64px;
+
+      /* Radius */
+      --r-xs: 4px;
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 16px;
+      --r-xl: 20px;
+      --r-full: 999px;
+
+      /* Shadows */
+      --sh-xs: 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-sm: 0 2px 6px rgba(31, 27, 22, 0.05), 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-md: 0 6px 18px rgba(31, 27, 22, 0.06), 0 2px 6px rgba(31, 27, 22, 0.04);
+      --sh-lg: 0 14px 36px rgba(31, 27, 22, 0.08), 0 6px 14px rgba(31, 27, 22, 0.05);
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --tr-base: 240ms var(--ease-out);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--fs-base);
+      line-height: var(--lh-normal);
+      color: var(--color-ink);
+      background-color: var(--color-bg-alt);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .mobile-container {
+      max-width: 430px;
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--color-surface);
+      border-left: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding-top: 56px; /* header */
+      padding-bottom: 64px; /* bottom nav */
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 56px;
+      background-color: rgba(250, 248, 246, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-border-soft);
+      display: flex;
+      align-items: center;
+      padding: 0 var(--sp-4);
+      z-index: 100;
+      justify-content: space-between;
+    }
+
+    .back-btn, .more-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-ink);
+      background: transparent;
+      border: none;
+      transition: background 150ms var(--ease-out);
+    }
+
+    .back-btn:hover, .more-btn:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-md);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    main {
+      padding: var(--sp-6) var(--sp-5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-grow: 1;
+      justify-content: center;
+    }
+
+    .status-intro {
+      text-align: center;
+      margin-bottom: var(--sp-6);
+    }
+
+    .status-intro h2 {
+      font-family: var(--font-serif);
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-medium);
+      color: var(--color-ink);
+      margin-bottom: var(--sp-1);
+    }
+
+    .status-intro p {
+      font-size: var(--fs-sm);
+      color: var(--color-ink-3);
+    }
+
+    /* Concentric Connection Visualizer */
+    .connection-visualizer {
+      position: relative;
+      width: 100%;
+      max-width: 280px;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--sp-6);
+    }
+
+    .pulse-ring {
+      position: absolute;
+      border: 1px solid var(--color-border);
+      border-radius: var(--r-full);
+      opacity: 0.4;
+    }
+
+    .pulse-ring-1 { width: 100%; height: 100%; animation: pulse 3s infinite ease-in-out; }
+    .pulse-ring-2 { width: 80%; height: 80%; animation: pulse 3s infinite ease-in-out 1s; }
+    .pulse-ring-3 { width: 60%; height: 60%; animation: pulse 3s infinite ease-in-out 2s; }
+
+    @keyframes pulse {
+      0% { transform: scale(0.96); opacity: 0.6; }
+      50% { transform: scale(1.04); opacity: 0.2; }
+      100% { transform: scale(0.96); opacity: 0.6; }
+    }
+
+    .connection-line {
+      position: absolute;
+      width: 80%;
+      height: 1px;
+      border-top: 2px dashed var(--color-border);
+      z-index: 2;
+    }
+
+    .avatars-row {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 var(--sp-2);
+      z-index: 5;
+    }
+
+    .avatar-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-2);
+    }
+
+    .avatar-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: var(--r-full);
+      background: var(--grad-chrome);
+      border: 2px solid var(--color-ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: var(--sh-sm);
+    }
+
+    .avatar-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      mix-blend-mode: multiply;
+    }
+
+    .avatar-circle-placeholder {
+      width: 72px;
+      height: 72px;
+      border-radius: var(--r-full);
+      background-color: var(--color-surface-2);
+      border: 2px dashed var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-ink-4);
+      box-shadow: var(--sh-xs);
+    }
+
+    .avatar-circle-placeholder svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .avatar-label {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink-2);
+    }
+
+    /* Syncing Badge */
+    .sync-badge {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--r-full);
+      padding: var(--sp-1) var(--sp-3);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+      box-shadow: var(--sh-sm);
+    }
+
+    .sync-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--color-ink-3);
+      border-radius: var(--r-full);
+      animation: opacityPulse 1.5s infinite;
+    }
+
+    @keyframes opacityPulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    .sync-label {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      color: var(--color-ink-3);
+    }
+
+    /* Bouncing Waiting card */
+    .waiting-card {
+      width: 100%;
+      background-color: var(--color-surface-2);
+      border: 1px solid var(--color-border-soft);
+      border-radius: var(--r-lg);
+      padding: var(--sp-4);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-4);
+      margin-bottom: var(--sp-4);
+    }
+
+    .bouncing-dots {
+      display: flex;
+      gap: 3px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--color-ink);
+      border-radius: var(--r-full);
+      animation: bounce 1.2s infinite ease-in-out;
+    }
+
+    .dot-1 { animation-delay: 0.1s; }
+    .dot-2 { animation-delay: 0.2s; }
+    .dot-3 { animation-delay: 0.3s; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .waiting-text {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    /* Action buttons */
+    .actions-stack {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+      margin-bottom: var(--sp-6);
+    }
+
+    .btn {
+      width: 100%;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sans);
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-medium);
+      border-radius: var(--r-full);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 150ms var(--ease-out), background-color 150ms var(--ease-out);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      box-shadow: var(--sh-sm);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-primary-deep);
+    }
+
+    .btn-secondary {
+      background-color: var(--color-surface);
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    /* Info card */
+    .info-card {
+      width: 100%;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border-soft);
+      border-radius: var(--r-xl);
+      padding: var(--sp-4);
+      display: flex;
+      gap: var(--sp-4);
+      box-shadow: var(--sh-xs);
+    }
+
+    .info-icon-box {
+      color: var(--color-ink-3);
+      display: flex;
+      align-items: flex-start;
+      margin-top: 2px;
+    }
+
+    .info-icon-box svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+    }
+
+    .info-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .info-title {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    .info-desc {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-3);
+      line-height: var(--lh-normal);
+    }
+
+    /* Fixed Bottom Navigation (Library active) */
+    nav.bottom-nav {
+      position: fixed;
+      bottom: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 64px;
+      background-color: var(--color-surface-2);
+      border-top: 1px solid var(--color-border-soft);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+      padding: 0 var(--sp-4);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--color-ink-3);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      gap: 2px;
+      width: 72px;
+      height: 100%;
+      transition: color 150ms var(--ease-out);
+    }
+
+    .nav-item svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    .nav-item:hover {
+      color: var(--color-ink);
+    }
+
+    .nav-item.active {
+      color: var(--color-primary-deep);
+    }
+
+    .nav-item.active svg {
+      stroke: var(--color-primary-deep);
+      stroke-width: 2;
+    }
+
+    .nav-active-pill {
+      background-color: var(--color-primary-tint);
+      padding: var(--sp-1) var(--sp-4);
+      border-radius: var(--r-full);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-container">
+    <!-- Header -->
+    <header>
+      <button class="back-btn" onclick="location.href='../6._invitation_sent/code.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+      <div class="header-title">Now Playing</div>
+      <button class="more-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="1"></circle>
+          <circle cx="12" cy="5" r="1"></circle>
+          <circle cx="12" cy="19" r="1"></circle>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Intro Section -->
+      <section class="status-intro">
+        <h2>Invitation Sent</h2>
+        <p>We're letting them know you're ready.</p>
+      </section>
+
+      <!-- Connection visualizer -->
+      <div class="connection-visualizer">
+        <div class="pulse-ring pulse-ring-1"></div>
+        <div class="pulse-ring pulse-ring-2"></div>
+        <div class="pulse-ring pulse-ring-3"></div>
+        <div class="connection-line"></div>
+        <div class="avatars-row">
+          <!-- User avatar -->
+          <div class="avatar-wrapper">
+            <div class="avatar-circle">
+              <img data-alt="A clean, minimalist portrait of a modern professional, soft natural studio lighting, high-key grayscale aesthetic, simple background, 8k resolution focus on facial clarity and neutral expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAddUoLSLl4uQu0EgzjBbHTuq6RG1OEJP66ukNH9ETVsBvCtHoBN9397uS5nYlXm9aXwN_xMV41XC8odils43NAM5yec1yg8wk4CO5LWbhvhCMJXbPJA-gk4TTMX967wGol6VOOSkk7YKkQk7Sf0PjzPD3a7Uv2T0DPSxIBHwxiz-djjOXOedVggmdQ1nZIV2CYEVsrMRV57EtDQp7d62I19LDzsF8Bkcc73LT_84P_QEAQH5Bj3ot">
+            </div>
+            <span class="avatar-label">You</span>
+          </div>
+
+          <!-- Syncing badge -->
+          <div class="sync-badge">
+            <div class="sync-dot"></div>
+            <span class="sync-label">Syncing...</span>
+          </div>
+
+          <!-- Empty placeholder avatar -->
+          <div class="avatar-wrapper">
+            <div class="avatar-circle-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <span class="avatar-label">Friend</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bouncing waiting indicator -->
+      <div class="waiting-card">
+        <div class="bouncing-dots">
+          <div class="dot dot-1"></div>
+          <div class="dot dot-2"></div>
+          <div class="dot dot-3"></div>
+        </div>
+        <span class="waiting-text">Waiting for friend to join...</span>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="actions-stack">
+        <button class="btn btn-primary" onclick="location.href='../6._invitation_sent/code.html'">Resend Invitation</button>
+        <button class="btn btn-secondary" onclick="location.href='../5._invite_friend/code.html'">Cancel Invitation</button>
+      </div>
+
+      <!-- Info card -->
+      <div class="info-card">
+        <div class="info-icon-box">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+        </div>
+        <div class="info-content">
+          <span class="info-title">While you wait</span>
+          <span class="info-desc">You can explore the library and add tracks to the shared queue. They'll sync automatically once your friend arrives.</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom Navigation Bar (Library Active) -->
+    <nav class="bottom-nav">
+      <!-- Home -->
+      <a class="nav-item" href="../1._home/code.html">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      <!-- Search -->
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span>Search</span>
+      </a>
+
+      <!-- Library (Active) -->
+      <a class="nav-item active" href="../2._library/code.html">
+        <span class="nav-active-pill">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+          </svg>
+          <span>Library</span>
+        </span>
+      </a>
+
+      <!-- Premium -->
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        <span>Premium</span>
+      </a>
+    </nav>
+  </div>
+
+</body>
+</html>

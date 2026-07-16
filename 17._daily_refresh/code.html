@@ -1,0 +1,348 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Daily Refresh - Screen 17</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#e2e2e2",
+                    "secondary": "#5d5e66",
+                    "on-secondary-fixed-variant": "#46464e",
+                    "tertiary-fixed": "#e2e2e2",
+                    "surface-container-high": "#e8e8e9",
+                    "inverse-primary": "#c6c6c6",
+                    "on-primary-fixed": "#1b1b1b",
+                    "inverse-on-surface": "#f0f1f2",
+                    "secondary-fixed-dim": "#c6c5cf",
+                    "surface-container-highest": "#e2e2e3",
+                    "on-surface-variant": "#4c4546",
+                    "inverse-surface": "#2f3132",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-container": "#1b1b1b",
+                    "surface-variant": "#e2e2e3",
+                    "secondary-fixed": "#e3e1ec",
+                    "surface-bright": "#f9f9fa",
+                    "on-tertiary": "#ffffff",
+                    "surface-container": "#eeeeef",
+                    "on-surface": "#1a1c1d",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "on-primary-fixed-variant": "#474747",
+                    "on-primary-container": "#848484",
+                    "on-secondary-container": "#63646c",
+                    "primary": "#000000",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#f3f3f4",
+                    "surface": "#f9f9fa",
+                    "surface-tint": "#5e5e5e",
+                    "on-background": "#1a1c1d",
+                    "outline-variant": "#cfc4c5",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "on-tertiary-container": "#848484",
+                    "secondary-container": "#e3e1ec",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "tertiary": "#000000",
+                    "outline": "#7e7576",
+                    "background": "#f9f9fa",
+                    "surface-dim": "#dadadb",
+                    "on-secondary-fixed": "#1a1b22",
+                    "tertiary-container": "#1b1b1b",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "md": "16px",
+                    "margin-mobile": "16px",
+                    "xl": "32px",
+                    "base": "4px",
+                    "gutter": "16px",
+                    "xs": "4px",
+                    "3xl": "64px",
+                    "lg": "24px",
+                    "margin-desktop": "32px",
+                    "2xl": "48px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-xl-mobile": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-xl-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .playlist-card-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface flex items-center justify-between px-margin-mobile h-14 border-b border-outline-variant">
+<div class="flex items-center gap-md">
+<button class="p-base hover:bg-surface-container-high transition-colors duration-200 rounded-full">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Now Playing</h1>
+</div>
+<button class="p-base hover:bg-surface-container-high transition-colors duration-200 rounded-full">
+<span class="material-symbols-outlined text-primary">more_vert</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-14 pb-20 px-margin-mobile md:px-margin-desktop max-w-4xl mx-auto overflow-y-auto">
+<!-- Bento Grid Section for Layout variety -->
+<section class="mt-lg grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- Hero Highlight / Contextual Notification Card -->
+<div class="md:col-span-3 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col md:flex-row items-center gap-lg relative overflow-hidden">
+<!-- Abstract Design Element (Minimalist Shader/Pattern Simulation) -->
+<div class="absolute right-0 top-0 w-32 h-full opacity-10 pointer-events-none">
+
+</div>
+<div class="w-24 h-24 flex-shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center relative overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist high-fidelity render of a musical blend cover art. Two abstract silhouettes representing profiles merge in a center point using soft gray gradients against a white background. The lighting is soft and studio-like, maintaining a sophisticated black and white aesthetic for a premium digital music service experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABH0IPslh7lF-WF_UcUtTYhPqSoip_yUjCiBEsg-pExgQzcYMD3LbLnRrecwPL8GeQHmHBPUX24l-hhgz2vDMLllvYyYj-Ww6nweCAitm04AvD0JBPzSo5m_K-tk7VX8bFt2z20fybbyD5PvIgiruJPAKZttiXubRSkZ0rRRueWegL6bM6s_AixOZWAWd2lGvXyxYBnWR2CBG0agIRNmvKFdGvVaRB5vbSmnSD8aE3OrngKDzkr1uf">
+<div class="absolute inset-0 bg-black/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl">auto_fix_high</span>
+</div>
+</div>
+<div class="flex-1 text-center md:text-left z-10">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-xs">Your Blend has updated with new songs</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-md">Fresh recommendations based on your listening habits and shared tastes are ready for you.</p>
+</div>
+<div class="z-10 w-full md:w-auto">
+<button class="w-full md:w-auto bg-primary text-on-primary font-label-md text-label-md px-lg py-md rounded-full hover:opacity-90 transition-opacity flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-on-primary">refresh</span>
+                        Refresh Playlist
+                    </button>
+</div>
+</div>
+<!-- Library/Section Items -->
+<div class="md:col-span-2 space-y-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md font-semibold">In your Blend</h3>
+<span class="text-label-sm font-label-sm text-on-surface-variant">24 Songs Updated</span>
+</div>
+<!-- Track List Mockup -->
+<div class="space-y-base bg-surface-container-low rounded-xl p-md border border-outline-variant">
+<div class="flex items-center gap-md p-sm hover:bg-surface-container-high rounded-lg transition-colors cursor-pointer group">
+<div class="w-10 h-10 bg-surface-container-highest rounded border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A minimalist album cover art featuring a singular black circle centered on a light gray background. The aesthetic is clean, functional, and aligns with a high-end modern UI design system. High-key studio lighting ensures clarity and a professional finish." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqTzK5f00JnTJpzB9XRcH223zZXj1JhWdcm2LjnbAG0ojO-gbulbmie6YJppseFINPRgJSeLjTkLmLy9zJCn74wglr1D1S0KkFfTE--b9P2UmAlKZm_fpLhfOASVatNLVf2ZbqrcrT3S8f2Bj5tZCM8mh3-3WJr76z6kxRZq3aUxRAThezJv90HkinN2b4pL5ziqCoqOPMsSKgOBiC7Cazz7TPndDIk7_AZbjl34FZTESAi8UCC_Wd">
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-body-md text-body-md font-medium truncate">Structural Echoes</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">The Grid Collective</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">play_arrow</span>
+</div>
+<div class="flex items-center gap-md p-sm hover:bg-surface-container-high rounded-lg transition-colors cursor-pointer group">
+<div class="w-10 h-10 bg-surface-container-highest rounded border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A minimal typographic album cover design. Bold black sans-serif letters are arranged in a geometric pattern on a pristine white background. The composition follows the golden ratio, creating a balanced and professional visual look suitable for a modern music app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMMYpAVI4dhsOZGwni688Xqtx4bc_sKkrgiYl-dzRGnrSOEPIycSwC-AcLiQtE3V1dpdhK_Ol-h8Fafmxf6UDAOcckFXLwby2xazufKFO3cLyq-YjIsFhubWAU-4OB-ZcJJrLvHy26-ls6Yg5xvN6HUXhqrlGOyXXygJVgRwtMdy8Vx8bjSY1OqpewKOB4bQQ4B7pZI7u9ofA7uz6URTblv9N63V_v6-fTehLcsxG-zu2aFhZJyC-W">
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-body-md text-body-md font-medium truncate">Monochrome Dreams</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Symmetry Sound</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">play_arrow</span>
+</div>
+<div class="flex items-center gap-md p-sm hover:bg-surface-container-high rounded-lg transition-colors cursor-pointer group border-t border-outline-variant/30">
+<div class="w-10 h-10 bg-surface-container-highest rounded border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Abstract architectural photography focusing on a corner of a brutalist building. The stark contrast between sharp concrete lines and the soft gray sky creates a sophisticated, minimalist aesthetic. The image is presented in grayscale to match the app's professional wireframe style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3YhTYpATAkWGOEs6WCi2tJIORL2HU-wbN9Fq5mUbX08m8x-RHwIwx7TjMhq_MjuNf05B7VsuI70xroPft44tes20QqrCYjl-ZY9uUQS75zLrNNKZEBfGU5ApZ7mWnQ3koaMPfa0Y6-ZwO5kR1f-BfVasHto3O2yD8Cu4-r7fy3S1GmFnOVPPqhy2KKKKJnVvzddD7QB6uBIXj2gwGxBmfq2f5H31NrrAaT5U69Y7mp9QQU2SvA_yr">
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-body-md text-body-md font-medium truncate">Minimalist Flow</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Architecture &amp; Beats</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">play_arrow</span>
+</div>
+</div>
+</div>
+<!-- Secondary Info Card (Bento Style) -->
+<div class="bg-surface-container border border-outline-variant rounded-xl p-md flex flex-col justify-between">
+<div>
+<div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-on-primary">groups</span>
+</div>
+<h4 class="font-headline-md text-headline-md font-semibold mb-sm">Blend Stats</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Your taste match with Sarah is at 84% today. You both share a love for high-fidelity ambient tracks.</p>
+</div>
+<button class="mt-lg w-full border border-primary text-primary font-label-md text-label-md py-sm rounded-lg hover:bg-primary/5 transition-colors">
+                    View Details
+                </button>
+</div>
+</section>
+<!-- Recently Played Section -->
+<section class="mt-3xl">
+<h3 class="font-headline-md text-headline-md font-semibold mb-lg">Jump back in</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-md">
+<!-- Card 1 -->
+<div class="group cursor-pointer">
+<div class="aspect-square bg-surface-container-highest rounded-xl border border-outline-variant mb-sm overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A macro photograph of water ripples in a smooth gray pool. The lighting is diffused, creating a serene and calm mood. The image is strictly grayscale, emphasizing texture and form over color, fitting a high-end minimalist interface design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdwen8nem_-chZbas7NFUd08Cvr5g5oFD0lhk7iihID1C5a3V3peALzddMSJKGc8Gz0qf0OrEJCGddK5BDMw8CNh_iebmZFdo09X-w2x1eUAgogYPmDttJDT2WzP0M3Kmct5USccvEQXPZON1vaEg3mOEbc0jLfDC6K0fymrF-wJNNQwi3XQqt73QDnsCGNTmWVDDwVx3gOncQ8NVmO3ceYiy-HdbtfuEIt4PIDH7WnsCSz8LSMDDo">
+<div class="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-on-primary text-lg">play_arrow</span>
+</div>
+</div>
+</div>
+<p class="font-label-md text-label-md font-semibold truncate">Daily Mix 1</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Updated daily</p>
+</div>
+<!-- Card 2 -->
+<div class="group cursor-pointer">
+<div class="aspect-square bg-surface-container-highest rounded-xl border border-outline-variant mb-sm overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A minimal 3D render of three floating spheres of varying sizes. The surfaces are matte gray and white, casting soft shadows on a neutral background. This clean, geometric artwork represents a modern approach to digital music curation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1nlKedB1URWlXvj8Rp3kjn2vrFP2q0I4AHzPyY1GHlQKZtgmFTeUHqY-dJ0LFNSMpkLr58ehQ1oH_LeWAjR3NJ2VK0sCGE3nZe42j6X_yfzjDOfBMGJEYMW22_OGuEk4VNNnhDqbrSq-dkV23lM_FSCqNC0ND3Gs6WeaK3KodTpOWFGaCvyIf--9-mbik2nKs12ZUDF-jEbkd64h435urJHRloWIIhPoFDKEZ-kSzd7URJtHwu4H8">
+</div>
+<p class="font-label-md text-label-md font-semibold truncate">Discover Weekly</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">New music for you</p>
+</div>
+<!-- Card 3 -->
+<div class="group cursor-pointer hidden md:block">
+<div class="aspect-square bg-surface-container-highest rounded-xl border border-outline-variant mb-sm overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="An artistic black and white photo of a vintage record player needle touching a vinyl groove. The focus is sharp on the needle, with a soft bokeh background. The image evokes a sense of quality and classic music appreciation within a modern app framework." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB23tk65eALFRgWv_msHeQ5PcPaTLZFaKuBu1EH8XliFA3JGaGMMSKjcI9bs2BsawS0OIbgG6sdqHMqC9V_KEe5cFk7U9k5BptYEBiNz0Bq4f-5Fw_sW7TocHyZkYTR_8bfGkBVFFajHnjhR--DXembJDrgYJcBlitAXfbNEHeVJnzOq-JhPbn2IVwGpp_nuccbVjOTozEvo6unGZW8g0RoE98G3BD0WFPWmC4t70HWG_f3YaGBUMyG">
+</div>
+<p class="font-label-md text-label-md font-semibold truncate">Focus Flow</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Instrumental focus</p>
+</div>
+<!-- Card 4 -->
+<div class="group cursor-pointer hidden md:block">
+<div class="aspect-square bg-surface-container-highest rounded-xl border border-outline-variant mb-sm overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A clean top-down shot of a minimalist workstation featuring only a high-end headphone set and a sleek laptop. The workspace is bathed in natural window light, creating a bright and airy atmosphere. The grayscale palette maintains professional design consistency." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC18CjxYKtoOhCHCsuKy3D2IgQF4hZJzxhva5281UUJX_lmvwqTAfKJnVXnLPBSAAqXH3WLMdit7DxDKRM9oK6190Z1APOz-F3cQ9xSB2EYZzMLhX6_gevo-SAv8KiloVIi6ffsTNbyy-Y62iXm8VrV1GAFg0Bbn-llPiz1Jhm-FcvnNbx-iw1loc1TweLa7L_1DM4Xa588yQx8mA7PmjX-Bk0Z0KJhvLwL-EkOr_7E4FZKjSe9Z1zm">
+</div>
+<p class="font-label-md text-label-md font-semibold truncate">On Repeat</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Your top tracks</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Navigation Shell -->
+<!-- Bottom Nav for Mobile -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface-container border-t border-outline-variant flex justify-around items-center h-16 px-4 pb-safe">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-sm text-label-sm">Search</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1 scale-95 active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined">library_music</span>
+<span class="font-label-sm text-label-sm">Library</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-label-sm text-label-sm">Premium</span>
+</button>
+</nav>
+<!-- Desktop Sidebar (Hidden on mobile) -->
+<nav class="hidden md:flex fixed left-0 top-14 bottom-0 w-64 bg-surface flex-col p-md border-r border-outline-variant">
+<div class="space-y-sm">
+<button class="w-full flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</button>
+<button class="w-full flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-md text-label-md">Search</span>
+</button>
+<button class="w-full flex items-center gap-md px-md py-sm rounded-lg bg-secondary-container text-on-secondary-container font-semibold">
+<span class="material-symbols-outlined">library_music</span>
+<span class="font-label-md text-label-md">Library</span>
+</button>
+<button class="w-full flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-label-md text-label-md">Premium</span>
+</button>
+</div>
+<div class="mt-auto border-t border-outline-variant pt-md space-y-sm">
+<p class="px-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Playlists</p>
+<button class="w-full text-left px-md py-base font-body-sm text-body-sm hover:text-primary truncate">Late Night Beats</button>
+<button class="w-full text-left px-md py-base font-body-sm text-body-sm hover:text-primary truncate">Study Session</button>
+<button class="w-full text-left px-md py-base font-body-sm text-body-sm hover:text-primary truncate">Morning Focus</button>
+</div>
+</nav>
+<!-- Notification Micro-interaction script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const refreshBtn = document.querySelector('button:has(span:contains("refresh"))') || document.querySelector('button:contains("Refresh Playlist")');
+            if(refreshBtn) {
+                refreshBtn.addEventListener('click', () => {
+                    const icon = refreshBtn.querySelector('.material-symbols-outlined');
+                    if(icon) {
+                        icon.classList.add('animate-spin');
+                        setTimeout(() => {
+                            icon.classList.remove('animate-spin');
+                            alert('Playlist updated with new songs!');
+                        }, 1200);
+                    }
+                });
+            }
+        });
+
+        // Helper for text matching in query selectors if needed
+        window.addEventListener('load', () => {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(btn => {
+                if (btn.innerText.includes('Refresh Playlist')) {
+                   btn.addEventListener('click', function() {
+                        const span = this.querySelector('.material-symbols-outlined');
+                        span.style.animation = 'spin 1s linear infinite';
+                        setTimeout(() => {
+                            span.style.animation = 'none';
+                        }, 1000);
+                   });
+                }
+            });
+        });
+    </script>
+<style>
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</body></html>

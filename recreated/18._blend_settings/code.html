@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blend Settings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Typography */
+      --font-serif: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+
+      --fs-xs: 0.75rem;    /* 12 */
+      --fs-sm: 0.875rem;   /* 14 */
+      --fs-base: 1rem;     /* 16 */
+      --fs-md: 1.125rem;   /* 18 */
+      --fs-lg: 1.375rem;   /* 22 */
+      --fs-xl: 1.75rem;    /* 28 */
+      --fs-2xl: 2.25rem;   /* 36 */
+      --fs-3xl: 3rem;      /* 48 */
+
+      --fw-light: 300;
+      --fw-regular: 400;
+      --fw-medium: 500;
+      --fw-semibold: 600;
+      --fw-bold: 700;
+
+      --lh-tight: 1.1;
+      --lh-snug: 1.25;
+      --lh-normal: 1.5;
+      --lh-relaxed: 1.7;
+
+      --ls-tight: -0.02em;
+      --ls-normal: 0;
+      --ls-wide: 0.04em;
+      --ls-widest: 0.18em;
+
+      /* Colors — surfaces */
+      --color-bg: #FAF8F6;
+      --color-bg-alt: #F3EFEA;
+      --color-surface: #FFFFFF;
+      --color-surface-2: #FBF9F6;
+      --color-surface-3: #F5F1EC;
+      --color-border: #E8E1D8;
+      --color-border-soft: #EFE9E0;
+
+      /* Colors — ink */
+      --color-ink: #1F1B16;
+      --color-ink-2: #4A433B;
+      --color-ink-3: #6F665B;
+      --color-ink-4: #9A9082;
+      --color-ink-5: #BFB5A6;
+
+      /* Primary — soft rose */
+      --color-primary: #C98B86;
+      --color-primary-deep: #A86964;
+      --color-primary-soft: #F4DAD6;
+      --color-primary-tint: #FBEEEC;
+
+      /* Error states */
+      --color-error: #BA1A1A;
+      --color-error-bg: #FFEBE9;
+
+      /* Spacing — 8px system */
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 20px;
+      --sp-6: 24px;
+      --sp-7: 32px;
+      --sp-8: 40px;
+      --sp-9: 48px;
+      --sp-10: 64px;
+
+      /* Radius */
+      --r-xs: 4px;
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 16px;
+      --r-xl: 20px;
+      --r-full: 999px;
+
+      /* Shadows */
+      --sh-xs: 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-sm: 0 2px 6px rgba(31, 27, 22, 0.05), 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-md: 0 6px 18px rgba(31, 27, 22, 0.06), 0 2px 6px rgba(31, 27, 22, 0.04);
+      --sh-lg: 0 14px 36px rgba(31, 27, 22, 0.08), 0 6px 14px rgba(31, 27, 22, 0.05);
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --tr-base: 240ms var(--ease-out);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--fs-base);
+      line-height: var(--lh-normal);
+      color: var(--color-ink);
+      background-color: var(--color-bg-alt);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .mobile-container {
+      max-width: 430px;
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--color-surface);
+      border-left: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding-top: 56px; /* header */
+      padding-bottom: 64px; /* bottom nav */
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 56px;
+      background-color: rgba(250, 248, 246, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-border-soft);
+      display: flex;
+      align-items: center;
+      padding: 0 var(--sp-4);
+      z-index: 100;
+      justify-content: space-between;
+    }
+
+    .back-btn, .more-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-ink);
+      background: transparent;
+      border: none;
+      transition: background 150ms var(--ease-out);
+    }
+
+    .back-btn:hover, .more-btn:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-md);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    main {
+      padding: var(--sp-5) var(--sp-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-6);
+    }
+
+    /* Identity section */
+    .identity-sec {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: var(--sp-4) 0;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin-bottom: var(--sp-4);
+    }
+
+    .circle-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      background: var(--grad-chrome-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .circle-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+      mix-blend-mode: multiply;
+    }
+
+    .edit-badge {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--sh-sm);
+      border: 2px solid var(--color-surface);
+      cursor: pointer;
+      transition: background-color 150ms var(--ease-out);
+    }
+
+    .edit-badge:hover {
+      background-color: var(--color-primary-deep);
+    }
+
+    .edit-badge svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    .identity-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-lg);
+      font-weight: var(--fw-bold);
+      color: var(--color-ink);
+    }
+
+    .identity-desc {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-3);
+      margin-top: 2px;
+    }
+
+    /* Settings block options */
+    .settings-group {
+      background-color: var(--color-surface-2);
+      border: 1px solid var(--color-border-soft);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      box-shadow: var(--sh-xs);
+    }
+
+    .settings-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--sp-4);
+      border-bottom: 1px solid var(--color-border-soft);
+      background: transparent;
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      text-align: left;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      transition: background-color 150ms var(--ease-out);
+    }
+
+    .settings-row:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    .settings-row:last-child {
+      border-bottom: none;
+    }
+
+    .settings-left {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+    }
+
+    .settings-icon {
+      color: var(--color-ink-3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .settings-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+    }
+
+    .settings-label-box {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .settings-label {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    .settings-sublabel {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-4);
+      margin-top: 2px;
+    }
+
+    .settings-chevron {
+      color: var(--color-ink-4);
+      display: flex;
+      align-items: center;
+    }
+
+    .settings-chevron svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .settings-chevron svg.green-plus {
+      stroke: var(--color-primary-deep);
+    }
+
+    /* Destructive items */
+    .row-destructive {
+      color: var(--color-error);
+    }
+
+    .row-destructive:hover {
+      background-color: var(--color-error-bg);
+    }
+
+    .row-destructive .settings-icon,
+    .row-destructive .settings-chevron {
+      color: var(--color-error);
+    }
+
+    /* Switch toggle button */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background-color: var(--color-surface-3);
+      border-radius: var(--r-full);
+      transition: background-color 200ms var(--ease-out);
+      border: 1px solid var(--color-border);
+    }
+
+    .slider::before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 2px;
+      bottom: 2px;
+      background-color: var(--color-surface);
+      border-radius: 50%;
+      transition: transform 200ms var(--ease-out);
+      box-shadow: var(--sh-xs);
+    }
+
+    input:checked + .slider {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary-deep);
+    }
+
+    input:checked + .slider::before {
+      transform: translateX(20px);
+    }
+
+    /* Footer message text */
+    .footer-desc {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-4);
+      line-height: var(--lh-relaxed);
+      text-align: center;
+      padding: 0 var(--sp-4);
+    }
+
+    /* Fixed Bottom Navigation (Library active) */
+    nav.bottom-nav {
+      position: fixed;
+      bottom: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 64px;
+      background-color: var(--color-surface-2);
+      border-top: 1px solid var(--color-border-soft);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+      padding: 0 var(--sp-4);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--color-ink-3);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      gap: 2px;
+      width: 72px;
+      height: 100%;
+      transition: color 150ms var(--ease-out);
+    }
+
+    .nav-item svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    .nav-item:hover {
+      color: var(--color-ink);
+    }
+
+    .nav-item.active {
+      color: var(--color-primary-deep);
+    }
+
+    .nav-item.active svg {
+      stroke: var(--color-primary-deep);
+      stroke-width: 2;
+    }
+
+    .nav-active-pill {
+      background-color: var(--color-primary-tint);
+      padding: var(--sp-1) var(--sp-4);
+      border-radius: var(--r-full);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Toast styling */
+    .toast-overlay {
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-ink);
+      color: var(--color-bg);
+      padding: var(--sp-2) var(--sp-5);
+      border-radius: var(--r-full);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      box-shadow: var(--sh-md);
+      z-index: 150;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms var(--ease-out);
+    }
+
+    .toast-overlay.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-container">
+    <!-- Header -->
+    <header>
+      <button class="back-btn" onclick="location.href='../10._blend_playlist/code.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+      <div class="header-title">Blend Settings</div>
+      <button class="more-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="1"></circle>
+          <circle cx="12" cy="5" r="1"></circle>
+          <circle cx="12" cy="19" r="1"></circle>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Toast Notification -->
+    <div class="toast-overlay" id="toast">Blend deleted successfully</div>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Identity Section -->
+      <section class="identity-sec">
+        <div class="avatar-wrapper">
+          <div class="circle-avatar">
+            <img data-alt="Music Blend icon with overlapping circular waves." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnyhp50PvmNwdWnBK0Yef2ssB2Hlm66qO8UP8xkhCXKFck0FW0ZP9dy4nDom6B02q_mhlrHLYM9VCKR7qBzMkyc60qnn5AWXeTzSERLozVaN-cndkbi4iE9zK772RAlMQRX3CfbgyIijA1AT6nvlB-GI37jU7wbjJ0NhEIj0X5bJg-08au0_yp3gdI8vs7rpqnyL5-c8JmVZo9AtpNk-vuZy8ikdezJmXNnA4YlQVyYPPZY18AMZz-">
+          </div>
+          <button class="edit-badge">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 20h9"></path>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+            </svg>
+          </button>
+        </div>
+        <h2 class="identity-title">Late Night Vibes</h2>
+        <span class="identity-desc">Created by You & 3 others</span>
+      </section>
+
+      <!-- Identity & Access -->
+      <section class="settings-group">
+        <div class="settings-row">
+          <div class="settings-left">
+            <div class="settings-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+              </svg>
+            </div>
+            <div class="settings-label-box">
+              <span class="settings-label">Rename Blend</span>
+            </div>
+          </div>
+          <div class="settings-chevron">
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </div>
+
+        <div class="settings-row">
+          <div class="settings-left">
+            <div class="settings-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <div class="settings-label-box">
+              <span class="settings-label">Manage Friends</span>
+              <span class="settings-sublabel">3 people currently in Blend</span>
+            </div>
+          </div>
+          <div class="settings-chevron">
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </div>
+
+        <a class="settings-row" href="../5._invite_friend/code.html">
+          <div class="settings-left">
+            <div class="settings-icon" style="color: var(--color-primary-deep)">
+              <svg viewBox="0 0 24 24">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="8.5" cy="7" r="4"></circle>
+                <line x1="20" y1="8" x2="20" y2="14"></line>
+                <line x1="17" y1="11" x2="23" y2="11"></line>
+              </svg>
+            </div>
+            <div class="settings-label-box">
+              <span class="settings-label" style="color: var(--color-primary-deep);">Invite More Friends</span>
+            </div>
+          </div>
+          <div class="settings-chevron">
+            <svg viewBox="0 0 24 24" class="green-plus">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </div>
+        </a>
+      </section>
+
+      <!-- Preferences -->
+      <section class="settings-group">
+        <div class="settings-row" style="cursor: default; background: transparent;">
+          <div class="settings-left">
+            <div class="settings-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+            </div>
+            <div class="settings-label-box">
+              <span class="settings-label">Notifications</span>
+            </div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="settings-row" style="cursor: default; background: transparent;">
+          <div class="settings-left">
+            <div class="settings-icon">
+              <svg viewBox="0 0 24 24">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <div class="settings-label-box">
+              <span class="settings-label">Private Blend</span>
+              <span class="settings-sublabel">Only invited friends can view</span>
+            </div>
+          </div>
+          <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Destructive Actions -->
+      <section class="settings-group">
+        <!-- Leave Blend links to the leave blend confirmation modal -->
+        <a class="settings-row row-destructive" href="../17._leave_blend_confirmation/code.html">
+          <div class="settings-left">
+            <div class="settings-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+            </div>
+            <div class="settings-label-box">
+              <span class="settings-label">Leave Blend</span>
+            </div>
+          </div>
+          <div class="settings-chevron">
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </a>
+
+        <!-- Delete Blend triggers simulation alert and toast -->
+        <button class="settings-row row-destructive" onclick="deleteBlend()">
+          <div class="settings-left">
+            <div class="settings-icon">
+              <svg viewBox="0 0 24 24">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+            </div>
+            <div class="settings-label-box">
+              <span class="settings-label">Delete Blend</span>
+            </div>
+          </div>
+          <div class="settings-chevron">
+            <svg viewBox="0 0 24 24">
+              <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+        </button>
+      </section>
+
+      <!-- Footer Info -->
+      <p class="footer-desc">Deleting a blend is permanent and cannot be undone. All shared history will be cleared.</p>
+    </main>
+
+    <!-- Bottom Navigation Bar (Library Active) -->
+    <nav class="bottom-nav">
+      <!-- Home -->
+      <a class="nav-item" href="../1._home/code.html">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      <!-- Search -->
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span>Search</span>
+      </a>
+
+      <!-- Library (Active) -->
+      <a class="nav-item active" href="../2._library/code.html">
+        <span class="nav-active-pill">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+          </svg>
+          <span>Library</span>
+        </span>
+      </a>
+
+      <!-- Premium -->
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        <span>Premium</span>
+      </a>
+    </nav>
+  </div>
+
+  <script>
+    function deleteBlend() {
+      if (confirm("Are you sure you want to delete this Blend?")) {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+          location.href = '../2._library/code.html'; // returns to library
+        }, 1500);
+      }
+    }
+  </script>
+</body>
+</html>

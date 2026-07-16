@@ -1,0 +1,262 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Download Confirmation - Screen 15</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "primary-fixed": "#e2e2e2",
+                "secondary": "#5d5e66",
+                "on-secondary-fixed-variant": "#46464e",
+                "tertiary-fixed": "#e2e2e2",
+                "surface-container-high": "#e8e8e9",
+                "inverse-primary": "#c6c6c6",
+                "on-primary-fixed": "#1b1b1b",
+                "inverse-on-surface": "#f0f1f2",
+                "secondary-fixed-dim": "#c6c5cf",
+                "surface-container-highest": "#e2e2e3",
+                "on-surface-variant": "#4c4546",
+                "inverse-surface": "#2f3132",
+                "primary-fixed-dim": "#c6c6c6",
+                "surface-container-lowest": "#ffffff",
+                "primary-container": "#1b1b1b",
+                "surface-variant": "#e2e2e3",
+                "secondary-fixed": "#e3e1ec",
+                "surface-bright": "#f9f9fa",
+                "on-tertiary": "#ffffff",
+                "surface-container": "#eeeeef",
+                "on-surface": "#1a1c1d",
+                "tertiary-fixed-dim": "#c6c6c6",
+                "on-primary-fixed-variant": "#474747",
+                "on-primary-container": "#848484",
+                "on-secondary-container": "#63646c",
+                "primary": "#000000",
+                "on-tertiary-fixed": "#1b1b1b",
+                "on-secondary": "#ffffff",
+                "on-primary": "#ffffff",
+                "error": "#ba1a1a",
+                "surface-container-low": "#f3f3f4",
+                "surface": "#f9f9fa",
+                "surface-tint": "#5e5e5e",
+                "on-background": "#1a1c1d",
+                "outline-variant": "#cfc4c5",
+                "on-tertiary-fixed-variant": "#474747",
+                "on-tertiary-container": "#848484",
+                "secondary-container": "#e3e1ec",
+                "on-error-container": "#93000a",
+                "error-container": "#ffdad6",
+                "tertiary": "#000000",
+                "outline": "#7e7576",
+                "background": "#f9f9fa",
+                "surface-dim": "#dadadb",
+                "on-secondary-fixed": "#1a1b22",
+                "tertiary-container": "#1b1b1b",
+                "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "spacing": {
+                "sm": "8px",
+                "md": "16px",
+                "margin-mobile": "16px",
+                "xl": "32px",
+                "base": "4px",
+                "gutter": "16px",
+                "xs": "4px",
+                "3xl": "64px",
+                "lg": "24px",
+                "margin-desktop": "32px",
+                "2xl": "48px"
+            },
+            "fontFamily": {
+                "label-md": ["Inter"],
+                "headline-lg": ["Inter"],
+                "body-lg": ["Inter"],
+                "body-md": ["Inter"],
+                "label-sm": ["Inter"],
+                "headline-xl": ["Inter"],
+                "body-sm": ["Inter"],
+                "headline-xl-mobile": ["Inter"],
+                "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "headline-xl-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface overflow-hidden">
+<!-- Top AppBar (From JSON) -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-margin-mobile h-14 w-full bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="arrow_back">arrow_back</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Now Playing</h1>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="more_vert">more_vert</span>
+</header>
+<!-- Background Content: Blend Playlist Screen -->
+<main class="pt-14 pb-16 h-screen overflow-y-auto no-scrollbar px-margin-mobile">
+<!-- Playlist Header (Asymmetric/Bento Pattern) -->
+<div class="mt-md grid grid-cols-2 gap-sm">
+<div class="col-span-1 aspect-square bg-surface-container border border-outline-variant rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover grayscale opacity-80" data-alt="A professional grayscale minimalist wireframe illustration showing a split-screen musical collaboration. On one side, a clean silhouette of a listener with headphones, on the other, a stylized wave pattern representing sound. The lighting is neutral and high-key, emphasizing structural clarity and a modern functional design system with zero color saturation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAddRppeck7d-SupyUavjerzKc8fgA4Bm39kvEykHuoc1VNQUmi1J0WDxH63bTwaA7RYwSmhP1R1WmkCwWxJ-QprRe3t0x_tBUNIuisCZLatdh4KIEkp8WZsUoTnDcr64cNReBU4lhk_so6I5xD8Lj2MNOXzKcWL4ZGIM-Tk_BUbq4LyT5vWaZYJqYQy8eY3-PeREW3yDoLLlti3nZPP7T0dLyNadFheA2PaPPsAQowWHJ7k9oVqW3z">
+</div>
+<div class="col-span-1 flex flex-col justify-end p-sm">
+<div class="bg-surface-container-high px-2 py-1 rounded-full w-fit mb-2">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Blend</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg-mobile leading-tight mb-1">Alex &amp; Jamie's Mix</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Updated today • 52 songs</p>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="flex items-center gap-lg my-lg">
+<div class="flex items-center justify-center w-12 h-12 bg-primary rounded-full">
+<span class="material-symbols-outlined text-on-primary text-3xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+<span class="material-symbols-outlined text-2xl text-on-surface-variant" data-icon="add_circle">add_circle</span>
+<span class="material-symbols-outlined text-2xl text-on-surface-variant" data-icon="download">download</span>
+<span class="material-symbols-outlined text-2xl text-on-surface-variant" data-icon="share">share</span>
+</div>
+<!-- Song List -->
+<section class="flex flex-col gap-sm">
+<!-- Song Item 1 -->
+<div class="flex items-center gap-md py-2 border-b border-surface-container">
+<div class="w-12 h-12 bg-surface-container-highest rounded-lg flex-shrink-0 border border-outline-variant"></div>
+<div class="flex-grow">
+<h3 class="font-label-md text-label-md">Midnight City</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">M83 • Jamie's Pick</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="more_horiz">more_horiz</span>
+</div>
+<!-- Song Item 2 -->
+<div class="flex items-center gap-md py-2 border-b border-surface-container">
+<div class="w-12 h-12 bg-surface-container-highest rounded-lg flex-shrink-0 border border-outline-variant"></div>
+<div class="flex-grow">
+<h3 class="font-label-md text-label-md">Starboy</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">The Weeknd • Alex's Pick</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="more_horiz">more_horiz</span>
+</div>
+<!-- Song Item 3 -->
+<div class="flex items-center gap-md py-2 border-b border-surface-container">
+<div class="w-12 h-12 bg-surface-container-highest rounded-lg flex-shrink-0 border border-outline-variant"></div>
+<div class="flex-grow">
+<h3 class="font-label-md text-label-md">Blinding Lights</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">The Weeknd • Both Liked</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="more_horiz">more_horiz</span>
+</div>
+<!-- Song Item 4 -->
+<div class="flex items-center gap-md py-2 border-b border-surface-container">
+<div class="w-12 h-12 bg-surface-container-highest rounded-lg flex-shrink-0 border border-outline-variant"></div>
+<div class="flex-grow">
+<h3 class="font-label-md text-label-md">Levitating</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Dua Lipa • Alex's Pick</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="more_horiz">more_horiz</span>
+</div>
+</section>
+</main>
+<!-- Modal Scrim/Overlay -->
+<div class="fixed inset-0 z-[60] bg-black/40 flex items-center justify-center px-margin-mobile" id="modal-overlay">
+<!-- Download Confirmation Dialog -->
+<div class="bg-surface w-full max-w-sm rounded-xl overflow-hidden border-2 border-outline-variant animate-in fade-in zoom-in duration-200">
+<div class="p-lg">
+<div class="flex items-center gap-md mb-md">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="download">download</span>
+</div>
+<h2 class="font-headline-md text-headline-md">Download Blend Playlist?</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-xl">
+                    All 52 tracks will be saved to your device for offline listening. This may take up to 450MB of space.
+                </p>
+<div class="flex flex-col gap-sm">
+<!-- Primary Action -->
+<button class="w-full h-12 bg-primary text-on-primary font-label-md text-label-md rounded-lg transition-transform active:scale-95">
+                        Download
+                    </button>
+<!-- Secondary Action -->
+<button class="w-full h-12 bg-white border border-primary text-primary font-label-md text-label-md rounded-lg transition-transform active:scale-95" onclick="document.getElementById('modal-overlay').classList.add('hidden')">
+                        Cancel
+                    </button>
+</div>
+</div>
+<!-- Progress Mockup (Optional context) -->
+<div class="bg-surface-container-low px-lg py-sm border-t border-outline-variant flex items-center gap-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Storage available: 12.4 GB</span>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation Bar (From JSON) -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center h-16 w-full px-4 pb-safe bg-surface-container border-t border-outline-variant">
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-label-sm text-label-sm">Search</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1">
+<span class="material-symbols-outlined" data-icon="library_music" style="font-variation-settings: 'FILL' 1;">library_music</span>
+<span class="font-label-sm text-label-sm">Library</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1">
+<span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>
+<span class="font-label-sm text-label-sm">Premium</span>
+</div>
+</nav>
+<script>
+        // Simple micro-interaction for the close button
+        const closeModal = () => {
+            const overlay = document.getElementById('modal-overlay');
+            overlay.classList.add('opacity-0');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 200);
+        };
+
+        // Adding interaction to background to simulate closing on outside click
+        document.getElementById('modal-overlay').addEventListener('click', (e) => {
+            if (e.target.id === 'modal-overlay') {
+                closeModal();
+            }
+        });
+    </script>
+</body></html>

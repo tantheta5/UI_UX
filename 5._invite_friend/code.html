@@ -1,0 +1,325 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>Invite Friend - Wireframe</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2f3132",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "surface-container-highest": "#e2e2e3",
+                    "surface-tint": "#5e5e5e",
+                    "error-container": "#ffdad6",
+                    "surface": "#f9f9fa",
+                    "primary-fixed": "#e2e2e2",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-secondary-fixed": "#1a1b22",
+                    "surface-bright": "#f9f9fa",
+                    "on-primary-fixed": "#1b1b1b",
+                    "on-error-container": "#93000a",
+                    "background": "#f9f9fa",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#dadadb",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "surface-container-high": "#e8e8e9",
+                    "on-background": "#1a1c1d",
+                    "primary": "#000000",
+                    "outline-variant": "#cfc4c5",
+                    "on-surface-variant": "#4c4546",
+                    "on-tertiary-container": "#848484",
+                    "on-primary-container": "#848484",
+                    "surface-container-low": "#f3f3f4",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1a1c1d",
+                    "secondary-fixed": "#e3e1ec",
+                    "surface-variant": "#e2e2e3",
+                    "secondary-container": "#e3e1ec",
+                    "tertiary": "#000000",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "on-secondary-container": "#63646c",
+                    "on-primary-fixed-variant": "#474747",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#e2e2e2",
+                    "on-secondary-fixed-variant": "#46464e",
+                    "on-error": "#ffffff",
+                    "surface-container": "#eeeeef",
+                    "inverse-primary": "#c6c6c6",
+                    "tertiary-container": "#1b1b1b",
+                    "outline": "#7e7576",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "secondary-fixed-dim": "#c6c5cf",
+                    "primary-container": "#1b1b1b",
+                    "secondary": "#5d5e66"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-desktop": "32px",
+                    "gutter": "16px",
+                    "md": "16px",
+                    "margin-mobile": "16px",
+                    "base": "4px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "2xl": "48px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "3xl": "64px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-xl-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl": ["32px", {"lineHeight": "400px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-xl-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        /* Custom radio logic for selection simulation */
+        .friend-radio:checked + label {
+            background-color: #f4f4f5;
+            border-color: #000000;
+        }
+        .friend-radio:checked + label .check-icon {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface border-b border-outline-variant flex items-center justify-between px-margin-mobile h-14 w-full">
+<div class="flex items-center gap-4">
+<button class="hover:bg-surface-container-high transition-colors duration-200 p-2 rounded-full">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Invite Friend</h1>
+</div>
+<button class="hover:bg-surface-container-high transition-colors duration-200 p-2 rounded-full">
+<span class="material-symbols-outlined text-primary">more_vert</span>
+</button>
+</header>
+<main class="pt-20 pb-32 px-margin-mobile max-w-xl mx-auto min-h-screen">
+<!-- Search Bar Section -->
+<div class="mb-lg">
+<label class="font-label-sm text-label-sm text-on-surface-variant mb-xs block">Search by name or email</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface border border-outline focus:border-primary focus:ring-0 rounded-lg transition-all font-body-md text-body-md" placeholder="Search contacts..." type="text">
+</div>
+</div>
+<!-- Share Invitation Link Card -->
+<div class="bg-surface border border-outline-variant rounded-xl p-md mb-xl flex items-center justify-between">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant">link</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">Invite via Link</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Anyone with the link can join</p>
+</div>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">
+                Share Link
+            </button>
+</div>
+<!-- Recent Friends Section -->
+<div class="mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-md">Select Friends to Invite</h2>
+<div class="space-y-sm" id="friends-list">
+<!-- Friend Item 1 -->
+<div>
+<input class="hidden friend-radio peer" id="friend-1" name="friend-select" onchange="updateCtaState()" type="checkbox">
+<label class="flex items-center justify-between p-md bg-surface border border-outline-variant rounded-lg cursor-pointer hover:bg-surface-container-low transition-all" for="friend-1">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A clean, grayscale minimalist portrait of a young person in profile, set against a solid light gray background. The lighting is soft and flat, emphasizing the functional wireframe aesthetic. The style is strictly neutral, using subtle tonal shifts instead of color to define form." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3kRLQ_yRrBvGbJHYMkfsa4Qh9dBUn37cau5Wpc1XphgQ-1I-_jr_lSdAJSroGwKCH4wHaMwDS_Cu5IMCMNt9SzG-z6UfncwZYGrgridIxZlXVKhBqv_zsnv5mKaaYNj8LSQjMiXAez0a7fqUnuHhP4Th66PMDVLYjCkTlZiUY5-UTpoNoxV8Sd5gQrLn5pfxhUS9qGrPNUJOnOl9qGjxfE2uWYHYm532DYC49T232Lx6YI0yUORh7">
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface">Alex Thompson</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">alex.t@example.com</p>
+</div>
+</div>
+<div class="flex items-center justify-center w-6 h-6 border-2 border-outline-variant rounded peer-checked:bg-primary peer-checked:border-primary transition-colors"><span class="material-symbols-outlined text-on-primary text-sm hidden check-icon">check</span></div>
+</label>
+</div>
+<!-- Friend Item 2 -->
+<div>
+<input class="hidden friend-radio peer" id="friend-2" name="friend-select" onchange="updateCtaState()" type="checkbox">
+<label class="flex items-center justify-between p-md bg-surface border border-outline-variant rounded-lg cursor-pointer hover:bg-surface-container-low transition-all" for="friend-2">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A minimalist grayscale headshot of a middle-aged woman with glasses, smiling softly. The image is rendered in high-contrast black and white with a clean architectural background in the distance. The overall feel is professional, modern, and aligned with a low-fidelity design framework." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmi3a3ko_LGL-mOXN-YPJmTHTebvBPF9_KENz63QAGGk5r7VuTzZcScP_mcZ6UhR_4dOxO1MfcyHdj8NVLs2S1xY6uZ1_UXgxKe7VgRaotlBTqL2HUfpac_OuOZIrm_axBFYttHMvYUmhJE9UaWI4dq7cBxucHOcFAjREhWxzfbU8yq4w9kKWkKjjPhT8jYdpydDVdhdb7gWCl6LZ0y9dOYCWn9A1I0Sh9L8Qp-kzZfMrJQ5sIau9_">
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface">Jordan Reed</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">jordan_r@design.io</p>
+</div>
+</div>
+<div class="flex items-center justify-center w-6 h-6 border-2 border-outline-variant rounded peer-checked:bg-primary peer-checked:border-primary transition-colors"><span class="material-symbols-outlined text-on-primary text-sm hidden check-icon">check</span></div>
+</label>
+</div>
+<!-- Friend Item 3 -->
+<div>
+<input class="hidden friend-radio peer" id="friend-3" name="friend-select" onchange="updateCtaState()" type="checkbox">
+<label class="flex items-center justify-between p-md bg-surface border border-outline-variant rounded-lg cursor-pointer hover:bg-surface-container-low transition-all" for="friend-3">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up grayscale portrait of an individual with textured hair, lit from the side to create dramatic but clean shadows. The background is a flat neutral gray. This image is part of a series for a professional UI wireframe, focusing on clarity and demographic diversity without using vibrant colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALepvm932mPOI9Tpz6C2cW_E5gQHtLsBMkaTLhnYBMVAHqnNhXOUAGgNl2mLRsF3ZKYbLTQtIoF2RE_oWlmrn2qxh8Yj5iLQXUQGqhDQmkFYfixVlV16_3fH8pEIU3I24yyeFKy9uQJ2yomogcbWel1_i1p0v4v_y2Vwv5XhOjBuCC0QZ06hEqzDtsnq-5LjtjyW4TuI22UoQVr7Z5sR2CwQQqQ9guvFxBcAN0jKVLXOy6oz_SynBM">
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface">Casey Morgan</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">casey.m@web.com</p>
+</div>
+</div>
+<div class="flex items-center justify-center w-6 h-6 border-2 border-outline-variant rounded peer-checked:bg-primary peer-checked:border-primary transition-colors"><span class="material-symbols-outlined text-on-primary text-sm hidden check-icon">check</span></div>
+</label>
+</div>
+<!-- Friend Item 4 -->
+<div>
+<input class="hidden friend-radio peer" id="friend-4" name="friend-select" onchange="updateCtaState()" type="checkbox">
+<label class="flex items-center justify-between p-md bg-surface border border-outline-variant rounded-lg cursor-pointer hover:bg-surface-container-low transition-all" for="friend-4">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist headshot of a creative professional in a grayscale palette. The subject is wearing a simple dark turtleneck against a plain off-white studio background. The lighting is diffused and professional, suitable for a high-end application's contact list wireframe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMjkcIqcFnETBuqpllvT7uRD8xWz_w3J0mKT70hi7L8rBTj0_Mv0NPW81Nt5tZPeSBV4yH0anjn0nUlTRiTQIhJfkEWTy-9f4AADjAoO-QMHb-XrCl70gkhsVAj6oYsZ5I8BGskc7sCf4EWoza1A6ZBp08tN4MqsgmW7NitRFZ2ZgeN5kWzl3QNUElJZR0IjEBSs5JbYRg9u7Cq3RPr6ZFOIUxG9bmQ2c3X_kTbk7gs_ID4Vgpsngm">
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface">Taylor Vance</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">tvance@network.net</p>
+</div>
+</div>
+<div class="flex items-center justify-center w-6 h-6 border-2 border-outline-variant rounded peer-checked:bg-primary peer-checked:border-primary transition-colors"><span class="material-symbols-outlined text-on-primary text-sm hidden check-icon">check</span></div>
+</label>
+</div>
+</div>
+</div>
+<!-- Empty State Placeholder (hidden) -->
+<div class="hidden flex-col items-center justify-center py-2xl text-center" id="empty-state">
+<span class="material-symbols-outlined text-on-surface-variant text-5xl mb-md">person_search</span>
+<p class="font-headline-md text-headline-md text-on-surface">No contacts found</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Try searching for another name or email</p>
+</div>
+</main>
+<!-- Bottom Actions Area -->
+<div class="fixed bottom-0 w-full z-50 bg-surface-container border-t border-outline-variant p-md md:px-margin-desktop">
+<div class="max-w-xl mx-auto">
+<button class="w-full bg-on-surface-variant text-on-primary py-4 rounded-xl font-headline-md text-headline-md opacity-50 cursor-not-allowed transition-all duration-300" disabled="" id="send-btn">Send Invitations</button>
+</div>
+</div>
+<!-- Bottom Navigation Shell (Mobile only) -->
+<nav class="md:hidden fixed bottom-16 w-full z-40 bg-surface-container border-t border-outline-variant flex justify-around items-center h-16 px-4 pb-safe">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-sm text-label-sm">Search</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1">
+<span class="material-symbols-outlined">library_music</span>
+<span class="font-label-sm text-label-sm">Library</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-label-sm text-label-sm">Premium</span>
+</button>
+</nav>
+<script>
+        function updateCtaState() {
+            const sendBtn = document.getElementById('send-btn');
+            const radios = document.getElementsByName('friend-select');
+            let isSelected = false;
+
+            for (const radio of radios) {
+                if (radio.checked) {
+                    isSelected = true;
+                    break;
+                }
+            }
+
+            if (isSelected) {
+                sendBtn.disabled = false;
+                sendBtn.classList.remove('bg-on-surface-variant', 'opacity-50', 'cursor-not-allowed');
+                sendBtn.classList.add('bg-primary', 'hover:opacity-90', 'active:scale-95');
+            } else {
+                sendBtn.disabled = true;
+                sendBtn.classList.add('bg-on-surface-variant', 'opacity-50', 'cursor-not-allowed');
+                sendBtn.classList.remove('bg-primary', 'hover:opacity-90', 'active:scale-95');
+            }
+        }
+
+        // Simple search filter simulation
+        const searchInput = document.querySelector('input[type="text"]');
+        const friendItems = document.querySelectorAll('#friends-list > div');
+        const emptyState = document.getElementById('empty-state');
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            let visibleCount = 0;
+
+            friendItems.forEach(item => {
+                const name = item.querySelector('.text-on-surface').textContent.toLowerCase();
+                const email = item.querySelector('.text-on-surface-variant').textContent.toLowerCase();
+                
+                if (name.includes(query) || email.includes(query)) {
+                    item.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            if (visibleCount === 0) {
+                emptyState.classList.remove('hidden');
+                emptyState.classList.add('flex');
+            } else {
+                emptyState.classList.add('hidden');
+                emptyState.classList.remove('flex');
+            }
+        });
+
+        // Click interaction for "Send Invitation"
+        document.getElementById('send-btn').addEventListener('click', () => {
+            alert('Invitation sent successfully!');
+        });
+    </script>
+
+
+</body></html>

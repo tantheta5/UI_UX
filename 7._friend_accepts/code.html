@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Blend Invitation | Now Playing</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2f3132",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "surface-container-highest": "#e2e2e3",
+                    "surface-tint": "#5e5e5e",
+                    "error-container": "#ffdad6",
+                    "surface": "#f9f9fa",
+                    "primary-fixed": "#e2e2e2",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-secondary-fixed": "#1a1b22",
+                    "surface-bright": "#f9f9fa",
+                    "on-primary-fixed": "#1b1b1b",
+                    "on-error-container": "#93000a",
+                    "background": "#f9f9fa",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#dadadb",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "surface-container-high": "#e8e8e9",
+                    "on-background": "#1a1c1d",
+                    "primary": "#000000",
+                    "outline-variant": "#cfc4c5",
+                    "on-surface-variant": "#4c4546",
+                    "on-tertiary-container": "#848484",
+                    "on-primary-container": "#848484",
+                    "surface-container-low": "#f3f3f4",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1a1c1d",
+                    "secondary-fixed": "#e3e1ec",
+                    "surface-variant": "#e2e2e3",
+                    "secondary-container": "#e3e1ec",
+                    "tertiary": "#000000",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "on-secondary-container": "#63646c",
+                    "on-primary-fixed-variant": "#474747",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#e2e2e2",
+                    "on-secondary-fixed-variant": "#46464e",
+                    "on-error": "#ffffff",
+                    "surface-container": "#eeeeef",
+                    "inverse-primary": "#c6c6c6",
+                    "tertiary-container": "#1b1b1b",
+                    "outline": "#7e7576",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "secondary-fixed-dim": "#c6c5cf",
+                    "primary-container": "#1b1b1b",
+                    "secondary": "#5d5e66"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-desktop": "32px",
+                    "gutter": "16px",
+                    "md": "16px",
+                    "margin-mobile": "16px",
+                    "base": "4px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "2xl": "48px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "3xl": "64px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-xl-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-xl-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scrim-overlay {
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface border-b border-outline-variant flex items-center justify-between px-margin-mobile h-14 w-full">
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-surface-container-high transition-colors duration-200 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Blend Invitation</h1>
+</div>
+<button class="p-2 hover:bg-surface-container-high transition-colors duration-200 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">more_vert</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-20 pb-24 px-margin-mobile max-w-xl mx-auto w-full">
+<!-- Hero Section: Invitation Greeting -->
+<section class="flex flex-col items-center text-center mb-xl">
+<div class="relative mb-lg">
+<!-- Decorative element for the avatar -->
+<div class="absolute inset-0 scale-110 rounded-full border border-outline opacity-20"></div>
+<div class="w-32 h-32 rounded-full border border-outline-variant bg-surface-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A minimalist professional portrait of a person named Alex, shot in a high-contrast black and white style. The background is a clean, neutral gallery wall. The lighting is soft and directional, emphasizing facial structure while maintaining a clean, modern aesthetic consistent with a functional minimalist design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOax7iVRvsWhHI_63mIv-JF3dTSRsijsWkA0dQBA3Uxs63ZL_U1m90GF7RnqvZ-dPSc_E_Tw27ZFrYD1T8xAzokfoX2UzdbjT2OeprnZsgt0T71PqwqPzivNnzz4LsGrZl7nKqKn7FCsEu7FTSO0naEGuibgH3asdjwUorKkU7me5BzAluC8EEaWh6V60Df0H2_yQsCG3iFTHbFnIGvL_0XJtNqlD5eAlMppauQDnCHco95GuVVjZ9">
+</div>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg mb-sm">
+                Alex invited you to Blend
+            </h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">
+                A shared playlist that combines your musical tastes with Alex's daily favorites.
+            </p>
+</section>
+<!-- Bento Style Info Section -->
+<div class="grid grid-cols-1 gap-md mb-xl">
+<!-- Feature Card 1 -->
+<div class="p-md bg-surface-container-low border border-outline-variant rounded-xl flex items-start gap-md">
+<div class="p-sm bg-surface-container-highest rounded-lg">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md mb-xs">Dynamic Updates</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">The playlist updates daily as both of you listen to new tracks.</p>
+</div>
+</div>
+<!-- Feature Card 2 -->
+<div class="p-md bg-surface-container-low border border-outline-variant rounded-xl flex items-start gap-md">
+<div class="p-sm bg-surface-container-highest rounded-lg">
+<span class="material-symbols-outlined text-primary">groups</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md mb-xs">Taste Match</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">See how much your music tastes overlap with a personalized score.</p>
+</div>
+</div>
+</div>
+<!-- Call to Action Section -->
+<div class="flex flex-col gap-md">
+<button class="w-full h-12 bg-primary text-on-primary font-label-md text-label-md rounded-full flex items-center justify-center hover:opacity-90 active:scale-95 transition-all">
+                Accept
+            </button>
+<button class="w-full h-12 bg-surface border border-primary text-primary font-label-md text-label-md rounded-full flex items-center justify-center hover:bg-surface-container-high active:scale-95 transition-all">
+                Decline
+            </button>
+</div>
+<!-- Subtle Micro-interaction Area -->
+<div class="mt-xl text-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant italic">
+                Invitations expire in 7 days
+            </p>
+</div>
+</main>
+<!-- Background Decoration (Atmospheric) -->
+<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+<div class="absolute -top-24 -right-24 w-96 h-96 bg-surface-container-highest/20 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-24 -left-24 w-96 h-96 bg-surface-container-highest/20 rounded-full blur-3xl"></div>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface-container border-t border-outline-variant flex justify-around items-center h-16 w-full px-4 pb-safe">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-sm text-label-sm">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1" href="#">
+<span class="material-symbols-outlined">library_music</span>
+<span class="font-label-sm text-label-sm">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-label-sm text-label-sm">Premium</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for button press feel
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.style.transform = 'scale(0.98)';
+            });
+            button.addEventListener('mouseup', () => {
+                button.style.transform = 'scale(1)';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

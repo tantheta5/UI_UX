@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Menu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Typography */
+      --font-serif: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+
+      --fs-xs: 0.75rem;    /* 12 */
+      --fs-sm: 0.875rem;   /* 14 */
+      --fs-base: 1rem;     /* 16 */
+      --fs-md: 1.125rem;   /* 18 */
+      --fs-lg: 1.375rem;   /* 22 */
+      --fs-xl: 1.75rem;    /* 28 */
+      --fs-2xl: 2.25rem;   /* 36 */
+      --fs-3xl: 3rem;      /* 48 */
+
+      --fw-light: 300;
+      --fw-regular: 400;
+      --fw-medium: 500;
+      --fw-semibold: 600;
+      --fw-bold: 700;
+
+      --lh-tight: 1.1;
+      --lh-snug: 1.25;
+      --lh-normal: 1.5;
+      --lh-relaxed: 1.7;
+
+      --ls-tight: -0.02em;
+      --ls-normal: 0;
+      --ls-wide: 0.04em;
+      --ls-widest: 0.18em;
+
+      /* Colors — surfaces */
+      --color-bg: #FAF8F6;
+      --color-bg-alt: #F3EFEA;
+      --color-surface: #FFFFFF;
+      --color-surface-2: #FBF9F6;
+      --color-surface-3: #F5F1EC;
+      --color-border: #E8E1D8;
+      --color-border-soft: #EFE9E0;
+
+      /* Colors — ink */
+      --color-ink: #1F1B16;
+      --color-ink-2: #4A433B;
+      --color-ink-3: #6F665B;
+      --color-ink-4: #9A9082;
+      --color-ink-5: #BFB5A6;
+
+      /* Primary — soft rose */
+      --color-primary: #C98B86;
+      --color-primary-deep: #A86964;
+      --color-primary-soft: #F4DAD6;
+      --color-primary-tint: #FBEEEC;
+
+      /* Spacing — 8px system */
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 20px;
+      --sp-6: 24px;
+      --sp-7: 32px;
+      --sp-8: 40px;
+      --sp-9: 48px;
+      --sp-10: 64px;
+
+      /* Radius */
+      --r-xs: 4px;
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 16px;
+      --r-xl: 20px;
+      --r-full: 999px;
+
+      /* Shadows */
+      --sh-xs: 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-sm: 0 2px 6px rgba(31, 27, 22, 0.05), 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-md: 0 6px 18px rgba(31, 27, 22, 0.06), 0 2px 6px rgba(31, 27, 22, 0.04);
+      --sh-lg: 0 14px 36px rgba(31, 27, 22, 0.08), 0 6px 14px rgba(31, 27, 22, 0.05);
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --tr-base: 240ms var(--ease-out);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--fs-base);
+      line-height: var(--lh-normal);
+      color: var(--color-ink);
+      background-color: var(--color-bg-alt);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden; /* disable body scroll while sheet is up */
+    }
+
+    .mobile-container {
+      max-width: 430px;
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--color-surface);
+      border-left: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding-top: 56px; /* for header */
+      padding-bottom: 72px; /* space for bottom navigation */
+      overflow: hidden;
+    }
+
+    /* MOCKED LIBRARY BACKGROUND (DUMMY CONTENT) */
+    header.dummy-header {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 56px;
+      background-color: var(--color-surface);
+      border-bottom: 1px solid var(--color-border-soft);
+      display: flex;
+      align-items: center;
+      padding: 0 var(--sp-4);
+      justify-content: space-between;
+    }
+
+    main.dummy-main {
+      padding: var(--sp-5) var(--sp-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-5);
+      filter: blur(1px); /* slight blur to simulate background state */
+    }
+
+    .chip-row {
+      display: flex;
+      gap: var(--sp-2);
+    }
+
+    .dummy-chip {
+      padding: 6px 16px;
+      background-color: var(--color-surface-3);
+      border-radius: var(--r-full);
+      font-size: var(--fs-xs);
+      color: var(--color-ink-3);
+    }
+
+    .dummy-chip.active {
+      background-color: var(--color-ink);
+      color: white;
+    }
+
+    .dummy-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2);
+    }
+
+    .dummy-row {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-4);
+      padding: var(--sp-3);
+      border-radius: var(--r-lg);
+      background-color: var(--color-surface-2);
+    }
+
+    .dummy-media {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--r-sm);
+      background: var(--grad-chrome-soft);
+    }
+
+    .dummy-text-block {
+      flex-grow: 1;
+    }
+
+    .dummy-line-1 {
+      height: 12px;
+      width: 100px;
+      background-color: var(--color-border);
+      border-radius: var(--r-xs);
+      margin-bottom: 6px;
+    }
+
+    .dummy-line-2 {
+      height: 10px;
+      width: 160px;
+      background-color: var(--color-border-soft);
+      border-radius: var(--r-xs);
+    }
+
+    /* SCRIM OVERLAY */
+    .scrim {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(31, 27, 22, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+    }
+
+    /* BOTTOM SHEET */
+    .bottom-sheet {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      border-radius: var(--r-xl) var(--r-xl) 0 0;
+      box-shadow: var(--sh-lg);
+      padding: var(--sp-3) var(--sp-5) var(--sp-6);
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+      animation: slideUp var(--tr-base);
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .drag-handle {
+      width: 36px;
+      height: 4px;
+      background-color: var(--color-border);
+      border-radius: var(--r-full);
+      align-self: center;
+      margin-bottom: var(--sp-2);
+    }
+
+    .sheet-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-medium);
+      color: var(--color-ink);
+      margin-bottom: var(--sp-1);
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+
+    .option-row {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-4);
+      padding: var(--sp-4);
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border-soft);
+      border-radius: var(--r-lg);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 150ms var(--ease-out), border-color 150ms var(--ease-out);
+      position: relative;
+    }
+
+    .option-row:hover {
+      background-color: var(--color-surface-2);
+    }
+
+    /* Circle Icon */
+    .option-icon-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--r-full);
+      background-color: var(--color-surface-3);
+      color: var(--color-ink-3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .option-icon-circle svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      fill: none;
+    }
+
+    .option-text-wrapper {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .option-title {
+      font-size: var(--fs-base);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    .option-desc {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-3);
+      margin-top: 2px;
+    }
+
+    /* Highlighted / Selected State for Blend */
+    .option-row.highlighted {
+      border: 1.5px solid var(--color-primary);
+      background-color: var(--color-primary-tint);
+    }
+
+    .option-row.highlighted .option-icon-circle {
+      background-color: var(--color-primary);
+      color: var(--color-surface);
+    }
+
+    .badge-new {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      font-size: 10px;
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-wide);
+      padding: 2px 8px;
+      border-radius: var(--r-full);
+    }
+
+    .btn-cancel {
+      width: 100%;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sans);
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-medium);
+      border-radius: var(--r-full);
+      border: 1.5px solid var(--color-primary);
+      background-color: var(--color-surface);
+      color: var(--color-primary);
+      cursor: pointer;
+      transition: background-color 150ms var(--ease-out);
+      margin-top: var(--sp-2);
+    }
+
+    .btn-cancel:hover {
+      background-color: var(--color-surface-3);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-container">
+    <!-- SCRIM OVERLAY -->
+    <div class="scrim" onclick="location.href='../2._library/code.html'"></div>
+
+    <!-- BOTTOM SHEET CREATE MENU -->
+    <div class="bottom-sheet">
+      <div class="drag-handle"></div>
+      <h2 class="sheet-title">Create</h2>
+
+      <div class="options-list">
+        <!-- Option: Playlist -->
+        <div class="option-row">
+          <div class="option-icon-circle">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 9v6m-3-3h6m-9 8h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z"></path>
+            </svg>
+          </div>
+          <div class="option-text-wrapper">
+            <span class="option-title">Playlist</span>
+            <span class="option-desc">Build a collection of songs</span>
+          </div>
+        </div>
+
+        <!-- Option: Blend (HIGHLIGHTED) -->
+        <a class="option-row highlighted" href="../4._blend_introduction/code.html">
+          <div class="option-icon-circle">
+            <svg viewBox="0 0 24 24">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div class="option-text-wrapper">
+            <span class="option-title">Blend</span>
+            <span class="option-desc">Combine music with a friend</span>
+          </div>
+          <span class="badge-new">New</span>
+        </a>
+
+        <!-- Option: Folder -->
+        <div class="option-row">
+          <div class="option-icon-circle">
+            <svg viewBox="0 0 24 24">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <div class="option-text-wrapper">
+            <span class="option-title">Folder</span>
+            <span class="option-desc">Organize your playlists</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-cancel" onclick="location.href='../2._library/code.html'">Cancel</button>
+    </div>
+
+    <!-- DUMMY BACKGROUND CONTENT FOR MOCK -->
+    <header class="dummy-header">
+      <div class="header-left">
+        <div class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></div>
+        <div class="header-title">Library</div>
+      </div>
+      <div style="width: 36px;"></div>
+    </header>
+
+    <main class="dummy-main">
+      <div class="chip-row">
+        <span class="dummy-chip active">Playlists</span>
+        <span class="dummy-chip">Albums</span>
+        <span class="dummy-chip">Artists</span>
+      </div>
+
+      <div class="dummy-list">
+        <div class="dummy-row">
+          <div class="dummy-media"></div>
+          <div class="dummy-text-block">
+            <div class="dummy-line-1"></div>
+            <div class="dummy-line-2"></div>
+          </div>
+        </div>
+        <div class="dummy-row">
+          <div class="dummy-media"></div>
+          <div class="dummy-text-block">
+            <div class="dummy-line-1"></div>
+            <div class="dummy-line-2"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>

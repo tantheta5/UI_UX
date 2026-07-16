@@ -1,0 +1,269 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .playback-progress-track {
+            height: 4px;
+            background-color: #E4E4E7;
+            position: relative;
+            border-radius: 2px;
+        }
+        .playback-progress-fill {
+            height: 100%;
+            background-color: #000000;
+            border-radius: 2px;
+            width: 35%;
+        }
+        .playback-progress-thumb {
+            position: absolute;
+            right: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background-color: #000000;
+            border-radius: 50%;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#e2e2e2",
+                        "secondary": "#5d5e66",
+                        "on-secondary-fixed-variant": "#46464e",
+                        "tertiary-fixed": "#e2e2e2",
+                        "surface-container-high": "#e8e8e9",
+                        "inverse-primary": "#c6c6c6",
+                        "on-primary-fixed": "#1b1b1b",
+                        "inverse-on-surface": "#f0f1f2",
+                        "secondary-fixed-dim": "#c6c5cf",
+                        "surface-container-highest": "#e2e2e3",
+                        "on-surface-variant": "#4c4546",
+                        "inverse-surface": "#2f3132",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#1b1b1b",
+                        "surface-variant": "#e2e2e3",
+                        "secondary-fixed": "#e3e1ec",
+                        "surface-bright": "#f9f9fa",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#eeeeef",
+                        "on-surface": "#1a1c1d",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "on-primary-fixed-variant": "#474747",
+                        "on-primary-container": "#848484",
+                        "on-secondary-container": "#63646c",
+                        "primary": "#000000",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f3f3f4",
+                        "surface": "#f9f9fa",
+                        "surface-tint": "#5e5e5e",
+                        "on-background": "#1a1c1d",
+                        "outline-variant": "#cfc4c5",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "on-tertiary-container": "#848484",
+                        "secondary-container": "#e3e1ec",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#000000",
+                        "outline": "#7e7576",
+                        "background": "#f9f9fa",
+                        "surface-dim": "#dadadb",
+                        "on-secondary-fixed": "#1a1b22",
+                        "tertiary-container": "#1b1b1b",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "md": "16px",
+                        "margin-mobile": "16px",
+                        "xl": "32px",
+                        "base": "4px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "3xl": "64px",
+                        "lg": "24px",
+                        "margin-desktop": "32px",
+                        "2xl": "48px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-xl-mobile": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-xl-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface flex items-center justify-between px-margin-mobile h-14 w-full border-b border-outline-variant">
+<button class="flex items-center justify-center w-11 h-11 hover:bg-surface-container-high transition-colors duration-200 rounded-full">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Now Playing</h1>
+<button class="flex items-center justify-center w-11 h-11 hover:bg-surface-container-high transition-colors duration-200 rounded-full">
+<span class="material-symbols-outlined text-primary">more_vert</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 mt-14 mb-16 px-margin-mobile flex flex-col items-center justify-center max-w-lg mx-auto w-full space-y-lg">
+<!-- Album Artwork (Bento Pattern Inspiration) -->
+<div class="relative w-full aspect-square bg-surface-container-low border border-outline-variant rounded-xl overflow-hidden group">
+<img class="w-full h-full object-cover" data-alt="A high-contrast black and white photography of a minimalist abstract sculpture in a void. The lighting is dramatic, casting soft gray shadows across smooth curves. The overall aesthetic is functional and clean, aligning with a professional light-mode UI design. The mood is contemplative and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9dQpotEL_9NmSHmlMDtH37lCO4ozzbm5trlE-DxEcPd7kdp8GziHLUnthHyNLTGt7I0tCKDJzyKQfsVqIXdsi_kD37LeR7PFji4Bw8iJbJtCTkpdoVCAlPULlDfUotKFH-W8NoHyhKatDhUBD11JDu1Fy2JZZCYsfDReQZbfObSaS697x6U88ijiD92pfpmLnZBFSdrTjDSl5qd0nNWqbUmfhAXNlxMsdCvnz4NAAC6cQsE8xlOCW">
+<div class="absolute bottom-md left-md">
+<!-- Blend Badge -->
+<div class="bg-primary text-on-primary px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">join_inner</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Blend</span>
+</div>
+</div>
+</div>
+<!-- Song Info & Like Button -->
+<div class="w-full flex items-center justify-between">
+<div class="flex flex-col">
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">Ethereal Currents</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Systematic Harmony</p>
+</div>
+<button class="w-12 h-12 flex items-center justify-center hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-primary text-[28px]">favorite</span>
+</button>
+</div>
+<!-- Progress Bar -->
+<div class="w-full space-y-base">
+<div class="playback-progress-track">
+<div class="playback-progress-fill">
+<div class="playback-progress-thumb"></div>
+</div>
+</div>
+<div class="flex justify-between w-full">
+<span class="font-label-sm text-label-sm text-on-surface-variant">1:24</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">3:45</span>
+</div>
+</div>
+<!-- Playback Controls -->
+<div class="w-full flex items-center justify-between px-md py-md">
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">shuffle</span>
+</button>
+<div class="flex items-center gap-lg">
+<button class="w-12 h-12 flex items-center justify-center text-primary hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-[32px]">skip_previous</span>
+</button>
+<button class="w-20 h-20 bg-primary text-on-primary flex items-center justify-center rounded-full active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center text-primary hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-[32px]">skip_next</span>
+</button>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">repeat</span>
+</button>
+</div>
+<!-- Extra Controls Row -->
+<div class="w-full flex justify-center items-center gap-xl">
+<button class="flex items-center gap-2 px-md py-sm border border-outline-variant rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">queue_music</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Queue</span>
+</button>
+<button class="flex items-center gap-2 px-md py-sm border border-outline-variant rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">devices</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Devices</span>
+</button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface-container flex justify-around items-center h-16 w-full px-4 pb-safe border-t border-outline-variant">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-transform duration-150 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-transform duration-150 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-sm text-label-sm">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1 transition-transform duration-150 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">library_music</span>
+<span class="font-label-sm text-label-sm">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-transform duration-150 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-label-sm text-label-sm">Premium</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction: Play/Pause toggle simulation
+        const playButton = document.querySelector('main button.bg-primary');
+        const playIcon = playButton.querySelector('.material-symbols-outlined');
+        let isPlaying = true;
+
+        playButton.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            playIcon.textContent = isPlaying ? 'pause' : 'play_arrow';
+            playIcon.style.fontVariationSettings = isPlaying ? "'FILL' 1" : "'FILL' 0";
+        });
+
+        // Like button toggle
+        const likeButton = document.querySelector('button .material-symbols-outlined[textContent="favorite"]');
+        let isLiked = false;
+        
+        document.querySelectorAll('button').forEach(btn => {
+            if(btn.querySelector('.material-symbols-outlined')?.textContent === 'favorite') {
+                btn.addEventListener('click', () => {
+                    isLiked = !isLiked;
+                    const icon = btn.querySelector('.material-symbols-outlined');
+                    icon.style.fontVariationSettings = isLiked ? "'FILL' 1" : "'FILL' 0";
+                    icon.classList.toggle('text-primary');
+                    if(isLiked) {
+                        icon.style.color = '#000'; // Specific black for active liked
+                    } else {
+                        icon.style.color = '';
+                    }
+                });
+            }
+        });
+    </script>
+</body></html>

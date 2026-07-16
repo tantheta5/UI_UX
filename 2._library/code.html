@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Library - Wireframe</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2f3132",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "surface-container-highest": "#e2e2e3",
+                    "surface-tint": "#5e5e5e",
+                    "error-container": "#ffdad6",
+                    "surface": "#f9f9fa",
+                    "primary-fixed": "#e2e2e2",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-secondary-fixed": "#1a1b22",
+                    "surface-bright": "#f9f9fa",
+                    "on-primary-fixed": "#1b1b1b",
+                    "on-error-container": "#93000a",
+                    "background": "#f9f9fa",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#dadadb",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "surface-container-high": "#e8e8e9",
+                    "on-background": "#1a1c1d",
+                    "primary": "#000000",
+                    "outline-variant": "#cfc4c5",
+                    "on-surface-variant": "#4c4546",
+                    "on-tertiary-container": "#848484",
+                    "on-primary-container": "#848484",
+                    "surface-container-low": "#f3f3f4",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1a1c1d",
+                    "secondary-fixed": "#e3e1ec",
+                    "surface-variant": "#e2e2e3",
+                    "secondary-container": "#e3e1ec",
+                    "tertiary": "#000000",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "on-secondary-container": "#63646c",
+                    "on-primary-fixed-variant": "#474747",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#e2e2e2",
+                    "on-secondary-fixed-variant": "#46464e",
+                    "on-error": "#ffffff",
+                    "surface-container": "#eeeeef",
+                    "inverse-primary": "#c6c6c6",
+                    "tertiary-container": "#1b1b1b",
+                    "outline": "#7e7576",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "secondary-fixed-dim": "#c6c5cf",
+                    "primary-container": "#1b1b1b",
+                    "secondary": "#5d5e66"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-desktop": "32px",
+                    "gutter": "16px",
+                    "md": "16px",
+                    "margin-mobile": "16px",
+                    "base": "4px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "2xl": "48px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "3xl": "64px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-xl-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-xl-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f9f9fa;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface border-b border-outline-variant dark:border-outline-variant flex items-center justify-between px-margin-mobile h-14 md:px-margin-desktop">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container-high transition-colors duration-200 p-2 rounded-full">arrow_back</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-on-surface">Library</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container-high transition-colors duration-200 p-2 rounded-full">add</button>
+<button class="material-symbols-outlined text-primary hover:bg-surface-container-high transition-colors duration-200 p-2 rounded-full">search</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 pb-24 px-margin-mobile md:px-margin-desktop max-w-screen-xl mx-auto">
+<!-- Filter Chips -->
+<div class="flex gap-2 mb-lg overflow-x-auto no-scrollbar pb-2">
+<button class="px-4 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md transition-all active:scale-95">Playlists</button>
+<button class="px-4 py-1.5 rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-all active:scale-95">Albums</button>
+<button class="px-4 py-1.5 rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-all active:scale-95">Artists</button>
+<button class="px-4 py-1.5 rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-all active:scale-95">Downloaded</button>
+</div>
+<!-- Sorting & Layout Toggle -->
+<div class="flex justify-between items-center mb-md">
+<button class="flex items-center gap-1 text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">swap_vert</span>
+                Recents
+            </button>
+<button class="material-symbols-outlined text-on-surface-variant">grid_view</button>
+</div>
+<!-- Bento-inspired Library Grid/List -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Featured Playlist (Large Card) -->
+<div class="sm:col-span-2 lg:col-span-2 group relative overflow-hidden border border-outline-variant rounded-xl aspect-[16/9] md:aspect-[21/9] bg-surface-container-low">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="A minimalist grayscale digital artwork of abstract fluid waves. The composition is sleek and modern, using varying shades of light and dark gray to create depth and movement. It conveys a calm, professional atmosphere with crisp lines and subtle gradients, suitable for a high-end music library background." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuASe6dHYVyiahdKmbsGw_VwKgcAgqqrN3-7iIH-q7uIRIcH87mws1tVI-a-awuYFvEtMxaWLXLDSyDbMgZbiBIcZiCWuj0sQXva5rv-02R3Wl1vTjxXXijlhTag0oYA93NsgScn3JPjKT3LuFXrkJdm0j1mVzERJbsRwCdcwJVmUvCQX4_UfJEx8ULFjU_wYXYX3yeSj2-hqNLUnAdxcKZikn2BhvqGQEaWG7_5UjgJzUJpoGu4aMXj')"></div>
+<div class="absolute bottom-0 left-0 p-lg z-20 w-full flex justify-between items-end">
+<div>
+<p class="font-label-sm text-label-sm text-white/80 uppercase tracking-widest mb-1">Playlist</p>
+<h2 class="font-headline-lg text-headline-lg text-white font-bold">Liked Songs</h2>
+<p class="font-body-sm text-body-sm text-white/70">1,248 songs</p>
+</div>
+<button class="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg transition-transform active:scale-90 group-hover:bg-primary group-hover:text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+<!-- Library Items Grid -->
+<!-- Item 1 -->
+<div class="group border border-outline-variant rounded-xl p-md bg-surface-container-lowest flex items-center gap-md hover:bg-surface-container transition-colors cursor-pointer">
+<div class="w-16 h-16 rounded-lg bg-surface-container-high overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover grayscale" data-alt="A clean, minimalist grayscale representation of a classic vinyl record cover. The design features a simple geometric circle in the center with a subtle matte texture against a light gray background, representing a high-fidelity audio experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg8CIyyLdg9gEDCKNlTroC_B13k8aJvxULUdG87PsYdCAmI2t8IIgMBS95396cF0fcSqIqn-i9ElY5QnYVYSabI7woIp5RjD-F8ZavYH2T8YbXp-3d87KTusHNw6MVvoytSew-kQOZzisgRqqJK9WNm-JX5dLTXJqKtqM5qd1r8HyZ1BNVXKt284hB1ox4YIz4oH7w9Utmx7OaAEP_VPzwv5LHwfVfCZ8UHdq94gPNXdaeDceB3guw">
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-md text-headline-md text-on-surface truncate">Midnight Jazz</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Album • Miles Davis</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-on-surface">more_vert</span>
+</div>
+<!-- Item 2 -->
+<div class="group border border-outline-variant rounded-xl p-md bg-surface-container-lowest flex items-center gap-md hover:bg-surface-container transition-colors cursor-pointer">
+<div class="w-16 h-16 rounded-lg bg-surface-container-high overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover grayscale" data-alt="A minimalist grayscale image of a single acoustic guitar string vibrating in a high-contrast studio setting. The lighting is focused and dramatic, highlighting the texture of the metal string against a pitch-black background, symbolizing pure musical focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAhtH6wFkSkWjJJP50Z8xPyRAFE3u7XEVvLqKKTi7fsq0tEd7FSjqrvKgJAXeitkY5x5HX5Hx9V9taFACZxGVdmgzZ5nNMAUnBNup6Y851obe8aMaYkPrgTwAjc5Ix4s0xyImB-1XC1rxMv15leUR7XkVEOhCep11XFB6_x0puX7tusLPv5m3BkZCHF3bq_hfMRrOpnvPMWTHFW7gtw1674Ooi_yCuyUuKlBhjab5kjfFgSQIczEZ_">
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-md text-headline-md text-on-surface truncate">Acoustic Mornings</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Playlist • 42 songs</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-on-surface">more_vert</span>
+</div>
+<!-- Item 3 -->
+<div class="group border border-outline-variant rounded-xl p-md bg-surface-container-lowest flex items-center gap-md hover:bg-surface-container transition-colors cursor-pointer">
+<div class="w-16 h-16 rounded-full bg-surface-container-high overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover grayscale" data-alt="A professional studio portrait of a music artist in grayscale. The shot is a close-up profile with soft side-lighting that emphasizes facial structure and a pensive mood. The background is a flat, medium gray, maintaining the minimalist wireframe aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnbXzdixmGvfbnSzKTGzOdqNZDZoli3PTAFclGYNHfVy-iYno5gqh6eCbgIHgEgtLDoKJ7GEAoZUzyHruN13pqg14zoH2Fk7qLQIR5HyQV9CoTs1Yp-cCi-mohkjlsPIuSEJIRbwSOxZOeq_hTyzrl9I6iMGs48bu4fmRibrAHnD1VCmA6y8JuGglh0f2IFK-SlEbCCc8vDJcEUuD8ccdZHPsk1alUKSLb0V5oSUWDBKqz5_fgFFzn">
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-md text-headline-md text-on-surface truncate">Radiohead</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Artist</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-on-surface">more_vert</span>
+</div>
+<!-- Item 4 -->
+<div class="group border border-outline-variant rounded-xl p-md bg-surface-container-lowest flex items-center gap-md hover:bg-surface-container transition-colors cursor-pointer">
+<div class="w-16 h-16 rounded-lg bg-surface-container-high overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover grayscale" data-alt="A sharp, minimalist grayscale architectural photograph of a brutalist concrete building facade. The repeating geometric patterns and hard shadows create a rhythmic, structural visual metaphor for electronic or industrial music." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5ojZtxGXgYeRRWtaDjOyLWLjTmspktODQic9k_opJ_SjsajQVNAnuohKXLA83tXs9pQ-ieolanPpkm87hM0XTTQxMkWecgYbPcO33OZMYmQmUeIt0AqP__GM3QyvTrEMiCi7hwhv-zdX2jB3qdaH6BG_Ce3V7hUjkxMwAITONvvp5sqVRbovYPxQju7AZKjFO5VzWWfO_FEioSPuYZKyukaEhsCnnluoLfeQ8C7pKKse5-2Q8pZUz">
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-md text-headline-md text-on-surface truncate">Dark Techno</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Album • Various Artists</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-on-surface">more_vert</span>
+</div>
+<!-- Item 5 -->
+<div class="group border border-outline-variant rounded-xl p-md bg-surface-container-lowest flex items-center gap-md hover:bg-surface-container transition-colors cursor-pointer">
+<div class="w-16 h-16 rounded-lg bg-surface-container-high overflow-hidden flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-4xl">podcasts</span>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-md text-headline-md text-on-surface truncate">The Daily</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Podcast • New Episodes</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-on-surface">more_vert</span>
+</div>
+<!-- Item 6 -->
+<div class="group border border-outline-variant rounded-xl p-md bg-surface-container-lowest flex items-center gap-md hover:bg-surface-container transition-colors cursor-pointer">
+<div class="w-16 h-16 rounded-lg bg-surface-container-high overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover grayscale" data-alt="A minimalist grayscale image of raindrops on a window pane with a blurred cityscape in the background. The mood is melancholic and serene, utilizing a wide range of gray tones to create a soft, atmospheric texture perfect for a low-fi or chill playlist cover." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5k-7F_Uj2V1gP5TpONFm0an_mzYS4Oljl-MOM4V7thApO-lMLffASrciTUq0OgRZY67throPN4goSmo1oGQcRSsiKyMkxoINQFQELaMnDyFU3KGKKaePec8R9coj1ouLoyuPIG-S8RIlx15RLmW9MgkC6DaFr41Tcfmi-L2PABx0x8BT2RHpzP5HrCSWcl8NG96eZvCihf3zxCTbXQy2_PetgWSH8QACKgEueZIpKfmMaB1SHFu8o">
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-md text-headline-md text-on-surface truncate">Lo-Fi Beats</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Playlist • 156 songs</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-on-surface">more_vert</span>
+</div>
+</div>
+<!-- Empty State Placeholder for New Creation -->
+<div class="mt-2xl flex flex-col items-center justify-center py-3xl border-2 border-dashed border-outline-variant rounded-2xl bg-surface-container-lowest">
+<span class="material-symbols-outlined text-6xl text-outline-variant mb-md">library_add</span>
+<p class="font-headline-md text-headline-md text-on-surface mb-sm">Grow your collection</p>
+<p class="font-body-md text-body-md text-on-surface-variant text-center max-w-xs mb-lg">Start creating your own playlists or follow your favorite artists.</p>
+<button class="px-xl py-md bg-primary text-on-primary rounded-full font-label-md text-label-md shadow-md transition-all hover:scale-105 active:scale-95">Create New Playlist</button>
+</div>
+</main>
+<!-- FAB for Create (as specified prominent icon) -->
+<button class="fixed right-margin-mobile bottom-24 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center z-40 transition-transform active:scale-90 md:right-margin-desktop">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface-container dark:bg-surface-container border-t border-outline-variant dark:border-outline-variant flex justify-around items-center h-16 px-4 pb-safe">
+<!-- Home -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-5 py-1 hover:text-primary dark:hover:text-on-surface transition-transform duration-150 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<!-- Search -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-5 py-1 hover:text-primary dark:hover:text-on-surface transition-transform duration-150 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-label-sm text-label-sm mt-1">Search</span>
+</a>
+<!-- Library (ACTIVE) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container dark:bg-secondary-fixed-dim dark:text-on-secondary-fixed rounded-full px-5 py-1 transition-transform duration-150 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="library_music" style="font-variation-settings: 'FILL' 1;">library_music</span>
+<span class="font-label-sm text-label-sm mt-1">Library</span>
+</a>
+<!-- Premium -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-5 py-1 hover:text-primary dark:hover:text-on-surface transition-transform duration-150 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>
+<span class="font-label-sm text-label-sm mt-1">Premium</span>
+</a>
+</nav>
+<script>
+        // Simple scroll interaction for header shadow
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-sm');
+                header.classList.remove('border-b-transparent');
+            } else {
+                header.classList.remove('shadow-sm');
+            }
+        });
+
+        // Toggle Active State for Filter Chips
+        const filterButtons = document.querySelectorAll('.filter-chip');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => {
+                    b.classList.remove('bg-primary', 'text-on-primary');
+                    b.classList.add('border', 'border-outline-variant', 'text-on-surface-variant');
+                });
+                btn.classList.add('bg-primary', 'text-on-primary');
+                btn.classList.remove('border', 'border-outline-variant', 'text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>

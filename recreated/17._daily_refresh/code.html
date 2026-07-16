@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Refresh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Typography */
+      --font-serif: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+
+      --fs-xs: 0.75rem;    /* 12 */
+      --fs-sm: 0.875rem;   /* 14 */
+      --fs-base: 1rem;     /* 16 */
+      --fs-md: 1.125rem;   /* 18 */
+      --fs-lg: 1.375rem;   /* 22 */
+      --fs-xl: 1.75rem;    /* 28 */
+      --fs-2xl: 2.25rem;   /* 36 */
+      --fs-3xl: 3rem;      /* 48 */
+
+      --fw-light: 300;
+      --fw-regular: 400;
+      --fw-medium: 500;
+      --fw-semibold: 600;
+      --fw-bold: 700;
+
+      --lh-tight: 1.1;
+      --lh-snug: 1.25;
+      --lh-normal: 1.5;
+      --lh-relaxed: 1.7;
+
+      --ls-tight: -0.02em;
+      --ls-normal: 0;
+      --ls-wide: 0.04em;
+      --ls-widest: 0.18em;
+
+      /* Colors — surfaces */
+      --color-bg: #FAF8F6;
+      --color-bg-alt: #F3EFEA;
+      --color-surface: #FFFFFF;
+      --color-surface-2: #FBF9F6;
+      --color-surface-3: #F5F1EC;
+      --color-border: #E8E1D8;
+      --color-border-soft: #EFE9E0;
+
+      /* Colors — ink */
+      --color-ink: #1F1B16;
+      --color-ink-2: #4A433B;
+      --color-ink-3: #6F665B;
+      --color-ink-4: #9A9082;
+      --color-ink-5: #BFB5A6;
+
+      /* Primary — soft rose */
+      --color-primary: #C98B86;
+      --color-primary-deep: #A86964;
+      --color-primary-soft: #F4DAD6;
+      --color-primary-tint: #FBEEEC;
+
+      /* Spacing — 8px system */
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 20px;
+      --sp-6: 24px;
+      --sp-7: 32px;
+      --sp-8: 40px;
+      --sp-9: 48px;
+      --sp-10: 64px;
+
+      /* Radius */
+      --r-xs: 4px;
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 16px;
+      --r-xl: 20px;
+      --r-full: 999px;
+
+      /* Shadows */
+      --sh-xs: 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-sm: 0 2px 6px rgba(31, 27, 22, 0.05), 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-md: 0 6px 18px rgba(31, 27, 22, 0.06), 0 2px 6px rgba(31, 27, 22, 0.04);
+      --sh-lg: 0 14px 36px rgba(31, 27, 22, 0.08), 0 6px 14px rgba(31, 27, 22, 0.05);
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --tr-base: 240ms var(--ease-out);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--fs-base);
+      line-height: var(--lh-normal);
+      color: var(--color-ink);
+      background-color: var(--color-bg-alt);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .mobile-container {
+      max-width: 430px;
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--color-surface);
+      border-left: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding-top: 56px; /* header */
+      padding-bottom: 64px; /* bottom nav */
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 56px;
+      background-color: rgba(250, 248, 246, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-border-soft);
+      display: flex;
+      align-items: center;
+      padding: 0 var(--sp-4);
+      z-index: 100;
+      justify-content: space-between;
+    }
+
+    .back-btn, .more-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-ink);
+      background: transparent;
+      border: none;
+      transition: background 150ms var(--ease-out);
+    }
+
+    .back-btn:hover, .more-btn:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-md);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    main {
+      padding: var(--sp-5) var(--sp-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-6);
+    }
+
+    /* Bento Update Banner Card */
+    .update-banner-card {
+      background-color: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--r-xl);
+      padding: var(--sp-5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: var(--sp-4);
+      box-shadow: var(--sh-xs);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .banner-art-box {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--r-lg);
+      border: 1px solid var(--color-border);
+      background: var(--grad-chrome-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .banner-art-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      mix-blend-mode: multiply;
+    }
+
+    .sparkle-icon {
+      position: absolute;
+      font-size: 24px;
+      z-index: 2;
+    }
+
+    .banner-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-1);
+    }
+
+    .banner-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-md);
+      font-weight: var(--fw-bold);
+      color: var(--color-ink);
+    }
+
+    .banner-desc {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-3);
+      max-width: 280px;
+      line-height: var(--lh-relaxed);
+    }
+
+    .btn-refresh {
+      width: 100%;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      font-family: var(--font-sans);
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-medium);
+      border-radius: var(--r-full);
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      border: none;
+      cursor: pointer;
+      box-shadow: var(--sh-sm);
+      transition: background-color 150ms var(--ease-out), transform 150ms var(--ease-out);
+    }
+
+    .btn-refresh:hover {
+      background-color: var(--color-primary-deep);
+    }
+
+    .btn-refresh:active {
+      transform: scale(0.98);
+    }
+
+    .btn-refresh svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+    }
+
+    .btn-refresh svg.spinning {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Standard content section styling */
+    .sec-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: var(--sp-3);
+      padding: 0 var(--sp-1);
+    }
+
+    .sec-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-md);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    .sec-stats {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-4);
+    }
+
+    /* Track List */
+    .track-list-card {
+      background-color: var(--color-surface-2);
+      border: 1px solid var(--color-border-soft);
+      border-radius: var(--r-xl);
+      padding: var(--sp-3);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-1);
+    }
+
+    .track-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--sp-2) var(--sp-3);
+      border-radius: var(--r-md);
+      cursor: pointer;
+      transition: background-color 150ms var(--ease-out);
+    }
+
+    .track-row:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    .track-left {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      min-width: 0;
+    }
+
+    .track-art {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--r-xs);
+      overflow: hidden;
+      background: var(--grad-chrome-soft);
+      flex-shrink: 0;
+    }
+
+    .track-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+      mix-blend-mode: multiply;
+    }
+
+    .track-info {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .track-title {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .track-artist {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-3);
+      margin-top: 1px;
+    }
+
+    .play-icon-arrow {
+      color: var(--color-ink-4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .play-icon-arrow svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* Bento Stats details box */
+    .bento-stats-card {
+      background-color: var(--color-surface-3);
+      border: 1px solid var(--color-border-soft);
+      border-radius: var(--r-xl);
+      padding: var(--sp-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+    }
+
+    .stats-header {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+    }
+
+    .stats-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-full);
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stats-icon-box svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    .stats-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-md);
+      font-weight: var(--fw-semibold);
+    }
+
+    .stats-body {
+      font-size: var(--fs-sm);
+      color: var(--color-ink-2);
+      line-height: var(--lh-relaxed);
+    }
+
+    .btn-secondary {
+      width: 100%;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sans);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      border-radius: var(--r-full);
+      background-color: var(--color-surface);
+      color: var(--color-primary);
+      border: 1.5px solid var(--color-primary);
+      cursor: pointer;
+      transition: background-color 150ms var(--ease-out);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    /* Grid layout Discovery Modules */
+    .grid-discovery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-4);
+    }
+
+    .discovery-card {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .discovery-art {
+      aspect-ratio: 1/1;
+      border-radius: var(--r-xl);
+      border: 1px solid var(--color-border-soft);
+      overflow: hidden;
+      margin-bottom: var(--sp-2);
+      background: var(--grad-chrome-soft);
+      position: relative;
+    }
+
+    .discovery-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+      mix-blend-mode: multiply;
+      transition: transform 300ms var(--ease-out);
+    }
+
+    .discovery-card:hover .discovery-art img {
+      transform: scale(1.04);
+    }
+
+    .discovery-title {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    .discovery-meta {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-3);
+      margin-top: 1px;
+    }
+
+    /* Fixed Bottom Navigation (Library active) */
+    nav.bottom-nav {
+      position: fixed;
+      bottom: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 64px;
+      background-color: var(--color-surface-2);
+      border-top: 1px solid var(--color-border-soft);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+      padding: 0 var(--sp-4);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--color-ink-3);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      gap: 2px;
+      width: 72px;
+      height: 100%;
+      transition: color 150ms var(--ease-out);
+    }
+
+    .nav-item svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    .nav-item:hover {
+      color: var(--color-ink);
+    }
+
+    .nav-item.active {
+      color: var(--color-primary-deep);
+    }
+
+    .nav-item.active svg {
+      stroke: var(--color-primary-deep);
+      stroke-width: 2;
+    }
+
+    .nav-active-pill {
+      background-color: var(--color-primary-tint);
+      padding: var(--sp-1) var(--sp-4);
+      border-radius: var(--r-full);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-container">
+    <!-- Header -->
+    <header>
+      <button class="back-btn" onclick="location.href='../15._library_updated/code.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+      <div class="header-title">Now Playing</div>
+      <button class="more-btn" onclick="location.href='../18._blend_settings/code.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="1"></circle>
+          <circle cx="12" cy="5" r="1"></circle>
+          <circle cx="12" cy="19" r="1"></circle>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Update Banner card -->
+      <section class="update-banner-card">
+        <div class="banner-art-box">
+          <img data-alt="Minimalist music blend digital artwork." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABH0IPslh7lF-WF_UcUtTYhPqSoip_yUjCiBEsg-pExgQzcYMD3LbLnRrecwPL8GeQHmHBPUX24l-hhgz2vDMLllvYyYj-Ww6nweCAitm04AvD0JBPzSo5m_K-tk7VX8bFt2z20fybbyD5PvIgiruJPAKZttiXubRSkZ0rRRueWegL6bM6s_AixOZWAWd2lGvXyxYBnWR2CBG0agIRNmvKFdGvVaRB5vbSmnSD8aE3OrngKDzkr1uf">
+          <span class="sparkle-icon">✨</span>
+        </div>
+        <div class="banner-info">
+          <h2 class="banner-title">Your Blend has updated with new songs</h2>
+          <p class="banner-desc">Fresh recommendations based on your listening habits and shared tastes are ready for you.</p>
+        </div>
+        <button class="btn-refresh" id="refreshBtn" onclick="refreshPlaylist()">
+          <svg viewBox="0 0 24 24" id="refreshIcon">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+          </svg>
+          <span>Refresh Playlist</span>
+        </button>
+      </section>
+
+      <!-- In your Blend -->
+      <section>
+        <div class="sec-header">
+          <h3 class="sec-title">In your Blend</h3>
+          <span class="sec-stats">24 Songs Updated</span>
+        </div>
+        
+        <div class="track-list-card">
+          <!-- Row 1 -->
+          <div class="track-row">
+            <div class="track-left">
+              <div class="track-art">
+                <img data-alt="Minimal album artwork in grayscale." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqTzK5f00JnTJpzB9XRcH223zZXj1JhWdcm2LjnbAG0ojO-gbulbmie6YJppseFINPRgJSeLjTkLmLy9zJCn74wglr1D1S0KkFfTE--b9P2UmAlKZm_fpLhfOASVatNLVf2ZbqrcrT3S8f2Bj5tZCM8mh3-3WJr76z6kxRZq3aUxRAThezJv90HkinN2b4pL5ziqCoqOPMsSKgOBiC7Cazz7TPndDIk7_AZbjl34FZTESAi8UCC_Wd">
+              </div>
+              <div class="track-info">
+                <span class="track-title">Structural Echoes</span>
+                <span class="track-artist">The Grid Collective</span>
+              </div>
+            </div>
+            <div class="play-icon-arrow">
+              <svg viewBox="0 0 24 24">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Row 2 -->
+          <div class="track-row">
+            <div class="track-left">
+              <div class="track-art">
+                <img data-alt="Minimal typography cover." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMMYpAVI4dhsOZGwni688Xqtx4bc_sKkrgiYl-dzRGnrSOEPIycSwC-AcLiQtE3V1dpdhK_Ol-h8Fafmxf6UDAOcckFXLwby2xazufKFO3cLyq-YjIsFhubWAU-4OB-ZcJJrLvHy26-ls6Yg5xvN6HUXhqrlGOyXXygJVgRwtMdy8Vx8bjSY1OqpewKOB4bQQ4B7pZI7u9ofA7uz6URTblv9N63V_v6-fTehLcsxG-zu2aFhZJyC-W">
+              </div>
+              <div class="track-info">
+                <span class="track-title">Monochrome Dreams</span>
+                <span class="track-artist">Symmetry Sound</span>
+              </div>
+            </div>
+            <div class="play-icon-arrow">
+              <svg viewBox="0 0 24 24">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Row 3 -->
+          <div class="track-row" style="border-top: 1px solid var(--color-border-soft); margin-top: 4px; padding-top: 8px;">
+            <div class="track-left">
+              <div class="track-art">
+                <img data-alt="Minimal concrete architecture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3YhTYpATAkWGOEs6WCi2tJIORL2HU-wbN9Fq5mUbX08m8x-RHwIwx7TjMhq_MjuNf05B7VsuI70xroPft44tes20QqrCYjl-ZY9uUQS75zLrNNKZEBfGU5ApZ7mWnQ3koaMPfa0Y6-ZwO5kR1f-BfVasHto3O2yD8Cu4-r7fy3S1GmFnOVPPqhy2KKKKJnVvzddD7QB6uBIXj2gwGxBmfq2f5H31NrrAaT5U69Y7mp9QQU2SvA_yr">
+              </div>
+              <div class="track-info">
+                <span class="track-title">Minimalist Flow</span>
+                <span class="track-artist">Architecture & Beats</span>
+              </div>
+            </div>
+            <div class="play-icon-arrow">
+              <svg viewBox="0 0 24 24">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Blend Stats -->
+      <section class="bento-stats-card">
+        <div class="stats-header">
+          <div class="stats-icon-box">
+            <svg viewBox="0 0 24 24">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <h4 class="stats-title">Blend Stats</h4>
+        </div>
+        <p class="stats-body">Your taste match with Sarah is at 84% today. You both share a love for high-fidelity ambient tracks.</p>
+        <button class="btn-secondary" onclick="location.href='../11._music_taste_match/code.html'">
+          View Details
+        </button>
+      </section>
+
+      <!-- Jump Back In -->
+      <section>
+        <div class="sec-header">
+          <h3 class="sec-title">Jump back in</h3>
+        </div>
+        
+        <div class="grid-discovery">
+          <!-- Card 1 -->
+          <div class="discovery-card" onclick="location.href='../10._blend_playlist/code.html'">
+            <div class="discovery-art">
+              <img data-alt="Water ripples." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdwen8nem_-chZbas7NFUd08Cvr5g5oFD0lhk7iihID1C5a3V3peALzddMSJKGc8Gz0qf0OrEJCGddK5BDMw8CNh_iebmZFdo09X-w2x1eUAgogYPmDttJDT2WzP0M3Kmct5USccvEQXPZON1vaEg3mOEbc0jLfDC6K0fymrF-wJNNQwi3XQqt73QDnsCGNTmWVDDwVx3gOncQ8NVmO3ceYiy-HdbtfuEIt4PIDH7WnsCSz8LSMDDo">
+            </div>
+            <span class="discovery-title">Daily Mix 1</span>
+            <span class="discovery-meta">Updated daily</span>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="discovery-card" onclick="location.href='../10._blend_playlist/code.html'">
+            <div class="discovery-art">
+              <img data-alt="Floating matte grey spheres." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1nlKedB1URWlXvj8Rp3kjn2vrFP2q0I4AHzPyY1GHlQKZtgmFTeUHqY-dJ0LFNSMpkLr58ehQ1oH_LeWAjR3NJ2VK0sCGE3nZe42j6X_yfzjDOfBMGJEYMW22_OGuEk4VNNnhDqbrSq-dkV23lM_FSCqNC0ND3Gs6WeaK3KodTpOWFGaCvyIf--9-mbik2nKs12ZUDF-jEbkd64h435urJHRloWIIhPoFDKEZ-kSzd7URJtHwu4H8">
+            </div>
+            <span class="discovery-title">Discover Weekly</span>
+            <span class="discovery-meta">New music for you</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Navigation Bar (Library Active) -->
+    <nav class="bottom-nav">
+      <!-- Home -->
+      <a class="nav-item" href="../1._home/code.html">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      <!-- Search -->
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span>Search</span>
+      </a>
+
+      <!-- Library (Active) -->
+      <a class="nav-item active" href="../2._library/code.html">
+        <span class="nav-active-pill">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+          </svg>
+          <span>Library</span>
+        </span>
+      </a>
+
+      <!-- Premium -->
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        <span>Premium</span>
+      </a>
+    </nav>
+  </div>
+
+  <script>
+    function refreshPlaylist() {
+      const refreshIcon = document.getElementById('refreshIcon');
+      refreshIcon.classList.add('spinning');
+      setTimeout(() => {
+        refreshIcon.classList.remove('spinning');
+        location.href = '../10._blend_playlist/code.html';
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

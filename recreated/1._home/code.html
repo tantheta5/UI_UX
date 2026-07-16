@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Typography */
+      --font-serif: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+
+      --fs-xs: 0.75rem;    /* 12 */
+      --fs-sm: 0.875rem;   /* 14 */
+      --fs-base: 1rem;     /* 16 */
+      --fs-md: 1.125rem;   /* 18 */
+      --fs-lg: 1.375rem;   /* 22 */
+      --fs-xl: 1.75rem;    /* 28 */
+      --fs-2xl: 2.25rem;   /* 36 */
+      --fs-3xl: 3rem;      /* 48 */
+
+      --fw-light: 300;
+      --fw-regular: 400;
+      --fw-medium: 500;
+      --fw-semibold: 600;
+      --fw-bold: 700;
+
+      --lh-tight: 1.1;
+      --lh-snug: 1.25;
+      --lh-normal: 1.5;
+      --lh-relaxed: 1.7;
+
+      --ls-tight: -0.02em;
+      --ls-normal: 0;
+      --ls-wide: 0.04em;
+      --ls-widest: 0.18em;
+
+      /* Colors — surfaces */
+      --color-bg: #FAF8F6;
+      --color-bg-alt: #F3EFEA;
+      --color-surface: #FFFFFF;
+      --color-surface-2: #FBF9F6;
+      --color-surface-3: #F5F1EC;
+      --color-border: #E8E1D8;
+      --color-border-soft: #EFE9E0;
+
+      /* Colors — ink */
+      --color-ink: #1F1B16;
+      --color-ink-2: #4A433B;
+      --color-ink-3: #6F665B;
+      --color-ink-4: #9A9082;
+      --color-ink-5: #BFB5A6;
+
+      /* Primary — soft rose */
+      --color-primary: #C98B86;
+      --color-primary-deep: #A86964;
+      --color-primary-soft: #F4DAD6;
+      --color-primary-tint: #FBEEEC;
+
+      /* Spacing — 8px system */
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 20px;
+      --sp-6: 24px;
+      --sp-7: 32px;
+      --sp-8: 40px;
+      --sp-9: 48px;
+      --sp-10: 64px;
+
+      /* Radius */
+      --r-xs: 4px;
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 16px;
+      --r-xl: 20px;
+      --r-full: 999px;
+
+      /* Shadows */
+      --sh-xs: 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-sm: 0 2px 6px rgba(31, 27, 22, 0.05), 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-md: 0 6px 18px rgba(31, 27, 22, 0.06), 0 2px 6px rgba(31, 27, 22, 0.04);
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --tr-base: 240ms var(--ease-out);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--fs-base);
+      line-height: var(--lh-normal);
+      color: var(--color-ink);
+      background-color: var(--color-bg-alt);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .mobile-container {
+      max-width: 430px;
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--color-surface);
+      border-left: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding-top: 56px; /* for header */
+      padding-bottom: 72px; /* space for bottom navigation */
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 56px;
+      background-color: rgba(250, 248, 246, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-border-soft);
+      display: flex;
+      align-items: center;
+      padding: 0 var(--sp-4);
+      z-index: 100;
+      justify-content: space-between;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+    }
+
+    .back-btn, .more-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-ink);
+      background: transparent;
+      border: none;
+      transition: background 150ms var(--ease-out);
+    }
+
+    .back-btn:hover, .more-btn:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-md);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    main {
+      padding: var(--sp-5) var(--sp-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-7);
+    }
+
+    .welcome-intro h2 {
+      font-family: var(--font-serif);
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-medium);
+      color: var(--color-ink);
+      margin-bottom: var(--sp-1);
+    }
+
+    .welcome-intro p {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-3);
+    }
+
+    section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-lg);
+      font-weight: var(--fw-medium);
+      color: var(--color-ink);
+    }
+
+    .section-see-all {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-semibold);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-widest);
+      color: var(--color-ink-3);
+      cursor: pointer;
+    }
+
+    .section-see-all:hover {
+      color: var(--color-ink);
+    }
+
+    /* Bento / Grid components */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-4);
+    }
+
+    .card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border-soft);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      box-shadow: var(--sh-xs);
+      transition: transform 150ms var(--ease-out), box-shadow 150ms var(--ease-out);
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--sh-md);
+    }
+
+    .card-large {
+      grid-column: span 2;
+    }
+
+    .card-media {
+      aspect-ratio: 16/9;
+      background: var(--grad-chrome-soft);
+      position: relative;
+    }
+
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+      mix-blend-mode: multiply;
+    }
+
+    .card-media-square {
+      aspect-ratio: 1/1;
+    }
+
+    .play-overlay-btn {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-full);
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--sh-sm);
+      opacity: 0;
+      transition: opacity 150ms var(--ease-out), transform 150ms var(--ease-out);
+    }
+
+    .card:hover .play-overlay-btn {
+      opacity: 1;
+    }
+
+    .card-info {
+      padding: var(--sp-3);
+    }
+
+    .card-title {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-subtitle {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-3);
+      margin-top: 2px;
+    }
+
+    /* Horizontal Scroll Component */
+    .scroll-row {
+      display: flex;
+      overflow-x: auto;
+      gap: var(--sp-4);
+      padding-bottom: var(--sp-2);
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none; /* Firefox */
+    }
+
+    .scroll-row::-webkit-scrollbar {
+      display: none; /* Safari / Chrome */
+    }
+
+    .scroll-card {
+      flex: 0 0 140px;
+      scroll-snap-align: start;
+    }
+
+    .scroll-card .card-media {
+      aspect-ratio: 1/1;
+      border-radius: var(--r-md);
+      overflow: hidden;
+      border: 1px solid var(--color-border-soft);
+      margin-bottom: var(--sp-2);
+    }
+
+    /* List Rows Component */
+    .list-container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+
+    .list-row {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-4);
+      padding: var(--sp-3);
+      border: 1px solid var(--color-border-soft);
+      border-radius: var(--r-lg);
+      background-color: var(--color-surface);
+      cursor: pointer;
+      transition: background-color 150ms var(--ease-out);
+    }
+
+    .list-row:hover {
+      background-color: var(--color-surface-2);
+    }
+
+    .list-row-media {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--r-sm);
+      overflow: hidden;
+      background: var(--grad-chrome-soft);
+      flex-shrink: 0;
+    }
+
+    .list-row-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+      mix-blend-mode: multiply;
+    }
+
+    .list-row-content {
+      flex-grow: 1;
+      min-width: 0;
+    }
+
+    .list-row-action {
+      color: var(--color-ink-3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Fixed Bottom Navigation */
+    nav.bottom-nav {
+      position: fixed;
+      bottom: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 64px;
+      background-color: var(--color-surface-2);
+      border-top: 1px solid var(--color-border-soft);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+      padding: 0 var(--sp-4);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--color-ink-3);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      gap: 2px;
+      width: 72px;
+      height: 100%;
+      transition: color 150ms var(--ease-out);
+    }
+
+    .nav-item svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    .nav-item:hover {
+      color: var(--color-ink);
+    }
+
+    .nav-item.active {
+      color: var(--color-primary-deep);
+    }
+
+    .nav-item.active svg {
+      stroke: var(--color-primary-deep);
+      stroke-width: 2;
+    }
+
+    /* Active navigation indicator pill */
+    .nav-active-pill {
+      background-color: var(--color-primary-tint);
+      padding: var(--sp-1) var(--sp-4);
+      border-radius: var(--r-full);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Navigation scroll buttons - desktop/horizontal controls helper */
+    .scroll-controls {
+      display: flex;
+      gap: var(--sp-2);
+    }
+
+    .scroll-arrow-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--r-full);
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background-color: var(--color-surface);
+      color: var(--color-ink-2);
+    }
+
+    .scroll-arrow-btn:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    .scroll-arrow-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-container">
+    <!-- Header -->
+    <header>
+      <div class="header-left">
+        <button class="back-btn" onclick="location.href='../0.3_personalize_your_experience/code.html'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </button>
+        <div class="header-title">Now Playing</div>
+      </div>
+      <button class="more-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="1"></circle>
+          <circle cx="12" cy="5" r="1"></circle>
+          <circle cx="12" cy="19" r="1"></circle>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Welcome Header -->
+      <section class="welcome-intro">
+        <h2>Good evening</h2>
+        <p>Pick up where you left off</p>
+      </section>
+
+      <!-- Recently Played Section -->
+      <section>
+        <div class="section-header">
+          <h3 class="section-title">Recently Played</h3>
+          <span class="section-see-all">See All</span>
+        </div>
+
+        <div class="bento-grid">
+          <!-- Large Card (Spans 2 columns) -->
+          <div class="card card-large">
+            <div class="card-media">
+              <img data-alt="A minimalist grayscale photography of a single acoustic guitar leaning against a white studio wall. Soft, directional light creates a moody atmosphere with subtle shadows. The aesthetic is clean, professional, and sophisticated, mirroring a high-end music streaming interface with neutral tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFSTmsEQM91V9wh4fTexI17GZvqAAbU3YGxHUW1n1dXGU7cn3Plj3at-OceDSAjFJW0Kg6CnQswhrpPFzt32sCHxSswWQPkIe2KaA5awZxh5BtT-sq7IcrBy1s3qNbA_UuCIAg4WOtc3QRyxGVdxiu6fXs-_oGWTKrqOLoYACsOE4nuq83xfVGdBNqNkRhdmeFvBZkHIR1BIEUbg8kM8UVgcd9HupI9SSKVhCzH7hEFHQJ8cyd-l1x">
+              <div class="play-overlay-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+              </div>
+            </div>
+            <div class="card-info">
+              <p class="card-title">Midnight Jazz Essentials</p>
+              <p class="card-subtitle">Curated for you</p>
+            </div>
+          </div>
+
+          <!-- Small Card 2 -->
+          <div class="card">
+            <div class="card-media card-media-square">
+              <img data-alt="A close-up, high-contrast black and white shot of a vinyl record spinning on a turntable. The focus is on the texture of the vinyl grooves and the sleek metal tonearm. Minimalist and elegant composition suited for a modern UI wireframe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAREx6FiJufxoO9yeOBzXuLBplkW3gkbZrfDXyAxta3XyZLgstD_3zpsCOHxF20PeN5VbHT2JYnj6wvm3FFNUZ7dZ6CbYCdf1tY-52d0QGEGOnx7JGhe2ZEId8w_cIw0JON4ZzUljNlXr6d_uKwowKrX4_THmZ-G2UkIX16uG-5kqsgVhDw1FFAC_68SiXiNMAusbd3qnE_8OYMe6RI8qcr3rfIp8f1Hf2ITfxLoQhXJX7viz0WVUH2">
+            </div>
+            <div class="card-info">
+              <p class="card-title">Lo-Fi Study Beats</p>
+            </div>
+          </div>
+
+          <!-- Small Card 3 -->
+          <div class="card">
+            <div class="card-media card-media-square">
+              <img data-alt="Abstract grayscale geometric shapes arranged in an asymmetric pattern, suggesting a modern art album cover. The lighting is even and flat, emphasizing the clean lines and neutral gray palette for a professional design framework." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTS7BTYCsLOV-U1B4CGc4bsbI-HUmvOALdvlNGXv5aLqIGx-vNLUotnR6tWN250NL7ZTOXeCJ80A44NlTF1zXXBxZYrFvDKa4qA3MXzNS0MN4_fKlUDB9wHlijFmFyQHkNdeWuaLL8Y9jftusOgmLMzcoBAO4bt2I7yBevVelRdUO5R3Z2gB3xenkEg_U5JFnUMuJb8PuXDWaThFG9QVnicH3isWuXgZRmeIvvbeDnR8gf8dJ6t8pF">
+            </div>
+            <div class="card-info">
+              <p class="card-title">Techno Pulse</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Jump Back In Section -->
+      <section>
+        <div class="section-header">
+          <h3 class="section-title">Jump back in</h3>
+          <div class="scroll-controls">
+            <button class="scroll-arrow-btn" onclick="scrollLeftRow()">
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button class="scroll-arrow-btn" onclick="scrollRightRow()">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="scroll-row" id="scrollRowContainer">
+          <!-- Scroll Item 1 -->
+          <div class="scroll-card">
+            <div class="card-media">
+              <img data-alt="A minimalist overhead shot of a clean workspace with a pair of professional headphones resting on a white desk. The image uses a grayscale palette with high-key lighting to maintain a neutral, modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvLOdPWdn8CtBFrhH6FnPhgAkUkm9_cGT5qvuNZWLgZEPBU0le-mVmy6M6qwlLdeoY79EZqA8T4mP00loNJuXDTE10M-_Mm5PzEZD2IJ5dwpjr9_PPVhhIGPpBEXmkrY2ByrbhUM19wqAUVq1jp8wEMDVZLgh-VCBVQ85RQnpEdneDSkZ9DqzzQ8tVoPtGcxirbpfLTER4Wmir7NdXL9v7odAgIygQeXRYMk412tbK0sgzSx6feFDU">
+            </div>
+            <p class="card-title">Daily Mix 1</p>
+            <p class="card-subtitle">Radiohead, Arctic Monkeys...</p>
+          </div>
+
+          <!-- Scroll Item 2 -->
+          <div class="scroll-card">
+            <div class="card-media">
+              <img data-alt="An abstract grayscale image of sound waves represented as elegant, flowing 3D ribbons in a white void. The lighting is soft and diffuse, creating a sense of calm and technical precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVvxYpSfrHfXJSUWP1G6nLqryMyZv7ZRn0uDogETXPLl02IKnEe9eJO2z8gYAtU-5w7g5kLL-tKsMNMlXKrO0jWVZUGeFS7JDO_dE9hxogZ2rAhGxRKiA9vuYdnn-p0KKLRlo1ubknuCOqbcP86-8e4YVMfGqKiIJOoKA6DzdHDaGDVyXTShn3WYIvOJSy__YgBYOKd9kW7v_E8XHD8f4O3EUxSxBBSPCoiGB3yBhYdPGyUL2JFV_R">
+            </div>
+            <p class="card-title">Focus Flow</p>
+            <p class="card-subtitle">Deep binaural beats</p>
+          </div>
+
+          <!-- Scroll Item 3 -->
+          <div class="scroll-card">
+            <div class="card-media">
+              <img data-alt="A minimalist grayscale close-up of a piano keyboard. The perspective is from one end, showing the rhythmic repetition of keys fading into a soft blur. Clean, high-contrast professional look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiwB8p3EgunZZ9BT0yaI4teHe460x6A_VoIRXOwVzZm-j28fSHmdsnXO6RNZyAGDEbunvYak8Avgg6SwohNRuVkrdgNyTN7oMRyMqLFDuMmEkm2xnNqTRfr9zmMzyA7G1TGK9kJo2MR1Mp7_UAx10IVyAFNG-kB69ViN5aBYH4zVgoQufauDSlVFNJkVS5cLOp__UDeFFzvc2qUl8Ck4tpabksxzynK3kLKCjxETf6Qmr-dEVzyCR5">
+            </div>
+            <p class="card-title">Piano Solos</p>
+            <p class="card-subtitle">Relaxing melodies</p>
+          </div>
+
+          <!-- Scroll Item 4 -->
+          <div class="scroll-card">
+            <div class="card-media">
+              <img data-alt="Grayscale aesthetic shot of a modern city skyline reflected in a glass window. The mood is urban and sophisticated, suitable for a contemporary chill playlist. High architectural contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoGsfGkSwJPd9Z2eM9CsXnnh7F6Vrzu_xfv0Pb0Nem1bKUKar0oAcY9itcRhXkWFmNR0U9B-p8IeyGG0zNzqJy7j4BIzYCNYbu19xI8rp7sfPJdC98OUAVkno2hSvy7ko9yH7xPI3oarswwDgdUTdxo-aI6YPfHeKuDAgNtW1Nf669mBxaz6KX-XaoBDjDo9gqK5337KO0xtUFIu0IAR07yneZrsMPCE__ZyBY-Lp_OVsA5OUJ-peP">
+            </div>
+            <p class="card-title">Urban Chill</p>
+            <p class="card-subtitle">Night city vibes</p>
+          </div>
+
+          <!-- Scroll Item 5 -->
+          <div class="scroll-card">
+            <div class="card-media">
+              <img data-alt="A minimalist representation of a sound mixer's sliders in a professional studio, captured in grayscale. The focus is on the mechanical details and sleek metallic surfaces." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBlaKYRZulZTnERbD9-BDdw03e89Xl04z5IyiGvJOtoyk0h22p4DngsVloKgkF0o9rRqXVtUISrHMs05If9RZliUmE0ro5H68dZldWoKX9uE2t3ZRc3zaD1k39AYe3Kve5HEFykxLEcVRh03DSGRvd1Vk_i5mC7s40_9KLJQYCdRzbqf-hQBN8gwujg5Xi1x7eAYNBxF5Ttd5be44CvsSgQusi78WLME-76v_aC71g5iIlv0C35ij4">
+            </div>
+            <p class="card-title">The Producers</p>
+            <p class="card-subtitle">Behind the tracks</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Top Mixes Section -->
+      <section>
+        <h3 class="section-title">Top Mixes</h3>
+        <div class="list-container">
+          <!-- Row 1 -->
+          <div class="list-row">
+            <div class="list-row-media">
+              <img data-alt="A minimalist grayscale icon of a lightning bolt inside a clean circle, representing energy or fast-paced music. Professional graphic design style for an app icon." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGqFnR82f7nn9_R9QAsXO6G-5OTgOBz53nMG8jQHwxRfRODjmdKGjHRJn2FfI_58XNpDprwOkIq4tKTzJDicGFDadr0PSGgj5E4PKZBfUGU7skNhIThrwWr6fxVgRdTGnT1vMrCojqEYg2tssU_8Mi9fgqAAtc2HjmbpLx9elUf2wPWAcudpkxeHjJ4705sFu5ZGau37_zCkC_mHTbmjBbnrl3ndRMWulN4w2sowLBouFMDBoxgD77">
+            </div>
+            <div class="list-row-content">
+              <p class="card-title">The Morning Rush</p>
+              <p class="card-subtitle">High energy to start your day</p>
+            </div>
+            <div class="list-row-action">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Row 2 -->
+          <div class="list-row">
+            <div class="list-row-media">
+              <img data-alt="A minimalist grayscale moon icon, suggesting nighttime or calm music. Clean and simple vector-style aesthetic for music categories." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALoDjrB2yDiKIGEaChsgD2vSOZ4NBm0CJIUs0nuxUaUANHe0NMFajyOxfFFwfAygtiU_l8Npm2zDVeg5lvxIQt3MWgItOToijxCcKwK3r7uaVpQeAyWeZmYY73LE9zBTQ4VYHZRw_jeFElYBVksIGlrROwhB3ukmVWM-PfQ8Ai6a47-ZrrvhVtrmGUDdkYIdqIUOIITIuLKW2t3J8BtZf_Spgps40J44ncyb9nJCPq7kUtilQ-7Weo">
+            </div>
+            <div class="list-row-content">
+              <p class="card-title">Deep Sleep</p>
+              <p class="card-subtitle">Ambient textures and white noise</p>
+            </div>
+            <div class="list-row-action">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Row 3 -->
+          <div class="list-row">
+            <div class="list-row-media">
+              <img data-alt="A minimalist grayscale heart shape created from fine lines, representing acoustic or emotional music. Professional and subtle artistic design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMPclYWw8tbVX6lpBP0MsRKNNYgP8K_GykhZBACRy6az1eg9pvZ9Zf2-5XOM2qDg_Rbr9OBh0_LKU6MaFKF33E62xQn8hFblWRuDZedbIMmFz88NCSkAup_szKpWhFLbuzr4XtTcC127qh5B9y0H0-1LMdspKpsTL8udX-vqRj8vp_B_F9o-7SXT4D_MCffuh8c8OXPuhXBcyLWXf3DgpaOYU7_W8HWX0-4olmt2Y19G8GH4MGLReU">
+            </div>
+            <div class="list-row-content">
+              <p class="card-title">Acoustic Love</p>
+              <p class="card-subtitle">Stripped back favorites</p>
+            </div>
+            <div class="list-row-action">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+      <!-- Home Active Tab -->
+      <a class="nav-item active" href="#">
+        <span class="nav-active-pill">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>Home</span>
+        </span>
+      </a>
+
+      <!-- Search -->
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span>Search</span>
+      </a>
+
+      <!-- Library -->
+      <a class="nav-item" href="../2._library/code.html">
+        <svg viewBox="0 0 24 24">
+          <path d="M9 18V5l12-2v13"></path>
+          <circle cx="6" cy="18" r="3"></circle>
+          <circle cx="18" cy="16" r="3"></circle>
+        </svg>
+        <span>Library</span>
+      </a>
+
+      <!-- Premium -->
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        <span>Premium</span>
+      </a>
+    </nav>
+  </div>
+
+  <script>
+    function scrollLeftRow() {
+      const container = document.getElementById('scrollRowContainer');
+      container.scrollBy({ left: -160, behavior: 'smooth' });
+    }
+
+    function scrollRightRow() {
+      const container = document.getElementById('scrollRowContainer');
+      container.scrollBy({ left: 160, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

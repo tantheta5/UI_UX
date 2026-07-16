@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="en" class="light"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#e3e1ec",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "on-tertiary-container": "#848484",
+                    "outline-variant": "#cfc4c5",
+                    "on-primary-fixed": "#1b1b1b",
+                    "secondary-fixed-dim": "#c6c5cf",
+                    "tertiary-fixed": "#e2e2e2",
+                    "on-surface": "#1a1c1d",
+                    "on-secondary-fixed-variant": "#46464e",
+                    "on-secondary": "#ffffff",
+                    "outline": "#7e7576",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "surface-variant": "#e2e2e3",
+                    "surface-container-low": "#f3f3f4",
+                    "surface-dim": "#dadadb",
+                    "on-secondary-fixed": "#1a1b22",
+                    "background": "#f9f9fa",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "primary-container": "#1b1b1b",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "surface-container": "#eeeeef",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "surface-container-highest": "#e2e2e3",
+                    "on-error-container": "#93000a",
+                    "on-secondary-container": "#63646c",
+                    "primary-fixed": "#e2e2e2",
+                    "primary": "#000000",
+                    "surface": "#f9f9fa",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#474747",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#5e5e5e",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#c6c6c6",
+                    "inverse-on-surface": "#f0f1f2",
+                    "secondary-container": "#e3e1ec",
+                    "on-primary-container": "#848484",
+                    "surface-container-high": "#e8e8e9",
+                    "tertiary": "#000000",
+                    "on-surface-variant": "#4c4546",
+                    "tertiary-container": "#1b1b1b",
+                    "secondary": "#5d5e66",
+                    "on-background": "#1a1c1d",
+                    "inverse-surface": "#2f3132",
+                    "surface-bright": "#f9f9fa"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "2xl": "48px",
+                    "md": "16px",
+                    "3xl": "64px",
+                    "lg": "24px",
+                    "base": "4px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "margin-mobile": "16px",
+                    "gutter": "16px",
+                    "xs": "4px",
+                    "margin-desktop": "32px"
+            },
+            "fontFamily": {
+                    "headline-xl-mobile": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-xl": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-xl-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    }catch(_e){}</script></head><body class="bg-background text-on-background min-h-screen flex flex-col items-center">
+
+    <!-- Top AppBar (JSON Derived Style) -->
+    <header class="fixed top-0 w-full z-50 bg-surface text-primary border-b border-outline-variant flex items-center justify-between px-margin-mobile h-14">
+        <button class="w-10 h-10 flex items-center justify-start hover:bg-surface-container-high transition-colors duration-200 rounded-full" aria-label="Back">
+            <span class="material-symbols-outlined" data-icon="arrow_back" data-original-icon="arrow_back">arrow_back</span>
+        </button>
+        <span class="font-headline-md text-headline-md font-bold text-primary">Create Account</span>
+        <button class="w-10 h-10 flex items-center justify-end hover:bg-surface-container-high transition-colors duration-200 rounded-full" aria-label="More">
+            <span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+        </button>
+    </header>
+
+    <!-- Main Content Canvas -->
+    <main class="w-full max-w-md mt-14 px-margin-mobile pt-lg pb-3xl flex flex-col">
+        
+        <!-- Hero Section / Headline -->
+        <section class="mb-xl">
+            <h1 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface mb-sm">Create Account</h1>
+            <p class="font-body-md text-body-md text-on-surface-variant">Join our community today to start your personalized journey.</p>
+        </section>
+
+        <!-- Sign Up Form -->
+        <form class="flex flex-col gap-lg" onsubmit="return false;">
+            
+            <!-- Input Field: Name -->
+            <div class="flex flex-col gap-base">
+                <label for="name" class="font-label-sm text-label-sm text-on-surface-variant ml-1">Full Name</label>
+                <div class="relative">
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" class="w-full h-12 bg-white border border-outline px-md rounded-lg font-body-md text-body-md focus:ring-0 focus:border-primary transition-all duration-200 outline-none">
+                </div>
+            </div>
+
+            <!-- Input Field: Email -->
+            <div class="flex flex-col gap-base">
+                <label for="email" class="font-label-sm text-label-sm text-on-surface-variant ml-1">Email Address</label>
+                <div class="relative">
+                    <input type="email" id="email" name="email" placeholder="name@example.com" class="w-full h-12 bg-white border border-outline px-md rounded-lg font-body-md text-body-md focus:ring-0 focus:border-primary transition-all duration-200 outline-none">
+                </div>
+            </div>
+
+            <!-- Input Field: Password -->
+            <div class="flex flex-col gap-base">
+                <label for="password" class="font-label-sm text-label-sm text-on-surface-variant ml-1">Password</label>
+                <div class="relative flex items-center">
+                    <input type="password" id="password" name="password" placeholder="Create a secure password" class="w-full h-12 bg-white border border-outline px-md rounded-lg font-body-md text-body-md focus:ring-0 focus:border-primary transition-all duration-200 outline-none pr-12">
+                    <button type="button" class="absolute right-3 text-on-surface-variant hover:text-primary">
+                        <span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+                    </button>
+                </div>
+                <p class="text-xs text-on-surface-variant px-1">Must be at least 8 characters.</p>
+            </div>
+
+            <!-- Terms & Conditions Checkbox -->
+            <div class="flex items-start gap-md mt-sm">
+                <div class="flex items-center h-5">
+                    <input id="terms" type="checkbox" class="w-5 h-5 rounded border-2 border-outline text-primary focus:ring-0 transition-colors duration-200 cursor-pointer">
+                </div>
+                <label for="terms" class="font-body-sm text-body-sm text-on-surface-variant leading-tight select-none">
+                    I agree to the <a href="#" class="text-primary font-medium underline underline-offset-2">Terms of Service</a> and <a href="#" class="text-primary font-medium underline underline-offset-2">Privacy Policy</a>.
+                </label>
+            </div>
+
+            <!-- Primary Action Button -->
+            <button class="w-full h-14 bg-primary text-on-primary rounded-full font-label-md text-label-md uppercase tracking-wider shadow-sm active:scale-[0.98] transition-transform duration-150 mt-lg flex items-center justify-center gap-sm">
+                Sign Up
+                <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+            </button>
+        </form>
+
+        <!-- Divider and Social Login Wireframe -->
+        <div class="flex items-center gap-md my-xl">
+            <div class="h-px bg-outline-variant flex-1"></div>
+            <span class="font-label-sm text-label-sm text-on-surface-variant">OR</span>
+            <div class="h-px bg-outline-variant flex-1"></div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-md">
+            <button class="flex items-center justify-center gap-sm h-12 border border-outline rounded-lg bg-white hover:bg-surface-container-low transition-colors duration-200">
+                <span class="material-symbols-outlined text-[20px]" data-icon="google" data-original-icon="google">circle</span>
+                <span class="font-label-sm text-label-sm">Google</span>
+            </button>
+            <button class="flex items-center justify-center gap-sm h-12 border border-outline rounded-lg bg-white hover:bg-surface-container-low transition-colors duration-200">
+                <span class="material-symbols-outlined text-[20px]" data-icon="apple" data-original-icon="apple">circle</span>
+                <span class="font-label-sm text-label-sm">Apple</span>
+            </button>
+        </div>
+
+        <!-- Secondary Navigation -->
+        <footer class="mt-2xl text-center">
+            <p class="font-body-sm text-body-sm text-on-surface-variant">
+                Already have an account? 
+                <a href="#" class="text-primary font-semibold hover:underline">Log In</a>
+            </p>
+        </footer>
+
+    </main>
+
+    <!-- Implicitly suppress BottomNavBar as per "Transactional" rule in instructions -->
+
+    <script class="">
+        // Micro-interaction for inputs
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.previousElementSibling.classList.add('text-primary');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.previousElementSibling.classList.remove('text-primary');
+            });
+        });
+
+        // Simple visibility toggle logic
+        const togglePass =</script></body></html>

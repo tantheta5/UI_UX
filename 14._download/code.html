@@ -1,0 +1,294 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Now Playing - Download Progress</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2f3132",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "surface-container-highest": "#e2e2e3",
+                    "surface-tint": "#5e5e5e",
+                    "error-container": "#ffdad6",
+                    "surface": "#f9f9fa",
+                    "primary-fixed": "#e2e2e2",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-secondary-fixed": "#1a1b22",
+                    "surface-bright": "#f9f9fa",
+                    "on-primary-fixed": "#1b1b1b",
+                    "on-error-container": "#93000a",
+                    "background": "#f9f9fa",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#dadadb",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "surface-container-high": "#e8e8e9",
+                    "on-background": "#1a1c1d",
+                    "primary": "#000000",
+                    "outline-variant": "#cfc4c5",
+                    "on-surface-variant": "#4c4546",
+                    "on-tertiary-container": "#848484",
+                    "on-primary-container": "#848484",
+                    "surface-container-low": "#f3f3f4",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1a1c1d",
+                    "secondary-fixed": "#e3e1ec",
+                    "surface-variant": "#e2e2e3",
+                    "secondary-container": "#e3e1ec",
+                    "tertiary": "#000000",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "on-secondary-container": "#63646c",
+                    "on-primary-fixed-variant": "#474747",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#e2e2e2",
+                    "on-secondary-fixed-variant": "#46464e",
+                    "on-error": "#ffffff",
+                    "surface-container": "#eeeeef",
+                    "inverse-primary": "#c6c6c6",
+                    "tertiary-container": "#1b1b1b",
+                    "outline": "#7e7576",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "secondary-fixed-dim": "#c6c5cf",
+                    "primary-container": "#1b1b1b",
+                    "secondary": "#5d5e66"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-desktop": "32px",
+                    "gutter": "16px",
+                    "md": "16px",
+                    "margin-mobile": "16px",
+                    "base": "4px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "2xl": "48px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "3xl": "64px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-xl-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-xl-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.35s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+        .animate-slide-down {
+            animation: slideDown 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface border-b border-outline-variant flex items-center justify-between px-margin-mobile h-14 w-full transition-colors duration-200">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container-high transition-colors p-2 rounded-full">arrow_back</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Now Playing</h1>
+</div>
+<button class="material-symbols-outlined text-primary hover:bg-surface-container-high transition-colors p-2 rounded-full">more_vert</button>
+</header>
+<!-- Download Banner -->
+<div class="fixed top-14 left-0 w-full z-40 bg-inverse-surface text-inverse-on-surface px-margin-mobile py-2 flex items-center justify-between animate-slide-down">
+<div class="flex items-center gap-3">
+<div class="w-4 h-4 border-2 border-inverse-on-surface border-t-transparent rounded-full animate-spin"></div>
+<span class="font-label-md text-label-md">Downloading 50 tracks...</span>
+</div>
+<button class="font-label-sm text-label-sm underline">Cancel</button>
+</div>
+<!-- Main Content -->
+<main class="pt-28 pb-20 px-margin-mobile max-w-xl mx-auto">
+<!-- Playlist Header Section -->
+<section class="mb-lg">
+<div class="flex gap-md items-end">
+<div class="w-32 h-32 bg-surface-container border border-outline-variant rounded-lg flex-shrink-0 relative overflow-hidden">
+<img class="w-full h-full object-cover grayscale opacity-80" data-alt="A minimalist grayscale architectural photograph of a brutalist concrete building with sharp shadows and clean lines, emphasizing structural form and neutral tones for a professional wireframe aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuJgcdhnkRc-ZZh4WxrR3lNcIyl56tiEEjIqz_jk6LmUBRrLh1e_LqwXm1o0zIIr3JRyfX7V4fL-xzvwK5dPnsYLuvRDAj3VkM7GtrOnJ4wGfEG0L8iAerXd7awpIELfLh_nryFNuWUo5DwZEftv9ma2DhRu4ivpAyYgvcy-J9h5irGJrWzneceXlaDbuHdPK6tZ5jE6nTQ-_48outyiu6w5ploJ_w06i_0Eta9C9NbLAXZNYjCB59">
+</div>
+<div class="flex-grow">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Workout Energy</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-sm">50 tracks • 2 hrs 45 mins</p>
+<div class="flex items-center gap-md">
+<!-- Progress Ring Icon -->
+<div class="relative w-10 h-10 flex items-center justify-center bg-secondary-container rounded-full text-on-secondary-container">
+<svg class="absolute inset-0" height="40" width="40">
+<circle class="text-outline-variant" cx="20" cy="20" fill="transparent" r="16" stroke="currentColor" stroke-width="3"></circle>
+<circle class="text-primary progress-ring__circle" cx="20" cy="20" fill="transparent" r="16" stroke="currentColor" stroke-dasharray="100.5" stroke-dashoffset="35" stroke-linecap="round" stroke-width="3" style="stroke-dashoffset: 5.02655px;"></circle>
+</svg>
+<span class="material-symbols-outlined text-md" style="font-variation-settings: 'FILL' 1;">download</span>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant p-2 rounded-full border border-outline-variant">share</button>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-lg py-sm rounded-full font-label-md text-label-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                            Play
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Track List -->
+<section class="space-y-base">
+<!-- Track Item 1 (Downloaded State) -->
+<div class="flex items-center justify-between p-md border border-outline-variant rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="flex items-center gap-md">
+<span class="font-label-sm text-label-sm text-on-surface-variant w-4">1</span>
+<div>
+<p class="font-body-md text-body-md text-on-surface font-semibold">Thunderstruck</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">AC/DC</p>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<button class="material-symbols-outlined text-on-surface-variant">more_vert</button>
+</div>
+</div>
+<!-- Track Item 2 (Downloading State) -->
+<div class="flex items-center justify-between p-md border border-outline-variant rounded-lg bg-surface hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="flex items-center gap-md">
+<span class="font-label-sm text-label-sm text-on-surface-variant w-4">2</span>
+<div>
+<p class="font-body-md text-body-md text-on-surface font-semibold">Eye of the Tiger</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Survivor</p>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<div class="w-5 h-5 border-2 border-outline-variant border-t-primary rounded-full animate-spin"></div>
+<button class="material-symbols-outlined text-on-surface-variant">more_vert</button>
+</div>
+</div>
+<!-- Track Item 3 (Pending) -->
+<div class="flex items-center justify-between p-md border border-outline-variant rounded-lg bg-surface hover:bg-surface-container-high transition-colors cursor-pointer opacity-60">
+<div class="flex items-center gap-md">
+<span class="font-label-sm text-label-sm text-on-surface-variant w-4">3</span>
+<div>
+<p class="font-body-md text-body-md text-on-surface font-semibold">Stronger</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Kanye West</p>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">schedule</span>
+<button class="material-symbols-outlined text-on-surface-variant">more_vert</button>
+</div>
+</div>
+<!-- More items for context -->
+<div class="flex items-center justify-between p-md border border-outline-variant rounded-lg bg-surface hover:bg-surface-container-high transition-colors cursor-pointer opacity-60">
+<div class="flex items-center gap-md">
+<span class="font-label-sm text-label-sm text-on-surface-variant w-4">4</span>
+<div>
+<p class="font-body-md text-body-md text-on-surface font-semibold">Power</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Kanye West</p>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">download</span>
+<button class="material-symbols-outlined text-on-surface-variant">more_vert</button>
+</div>
+</div>
+<div class="flex items-center justify-between p-md border border-outline-variant rounded-lg bg-surface hover:bg-surface-container-high transition-colors cursor-pointer opacity-60">
+<div class="flex items-center gap-md">
+<span class="font-label-sm text-label-sm text-on-surface-variant w-4">5</span>
+<div>
+<p class="font-body-md text-body-md text-on-surface font-semibold">Lose Yourself</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Eminem</p>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">download</span>
+<button class="material-symbols-outlined text-on-surface-variant">more_vert</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface-container border-t border-outline-variant flex justify-around items-center h-16 w-full px-4 pb-safe transition-transform duration-150">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-sm text-label-sm">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">library_music</span>
+<span class="font-label-sm text-label-sm">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary" href="#">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-label-sm text-label-sm">Premium</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction: Progress bar simulation for the ring
+        const circle = document.querySelector('.progress-ring__circle');
+        if (circle) {
+            let progress = 65;
+            const radius = circle.r.baseVal.value;
+            const circumference = radius * 2 * Math.PI;
+            
+            circle.style.strokeDasharray = `${circumference} ${circumference}`;
+            circle.style.strokeDashoffset = circumference - (progress / 100) * circumference;
+
+            setInterval(() => {
+                if (progress < 99) {
+                    progress += 0.5;
+                    circle.style.strokeDashoffset = circumference - (progress / 100) * circumference;
+                }
+            }, 500);
+        }
+
+        // Close banner interaction
+        document.querySelector('.animate-slide-down button')?.addEventListener('click', function() {
+            this.closest('.animate-slide-down').style.display = 'none';
+        });
+    </script>
+</body></html>

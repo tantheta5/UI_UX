@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Typography */
+      --font-serif: "Cormorant Garamond", Georgia, serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+
+      --fs-xs: 0.75rem;    /* 12 */
+      --fs-sm: 0.875rem;   /* 14 */
+      --fs-base: 1rem;     /* 16 */
+      --fs-md: 1.125rem;   /* 18 */
+      --fs-lg: 1.375rem;   /* 22 */
+      --fs-xl: 1.75rem;    /* 28 */
+      --fs-2xl: 2.25rem;   /* 36 */
+      --fs-3xl: 3rem;      /* 48 */
+
+      --fw-light: 300;
+      --fw-regular: 400;
+      --fw-medium: 500;
+      --fw-semibold: 600;
+      --fw-bold: 700;
+
+      --lh-tight: 1.1;
+      --lh-snug: 1.25;
+      --lh-normal: 1.5;
+      --lh-relaxed: 1.7;
+
+      --ls-tight: -0.02em;
+      --ls-normal: 0;
+      --ls-wide: 0.04em;
+      --ls-widest: 0.18em;
+
+      /* Colors — surfaces */
+      --color-bg: #FAF8F6;
+      --color-bg-alt: #F3EFEA;
+      --color-surface: #FFFFFF;
+      --color-surface-2: #FBF9F6;
+      --color-surface-3: #F5F1EC;
+      --color-border: #E8E1D8;
+      --color-border-soft: #EFE9E0;
+
+      /* Colors — ink */
+      --color-ink: #1F1B16;
+      --color-ink-2: #4A433B;
+      --color-ink-3: #6F665B;
+      --color-ink-4: #9A9082;
+      --color-ink-5: #BFB5A6;
+
+      /* Primary — soft rose */
+      --color-primary: #C98B86;
+      --color-primary-deep: #A86964;
+      --color-primary-soft: #F4DAD6;
+      --color-primary-tint: #FBEEEC;
+
+      /* Spacing — 8px system */
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 20px;
+      --sp-6: 24px;
+      --sp-7: 32px;
+      --sp-8: 40px;
+      --sp-9: 48px;
+      --sp-10: 64px;
+
+      /* Radius */
+      --r-xs: 4px;
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 16px;
+      --r-xl: 20px;
+      --r-full: 999px;
+
+      /* Shadows */
+      --sh-xs: 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-sm: 0 2px 6px rgba(31, 27, 22, 0.05), 0 1px 2px rgba(31, 27, 22, 0.04);
+      --sh-md: 0 6px 18px rgba(31, 27, 22, 0.06), 0 2px 6px rgba(31, 27, 22, 0.04);
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --tr-base: 240ms var(--ease-out);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--fs-base);
+      line-height: var(--lh-normal);
+      color: var(--color-ink);
+      background-color: var(--color-bg-alt);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .mobile-container {
+      max-width: 430px;
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--color-surface);
+      border-left: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding-top: 56px; /* for header */
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      max-width: 430px;
+      width: 100%;
+      height: 56px;
+      background-color: rgba(250, 248, 246, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-border-soft);
+      display: flex;
+      align-items: center;
+      padding: 0 var(--sp-4);
+      z-index: 100;
+      justify-content: space-between;
+    }
+
+    .back-btn, .more-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-ink);
+      background: transparent;
+      border: none;
+      transition: background 150ms var(--ease-out);
+    }
+
+    .back-btn:hover, .more-btn:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-md);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+    }
+
+    main {
+      padding: var(--sp-6) var(--sp-5);
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .intro-section {
+      margin-bottom: var(--sp-6);
+    }
+
+    .intro-section h2 {
+      font-family: var(--font-serif);
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-medium);
+      color: var(--color-ink);
+      margin-bottom: var(--sp-2);
+    }
+
+    .intro-section p {
+      font-size: var(--fs-sm);
+      color: var(--color-ink-3);
+      line-height: var(--lh-relaxed);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2);
+    }
+
+    label {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-semibold);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-wide);
+      color: var(--color-ink-3);
+      padding-left: var(--sp-1);
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-field {
+      width: 100%;
+      height: 48px;
+      padding: var(--sp-3) var(--sp-4);
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--r-md);
+      font-family: var(--font-sans);
+      font-size: var(--fs-sm);
+      color: var(--color-ink);
+      transition: border-color 150ms var(--ease-out), box-shadow 150ms var(--ease-out);
+      outline: none;
+    }
+
+    .input-field:hover {
+      border-color: var(--color-ink-4);
+    }
+
+    .input-field:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px var(--color-primary-tint);
+    }
+
+    .pr-12 {
+      padding-right: 48px;
+    }
+
+    .visibility-toggle {
+      position: absolute;
+      right: 12px;
+      background: none;
+      border: none;
+      color: var(--color-ink-4);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: var(--r-full);
+    }
+
+    .visibility-toggle:hover {
+      color: var(--color-ink-2);
+      background-color: var(--color-surface-3);
+    }
+
+    .visibility-toggle svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    .hint-text {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-4);
+      padding-left: var(--sp-1);
+    }
+
+    /* Custom Checkbox */
+    .checkbox-container {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--sp-3);
+      cursor: pointer;
+      font-size: var(--fs-sm);
+      color: var(--color-ink-2);
+      line-height: var(--lh-snug);
+      margin-top: var(--sp-2);
+      user-select: none;
+    }
+
+    .checkbox-container input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    .checkmark {
+      height: 20px;
+      width: 20px;
+      background-color: var(--color-surface);
+      border: 1.5px solid var(--color-ink-5);
+      border-radius: var(--r-xs);
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 150ms var(--ease-out), border-color 150ms var(--ease-out);
+    }
+
+    .checkbox-container:hover input ~ .checkmark {
+      border-color: var(--color-ink-3);
+    }
+
+    .checkbox-container input:checked ~ .checkmark {
+      background-color: var(--color-ink);
+      border-color: var(--color-ink);
+    }
+
+    .checkmark::after {
+      content: "";
+      display: none;
+      width: 5px;
+      height: 9px;
+      border: solid #fff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg) translateY(-1px);
+    }
+
+    .checkbox-container input:checked ~ .checkmark::after {
+      display: block;
+    }
+
+    .link-primary {
+      color: var(--color-ink);
+      font-weight: var(--fw-medium);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .btn {
+      width: 100%;
+      height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      font-family: var(--font-sans);
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-medium);
+      border-radius: var(--r-full);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 150ms var(--ease-out), background 150ms var(--ease-out), box-shadow 150ms var(--ease-out);
+      text-decoration: none;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      box-shadow: var(--sh-sm);
+      margin-top: var(--sp-4);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-wide);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-primary-deep);
+      box-shadow: var(--sh-md);
+    }
+
+    .btn-primary svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .divider-container {
+      display: flex;
+      align-items: center;
+      margin: var(--sp-6) 0;
+    }
+
+    .divider-line {
+      flex-grow: 1;
+      height: 1px;
+      background-color: var(--color-border-soft);
+    }
+
+    .divider-text {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink-4);
+      letter-spacing: var(--ls-widest);
+      margin: 0 var(--sp-4);
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-3);
+    }
+
+    .btn-social {
+      height: 48px;
+      background-color: var(--color-surface);
+      color: var(--color-ink-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--r-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      font-size: var(--fs-sm);
+      cursor: pointer;
+      transition: background-color 150ms var(--ease-out);
+    }
+
+    .btn-social:hover {
+      background-color: var(--color-surface-3);
+    }
+
+    .btn-social svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .footer-section {
+      text-align: center;
+      margin-top: auto;
+      padding-top: var(--sp-8);
+    }
+
+    .footer-text {
+      font-size: var(--fs-sm);
+      color: var(--color-ink-3);
+    }
+
+    .footer-text button {
+      background: none;
+      border: none;
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-container">
+    <!-- Header -->
+    <header>
+      <button class="back-btn" onclick="location.href='../0._welcome/code.html'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+      <div class="header-title">Create Account</div>
+      <button class="more-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="1"></circle>
+          <circle cx="12" cy="5" r="1"></circle>
+          <circle cx="12" cy="19" r="1"></circle>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Title Section -->
+      <section class="intro-section">
+        <h2>Create Account</h2>
+        <p>Join our community today to start your personalized journey.</p>
+      </section>
+
+      <!-- Form -->
+      <form onsubmit="return false;">
+        <div class="field-group">
+          <label for="name">Full Name</label>
+          <input class="input-field" type="text" id="name" placeholder="Enter your full name">
+        </div>
+
+        <div class="field-group">
+          <label for="email">Email Address</label>
+          <input class="input-field" type="email" id="email" placeholder="name@example.com">
+        </div>
+
+        <div class="field-group">
+          <label for="password">Password</label>
+          <div class="input-wrapper">
+            <input class="input-field pr-12" type="password" id="password" placeholder="Create a secure password">
+            <button class="visibility-toggle" type="button" onclick="togglePasswordVisibility()">
+              <!-- SVG Eye -->
+              <svg id="eye-icon" viewBox="0 0 24 24">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+          <p class="hint-text">Must be at least 8 characters.</p>
+        </div>
+
+        <!-- Terms checkbox -->
+        <label class="checkbox-container">
+          <input type="checkbox" id="terms">
+          <span class="checkmark"></span>
+          <span>I agree to the <span class="link-primary">Terms of Service</span> and <span class="link-primary">Privacy Policy</span>.</span>
+        </label>
+
+        <!-- Sign Up button -->
+        <button class="btn btn-primary" type="submit" onclick="location.href='../0.3_personalize_your_experience/code.html'">
+          <span>Sign Up</span>
+          <svg viewBox="0 0 24 24">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </form>
+
+      <!-- Divider -->
+      <div class="divider-container">
+        <div class="divider-line"></div>
+        <div class="divider-text">OR</div>
+        <div class="divider-line"></div>
+      </div>
+
+      <!-- Social Logins (2 Columns) -->
+      <div class="social-grid">
+        <button class="btn-social">
+          <!-- Google Icon Placeholder -->
+          <svg viewBox="0 0 24 24">
+            <path d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114-3.535 0-6.403-2.868-6.403-6.403s2.868-6.403 6.403-6.403c1.558 0 2.978.558 4.09 1.487l3.078-3.078C19.123 2.33 15.932 1 12.24 1 5.922 1 1 5.922 1 12s4.922 11 11.24 11c6.59 0 11.24-4.633 11.24-11.24 0-.756-.09-1.485-.24-2.215H12.24z"/>
+          </svg>
+          <span>Google</span>
+        </button>
+
+        <button class="btn-social">
+          <!-- Apple Icon Placeholder -->
+          <svg viewBox="0 0 24 24">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.2.67-2.92 1.49-.62.71-1.16 1.85-1.01 2.96 1.12.09 2.27-.58 2.94-1.39z"/>
+          </svg>
+          <span>Apple</span>
+        </button>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer-section">
+        <p class="footer-text">
+          Already have an account? 
+          <button type="button" onclick="location.href='../0.1_sign_in/code.html'">Log In</button>
+        </p>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    function togglePasswordVisibility() {
+      const passwordInput = document.getElementById('password');
+      const eyeIcon = document.getElementById('eye-icon');
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        // Eye off icon SVG path
+        eyeIcon.innerHTML = `
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+          <line x1="1" y1="1" x2="23" y2="23"></line>
+        `;
+      } else {
+        passwordInput.type = 'password';
+        // Regular eye icon SVG path
+        eyeIcon.innerHTML = `
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        `;
+      }
+    }
+  </script>
+</body>
+</html>

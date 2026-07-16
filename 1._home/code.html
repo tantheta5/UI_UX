@@ -1,0 +1,331 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Music Home - Wireframe</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#2f3132",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "surface-container-highest": "#e2e2e3",
+                        "surface-tint": "#5e5e5e",
+                        "error-container": "#ffdad6",
+                        "surface": "#f9f9fa",
+                        "primary-fixed": "#e2e2e2",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "on-secondary-fixed": "#1a1b22",
+                        "surface-bright": "#f9f9fa",
+                        "on-primary-fixed": "#1b1b1b",
+                        "on-error-container": "#93000a",
+                        "background": "#f9f9fa",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dadadb",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-container-high": "#e8e8e9",
+                        "on-background": "#1a1c1d",
+                        "primary": "#000000",
+                        "outline-variant": "#cfc4c5",
+                        "on-surface-variant": "#4c4546",
+                        "on-tertiary-container": "#848484",
+                        "on-primary-container": "#848484",
+                        "surface-container-low": "#f3f3f4",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1a1c1d",
+                        "secondary-fixed": "#e3e1ec",
+                        "surface-variant": "#e2e2e3",
+                        "secondary-container": "#e3e1ec",
+                        "tertiary": "#000000",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "on-secondary-container": "#63646c",
+                        "on-primary-fixed-variant": "#474747",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-secondary-fixed-variant": "#46464e",
+                        "on-error": "#ffffff",
+                        "surface-container": "#eeeeef",
+                        "inverse-primary": "#c6c6c6",
+                        "tertiary-container": "#1b1b1b",
+                        "outline": "#7e7576",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "secondary-fixed-dim": "#c6c5cf",
+                        "primary-container": "#1b1b1b",
+                        "secondary": "#5d5e66"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "gutter": "16px",
+                        "md": "16px",
+                        "margin-mobile": "16px",
+                        "base": "4px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "2xl": "48px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "3xl": "64px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-xl-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-xl-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen pb-20">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface border-b border-outline-variant flex items-center justify-between px-margin-mobile h-14 w-full">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer">arrow_back</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Now Playing</h1>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary cursor-pointer">more_vert</span>
+</div>
+</header>
+<main class="pt-20 px-margin-mobile max-w-screen-xl mx-auto">
+<!-- Welcome Header -->
+<section class="mb-lg">
+<h2 class="font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl mb-base">Good evening</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Pick up where you left off</p>
+</section>
+<!-- Recently Played (Bento Grid Style) -->
+<section class="mb-3xl">
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile font-semibold">Recently Played</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest cursor-pointer">See All</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<!-- Large Card 1 -->
+<div class="col-span-2 row-span-1 md:row-span-2 border border-outline-variant rounded-xl overflow-hidden bg-surface-container-low group cursor-pointer">
+<div class="aspect-square w-full relative">
+<img class="w-full h-full object-cover" data-alt="A minimalist grayscale photography of a single acoustic guitar leaning against a white studio wall. Soft, directional light creates a moody atmosphere with subtle shadows. The aesthetic is clean, professional, and sophisticated, mirroring a high-end music streaming interface with neutral tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFSTmsEQM91V9wh4fTexI17GZvqAAbU3YGxHUW1n1dXGU7cn3Plj3at-OceDSAjFJW0Kg6CnQswhrpPFzt32sCHxSswWQPkIe2KaA5awZxh5BtT-sq7IcrBy1s3qNbA_UuCIAg4WOtc3QRyxGVdxiu6fXs-_oGWTKrqOLoYACsOE4nuq83xfVGdBNqNkRhdmeFvBZkHIR1BIEUbg8kM8UVgcd9HupI9SSKVhCzH7hEFHQJ8cyd-l1x">
+<div class="absolute bottom-4 right-4 bg-primary text-on-primary p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<div class="p-md">
+<p class="font-label-md text-label-md font-bold">Midnight Jazz Essentials</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Curated for you</p>
+</div>
+</div>
+<!-- Small Card 2 -->
+<div class="border border-outline-variant rounded-xl overflow-hidden bg-surface-container-low cursor-pointer">
+<div class="aspect-square w-full">
+<img class="w-full h-full object-cover" data-alt="A close-up, high-contrast black and white shot of a vinyl record spinning on a turntable. The focus is on the texture of the vinyl grooves and the sleek metal tonearm. Minimalist and elegant composition suited for a modern UI wireframe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAREx6FiJufxoO9yeOBzXuLBplkW3gkbZrfDXyAxta3XyZLgstD_3zpsCOHxF20PeN5VbHT2JYnj6wvm3FFNUZ7dZ6CbYCdf1tY-52d0QGEGOnx7JGhe2ZEId8w_cIw0JON4ZzUljNlXr6d_uKwowKrX4_THmZ-G2UkIX16uG-5kqsgVhDw1FFAC_68SiXiNMAusbd3qnE_8OYMe6RI8qcr3rfIp8f1Hf2ITfxLoQhXJX7viz0WVUH2">
+</div>
+<div class="p-sm">
+<p class="font-label-sm text-label-sm font-bold truncate">Lo-Fi Study Beats</p>
+</div>
+</div>
+<!-- Small Card 3 -->
+<div class="border border-outline-variant rounded-xl overflow-hidden bg-surface-container-low cursor-pointer">
+<div class="aspect-square w-full">
+<img class="w-full h-full object-cover" data-alt="Abstract grayscale geometric shapes arranged in an asymmetric pattern, suggesting a modern art album cover. The lighting is even and flat, emphasizing the clean lines and neutral gray palette for a professional design framework." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTS7BTYCsLOV-U1B4CGc4bsbI-HUmvOALdvlNGXv5aLqIGx-vNLUotnR6tWN250NL7ZTOXeCJ80A44NlTF1zXXBxZYrFvDKa4qA3MXzNS0MN4_fKlUDB9wHlijFmFyQHkNdeWuaLL8Y9jftusOgmLMzcoBAO4bt2I7yBevVelRdUO5R3Z2gB3xenkEg_U5JFnUMuJb8PuXDWaThFG9QVnicH3isWuXgZRmeIvvbeDnR8gf8dJ6t8pF">
+</div>
+<div class="p-sm">
+<p class="font-label-sm text-label-sm font-bold truncate">Techno Pulse</p>
+</div>
+</div>
+<!-- Small Card 4 (Only visible on desktop) -->
+<div class="hidden md:block border border-outline-variant rounded-xl overflow-hidden bg-surface-container-low cursor-pointer">
+<div class="aspect-square w-full">
+<img class="w-full h-full object-cover" data-alt="A portrait of a silhouetted musician playing a saxophone against a hazy, light gray background. The lighting is atmospheric and soft, capturing a timeless musical moment in a minimalist grayscale style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs_LT0y6Xj4M4_QqY7Ta47VGDOVcFBMNlEa1z_5edfPrjU1YNToDqtG3-Y6L-BthaunDdS6Q2qZdAAWyV8LORfMs20F31Le1okmZFK85tJ1r2nnSxulhgxublMGsJl_-Hn5zX6UHIl8ZrlKk-e-FjW9TBZrhT3Bjd_-OxAK6Lwls-vOb1ygqBqJ6IyuzEVRQYEkeJ_-calQPRzRPVE61HqgWz3esCLvngB8SN4FzGvn1VXqsC6JaNm">
+</div>
+<div class="p-sm">
+<p class="font-label-sm text-label-sm font-bold truncate">Classic Soul</p>
+</div>
+</div>
+<!-- Small Card 5 (Only visible on desktop) -->
+<div class="hidden md:block border border-outline-variant rounded-xl overflow-hidden bg-surface-container-low cursor-pointer">
+<div class="aspect-square w-full">
+<img class="w-full h-full object-cover" data-alt="Minimalist design of a cassette tape with a handwritten label 'Summer Mix'. The image is in shades of white and gray, featuring crisp edges and a clean aesthetic for a music application wireframe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDI5y7ac0a5aAjjLxsT4S3u4Oa7N727DFqTilmKc-x6mWQVdZU8-AviaOFWpL4D2GUJ9sFhYFAkwDNOke9f7rrFBU2OAqOopjz_yiv43ID824g14h-2otElZL8LsqolJ9vKM_8fZvWJ7PGtSYQfH4DzNilP70DfORJN2D2Y1r7HJ72w-F6MvSKHt7sBZWX0OizsZpgZI-wnfkHotZoyu6PKm8Dc3Hi8esxV72THyR9AMF4HAGY9ohP">
+</div>
+<div class="p-sm">
+<p class="font-label-sm text-label-sm font-bold truncate">Summer Mix</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Jump Back In (Horizontal Scroll List) -->
+<section class="mb-3xl">
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile font-semibold">Jump back in</h3>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex overflow-x-auto no-scrollbar gap-gutter pb-4">
+<!-- Item 1 -->
+<div class="flex-shrink-0 w-40 cursor-pointer group">
+<div class="aspect-square bg-surface-container border border-outline-variant rounded-xl mb-sm overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale" data-alt="A minimalist overhead shot of a clean workspace with a pair of professional headphones resting on a white desk. The image uses a grayscale palette with high-key lighting to maintain a neutral, modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvLOdPWdn8CtBFrhH6FnPhgAkUkm9_cGT5qvuNZWLgZEPBU0le-mVmy6M6qwlLdeoY79EZqA8T4mP00loNJuXDTE10M-_Mm5PzEZD2IJ5dwpjr9_PPVhhIGPpBEXmkrY2ByrbhUM19wqAUVq1jp8wEMDVZLgh-VCBVQ85RQnpEdneDSkZ9DqzzQ8tVoPtGcxirbpfLTER4Wmir7NdXL9v7odAgIygQeXRYMk412tbK0sgzSx6feFDU">
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<p class="font-label-md text-label-md font-semibold truncate">Daily Mix 1</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Radiohead, Arctic Monkeys...</p>
+</div>
+<!-- Item 2 -->
+<div class="flex-shrink-0 w-40 cursor-pointer group">
+<div class="aspect-square bg-surface-container border border-outline-variant rounded-xl mb-sm overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale" data-alt="An abstract grayscale image of sound waves represented as elegant, flowing 3D ribbons in a white void. The lighting is soft and diffuse, creating a sense of calm and technical precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVvxYpSfrHfXJSUWP1G6nLqryMyZv7ZRn0uDogETXPLl02IKnEe9eJO2z8gYAtU-5w7g5kLL-tKsMNMlXKrO0jWVZUGeFS7JDO_dE9hxogZ2rAhGxRKiA9vuYdnn-p0KKLRlo1ubknuCOqbcP86-8e4YVMfGqKiIJOoKA6DzdHDaGDVyXTShn3WYIvOJSy__YgBYOKd9kW7v_E8XHD8f4O3EUxSxBBSPCoiGB3yBhYdPGyUL2JFV_R">
+</div>
+<p class="font-label-md text-label-md font-semibold truncate">Focus Flow</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Deep binaural beats</p>
+</div>
+<!-- Item 3 -->
+<div class="flex-shrink-0 w-40 cursor-pointer group">
+<div class="aspect-square bg-surface-container border border-outline-variant rounded-xl mb-sm overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale" data-alt="A minimalist grayscale close-up of a piano keyboard. The perspective is from one end, showing the rhythmic repetition of keys fading into a soft blur. Clean, high-contrast professional look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiwB8p3EgunZZ9BT0yaI4teHe460x6A_VoIRXOwVzZm-j28fSHmdsnXO6RNZyAGDEbunvYak8Avgg6SwohNRuVkrdgNyTN7oMRyMqLFDuMmEkm2xnNqTRfr9zmMzyA7G1TGK9kJo2MR1Mp7_UAx10IVyAFNG-kB69ViN5aBYH4zVgoQufauDSlVFNJkVS5cLOp__UDeFFzvc2qUl8Ck4tpabksxzynK3kLKCjxETf6Qmr-dEVzyCR5">
+</div>
+<p class="font-label-md text-label-md font-semibold truncate">Piano Solos</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Relaxing melodies</p>
+</div>
+<!-- Item 4 -->
+<div class="flex-shrink-0 w-40 cursor-pointer group">
+<div class="aspect-square bg-surface-container border border-outline-variant rounded-xl mb-sm overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale" data-alt="Grayscale aesthetic shot of a modern city skyline reflected in a glass window. The mood is urban and sophisticated, suitable for a contemporary chill playlist. High architectural contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoGsfGkSwJPd9Z2eM9CsXnnh7F6Vrzu_xfv0Pb0Nem1bKUKar0oAcY9itcRhXkWFmNR0U9B-p8IeyGG0zNzqJy7j4BIzYCNYbu19xI8rp7sfPJdC98OUAVkno2hSvy7ko9yH7xPI3oarswwDgdUTdxo-aI6YPfHeKuDAgNtW1Nf669mBxaz6KX-XaoBDjDo9gqK5337KO0xtUFIu0IAR07yneZrsMPCE__ZyBY-Lp_OVsA5OUJ-peP">
+</div>
+<p class="font-label-md text-label-md font-semibold truncate">Urban Chill</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Night city vibes</p>
+</div>
+<!-- Item 5 -->
+<div class="flex-shrink-0 w-40 cursor-pointer group">
+<div class="aspect-square bg-surface-container border border-outline-variant rounded-xl mb-sm overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale" data-alt="A minimalist representation of a sound mixer's sliders in a professional studio, captured in grayscale. The focus is on the mechanical details and sleek metallic surfaces." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBlaKYRZulZTnERbD9-BDdw03e89Xl04z5IyiGvJOtoyk0h22p4DngsVloKgkF0o9rRqXVtUISrHMs05If9RZliUmE0ro5H68dZldWoKX9uE2t3ZRc3zaD1k39AYe3Kve5HEFykxLEcVRh03DSGRvd1Vk_i5mC7s40_9KLJQYCdRzbqf-hQBN8gwujg5Xi1x7eAYNBxF5Ttd5be44CvsSgQusi78WLME-76v_aC71g5iIlv0C35ij4">
+</div>
+<p class="font-label-md text-label-md font-semibold truncate">The Producers</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Behind the tracks</p>
+</div>
+</div>
+</section>
+<!-- Made for You (List Style) -->
+<section class="mb-3xl">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile font-semibold mb-md">Top Mixes</h3>
+<div class="space-y-sm">
+<!-- Row 1 -->
+<div class="flex items-center gap-md p-md border border-outline-variant rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="w-14 h-14 bg-surface-container-highest rounded border border-outline-variant flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A minimalist grayscale icon of a lightning bolt inside a clean circle, representing energy or fast-paced music. Professional graphic design style for an app icon." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGqFnR82f7nn9_R9QAsXO6G-5OTgOBz53nMG8jQHwxRfRODjmdKGjHRJn2FfI_58XNpDprwOkIq4tKTzJDicGFDadr0PSGgj5E4PKZBfUGU7skNhIThrwWr6fxVgRdTGnT1vMrCojqEYg2tssU_8Mi9fgqAAtc2HjmbpLx9elUf2wPWAcudpkxeHjJ4705sFu5ZGau37_zCkC_mHTbmjBbnrl3ndRMWulN4w2sowLBouFMDBoxgD77">
+</div>
+<div class="flex-grow">
+<p class="font-label-md text-label-md font-bold">The Morning Rush</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">High energy to start your day</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">play_circle</span>
+</div>
+<!-- Row 2 -->
+<div class="flex items-center gap-md p-md border border-outline-variant rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="w-14 h-14 bg-surface-container-highest rounded border border-outline-variant flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A minimalist grayscale moon icon, suggesting nighttime or calm music. Clean and simple vector-style aesthetic for music categories." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALoDjrB2yDiKIGEaChsgD2vSOZ4NBm0CJIUs0nuxUaUANHe0NMFajyOxfFFwfAygtiU_l8Npm2zDVeg5lvxIQt3MWgItOToijxCcKwK3r7uaVpQeAyWeZmYY73LE9zBTQ4VYHZRw_jeFElYBVksIGlrROwhB3ukmVWM-PfQ8Ai6a47-ZrrvhVtrmGUDdkYIdqIUOIITIuLKW2t3J8BtZf_Spgps40J44ncyb9nJCPq7kUtilQ-7Weo">
+</div>
+<div class="flex-grow">
+<p class="font-label-md text-label-md font-bold">Deep Sleep</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Ambient textures and white noise</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">play_circle</span>
+</div>
+<!-- Row 3 -->
+<div class="flex items-center gap-md p-md border border-outline-variant rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="w-14 h-14 bg-surface-container-highest rounded border border-outline-variant flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A minimalist grayscale heart shape created from fine lines, representing acoustic or emotional music. Professional and subtle artistic design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMPclYWw8tbVX6lpBP0MsRKNNYgP8K_GykhZBACRy6az1eg9pvZ9Zf2-5XOM2qDg_Rbr9OBh0_LKU6MaFKF33E62xQn8hFblWRuDZedbIMmFz88NCSkAup_szKpWhFLbuzr4XtTcC127qh5B9y0H0-1LMdspKpsTL8udX-vqRj8vp_B_F9o-7SXT4D_MCffuh8c8OXPuhXBcyLWXf3DgpaOYU7_W8HWX0-4olmt2Y19G8GH4MGLReU">
+</div>
+<div class="flex-grow">
+<p class="font-label-md text-label-md font-bold">Acoustic Love</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Stripped back favorites</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">play_circle</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface-container border-t border-outline-variant flex justify-around items-center h-16 w-full px-4 pb-safe">
+<!-- Home (Active) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1 scale-95 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<!-- Search -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-all duration-150 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-sm text-label-sm">Search</span>
+</a>
+<!-- Library -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-all duration-150 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">library_music</span>
+<span class="font-label-sm text-label-sm">Library</span>
+</a>
+<!-- Premium -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-all duration-150 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-label-sm text-label-sm">Premium</span>
+</a>
+</nav>
+<!-- Micro-interaction Script -->
+<script>
+        document.querySelectorAll('a, button, div.cursor-pointer').forEach(el => {
+            el.addEventListener('click', (e) => {
+                const ripple = document.createElement('div');
+                ripple.className = 'absolute bg-primary/10 rounded-full pointer-events-none transform -translate-x-1/2 -translate-y-1/2 animate-ping';
+                ripple.style.width = '40px';
+                ripple.style.height = '40px';
+                ripple.style.left = (e.clientX - el.getBoundingClientRect().left) + 'px';
+                ripple.style.top = (e.clientY - el.getBoundingClientRect().top) + 'px';
+                
+                if (getComputedStyle(el).position === 'static') {
+                    el.style.position = 'relative';
+                }
+                
+                el.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+    </script>
+</body></html>
