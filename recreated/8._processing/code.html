@@ -107,13 +107,15 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      overflow: hidden;
     }
 
     .mobile-container {
       max-width: 430px;
       width: 100%;
-      min-height: 100vh;
-      background-color: var(--color-surface);
+      height: 100vh;
+      overflow-y: auto;
+      background-color: transparent;
       border-left: 1px solid var(--color-border);
       border-right: 1px solid var(--color-border);
       position: relative;
@@ -127,17 +129,20 @@
     header {
       position: fixed;
       top: 0;
+      left: 50%;
+      transform: translateX(-50%);
       max-width: 430px;
       width: 100%;
       height: 56px;
-      background-color: rgba(250, 248, 246, 0.85);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--color-border-soft);
+      background-color: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(24px) saturate(120%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
       display: flex;
       align-items: center;
       padding: 0 var(--sp-4);
       z-index: 100;
       justify-content: space-between;
+      -webkit-backdrop-filter: blur(24px) saturate(120%);
     }
 
     .back-btn, .more-btn {
@@ -175,74 +180,13 @@
       justify-content: center;
     }
 
-    /* Abstract Bento Scanning visualizer */
-    .bento-scan-grid {
-      position: relative;
-      width: 240px;
-      height: 240px;
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      grid-template-rows: repeat(6, 1fr);
-      gap: var(--sp-1);
-    }
-
-    .scan-line {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: var(--color-primary);
-      box-shadow: 0 0 8px var(--color-primary);
-      z-index: 20;
-      opacity: 0.8;
-      animation: scanVertical 3s ease-in-out infinite;
-    }
-
-    @keyframes scanVertical {
-      0% { top: 0%; }
-      50% { top: 100%; }
-      100% { top: 0%; }
-    }
-
-    .grid-cell {
-      border: 1px solid var(--color-border-soft);
-      background-color: var(--color-surface-2);
-      border-radius: var(--r-xs);
+    /* Sphere visualizer */
+    .sphere-wrapper {
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--color-ink-4);
-      transition: background-color 300ms ease;
+      position: relative;
     }
-
-    .grid-cell.active-shimmer {
-      animation: cellShimmer 2s infinite alternate;
-    }
-
-    @keyframes cellShimmer {
-      0% { background-color: var(--color-surface-2); }
-      100% { background-color: var(--color-surface-3); }
-    }
-
-    .grid-cell svg {
-      width: 18px;
-      height: 18px;
-      stroke: currentColor;
-      stroke-width: 1.5;
-      fill: none;
-      opacity: 0.5;
-    }
-
-    /* Cell coordinates */
-    .c1 { grid-column: span 3; grid-row: span 3; background-color: var(--color-surface-3); }
-    .c2 { grid-column: span 3; grid-row: span 2; }
-    .c3 { grid-column: span 2; grid-row: span 3; }
-    .c4 { grid-column: span 1; grid-row: span 1; }
-    .c5 { grid-column: span 3; grid-row: span 1; }
-    .c6 { grid-column: span 4; grid-row: span 2; }
-    .c7 { grid-column: span 2; grid-row: span 1; }
-
-    .c1 svg { width: 32px; height: 32px; }
 
     /* Texts */
     .text-center {
@@ -313,11 +257,14 @@
     nav.bottom-nav {
       position: fixed;
       bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
       max-width: 430px;
       width: 100%;
       height: 64px;
-      background-color: var(--color-surface-2);
-      border-top: 1px solid var(--color-border-soft);
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-bottom: none;
       display: flex;
       justify-content: space-around;
       align-items: center;
@@ -325,7 +272,12 @@
       padding: 0 var(--sp-4);
       opacity: 0.5;
       pointer-events: none; /* disable clicks */
-    }
+    
+      backdrop-filter: blur(5px) saturate(120%);
+      -webkit-backdrop-filter: blur(5px) saturate(120%);
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+      box-shadow: 0 -8px 32px rgba(31, 27, 22, 0.06);}
 
     .nav-item {
       display: flex;
@@ -358,11 +310,169 @@
       align-items: center;
       justify-content: center;
     }
-  </style>
+  
+    /* Dynamic Animated Gradient Background with Noise */
+    .dynamic-bg-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+      background-color: #FFFDE6; /* warm off-white cream base */
+    }
+
+    /* Stacking context fix to bring content above absolute background */
+    .mobile-container > *:not(.dynamic-bg-container):not(header):not(nav):not(.toast):not(.fab) {
+      position: relative;
+      z-index: 1;
+    }
+
+    .bg-gradient {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      filter: blur(60px);
+      opacity: 0.95;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.85;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+    }
+
+    .blob-1 {
+      top: -5%;
+      right: -15%;
+      width: 320px;
+      height: 320px;
+      background: #C98B86;
+      animation: move-1 16s infinite ease-in-out;
+    }
+
+    .blob-2 {
+      bottom: 10%;
+      right: -10%;
+      width: 380px;
+      height: 380px;
+      background: #D9A86A;
+      animation: move-2 18s infinite ease-in-out;
+    }
+
+    .blob-3 {
+      top: -10%;
+      left: -10%;
+      width: 350px;
+      height: 350px;
+      background: #FFF8D4;
+      animation: move-3 14s infinite ease-in-out;
+    }
+
+    .blob-4 {
+      top: 30%;
+      left: -15%;
+      width: 300px;
+      height: 300px;
+      background: #FFF8D4;
+      animation: move-4 15s infinite ease-in-out;
+    }
+
+    .blob-5 {
+      bottom: -10%;
+      left: -15%;
+      width: 360px;
+      height: 360px;
+      background: #D9A86A;
+      animation: move-5 17s infinite ease-in-out;
+    }
+
+    .blob-6 {
+      top: 35%;
+      right: -20%;
+      width: 280px;
+      height: 280px;
+      background: #ffb672;
+      animation: move-6 16s infinite ease-in-out;
+    }
+
+    @keyframes move-1 {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-140px, 180px) scale(1.2); }
+      66% { transform: translate(-40px, 240px) scale(0.85); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    @keyframes move-2 {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-180px, -140px) scale(0.85); }
+      66% { transform: translate(-90px, -240px) scale(1.15); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    @keyframes move-3 {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(160px, 120px) scale(1.25); }
+      66% { transform: translate(240px, 40px) scale(0.8); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    @keyframes move-4 {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(190px, 150px) scale(0.8); }
+      66% { transform: translate(120px, -80px) scale(1.2); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    @keyframes move-5 {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(180px, -180px) scale(1.3); }
+      66% { transform: translate(250px, -90px) scale(0.85); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    @keyframes move-6 {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-160px, 120px) scale(0.85); }
+      66% { transform: translate(-220px, -40px) scale(1.25); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    .noise-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 2;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+</style>
 </head>
 <body>
 
   <div class="mobile-container">
+    <!-- Dynamic background wrapper -->
+    <div class="dynamic-bg-container">
+      <div class="bg-gradient">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+        <div class="blob blob-5"></div>
+        <div class="blob blob-6"></div>
+      </div>
+      <!-- Grain/Noise Overlay -->
+      <div class="noise-overlay"></div>
+    </div>
     <!-- Header -->
     <header>
       <button class="back-btn" onclick="location.href='../7._friend_accepts/code.html'">
@@ -371,7 +481,7 @@
           <polyline points="12 19 5 12 12 5"></polyline>
         </svg>
       </button>
-      <div class="header-title">Now Playing</div>
+      <div class="header-title">Creating Blend</div>
       <button class="more-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="1"></circle>
@@ -383,39 +493,9 @@
 
     <!-- Main Content -->
     <main>
-      <!-- Abstract scanning visual grid -->
-      <div class="bento-scan-grid">
-        <div class="scan-line"></div>
-        <div class="grid-cell c1 active-shimmer">
-          <svg viewBox="0 0 24 24">
-            <path d="M9 18V5l12-2v13"></path>
-            <circle cx="6" cy="18" r="3"></circle>
-            <circle cx="18" cy="16" r="3"></circle>
-          </svg>
-        </div>
-        <div class="grid-cell c2">
-          <svg viewBox="0 0 24 24">
-            <line x1="18" y1="20" x2="18" y2="10"></line>
-            <line x1="12" y1="20" x2="12" y2="4"></line>
-            <line x1="6" y1="20" x2="6" y2="14"></line>
-          </svg>
-        </div>
-        <div class="grid-cell c3 active-shimmer">
-          <svg viewBox="0 0 24 24">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-        </div>
-        <div class="grid-cell c4"></div>
-        <div class="grid-cell c5"></div>
-        <div class="grid-cell c6">
-          <div style="display: flex; gap: 4px;">
-            <div style="width:6px; height:6px; border-radius:50%; background:currentColor;"></div>
-            <div style="width:6px; height:6px; border-radius:50%; background:currentColor;"></div>
-            <div style="width:6px; height:6px; border-radius:50%; background:currentColor;"></div>
-          </div>
-        </div>
-        <div class="grid-cell c7"></div>
+      <!-- Sphere Visualizer -->
+      <div class="sphere-wrapper" style="width: 320px; height: 260px; margin-bottom: -20px;">
+        <canvas id="sphereCanvas" style="width: 320px; height: 320px; position: absolute; top: -30px;"></canvas>
       </div>
 
       <!-- Text Section -->
@@ -499,6 +579,251 @@
 
     // Start loading animation after a short delay
     setTimeout(animateProgress, 600);
+
+    /* ── CANVAS SPHERE ANIMATION ── */
+    const canvas = document.getElementById('sphereCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 320;
+    canvas.height = 320;
+
+    const ROSE     = [201, 139, 134]; // #C98B86
+    const LAV      = [168, 155, 194]; // #A89BC2
+    const SAGE     = [138, 166, 142]; // #8AA68E
+    const APRICOT  = [226, 168, 127]; // #E2A87F
+    const ROSE_D   = [168, 105, 100]; // #A86964
+    const LAV_D    = [132, 122, 160]; // #847AA0
+    const SAGE_D   = [107, 135, 112]; // #6B8770
+    const ROSE_S   = [244, 218, 214]; // #F4DAD6
+    const LAV_S    = [229, 222, 240]; // #E5DEF0
+    const APR_S    = [246, 224, 206]; // #F6E0CE
+
+    function rgba(col, a = 1) {
+      return `rgba(${col[0]},${col[1]},${col[2]},${a})`;
+    }
+
+    function lerpCol(a, b, t) {
+      return [
+        a[0] + (b[0] - a[0]) * t,
+        a[1] + (b[1] - a[1]) * t,
+        a[2] + (b[2] - a[2]) * t,
+      ];
+    }
+
+    const R = 70; // base radius in px
+
+    function edgeOffset(θ, t) {
+      return R * (
+        1
+        + Math.sin(2  * θ + t * 0.38) * 0.010
+        + Math.sin(3  * θ - t * 0.55) * 0.007
+        + Math.sin(5  * θ + t * 0.27) * 0.005
+        + Math.sin(7  * θ - t * 0.41) * 0.003
+      );
+    }
+
+    function buildEdgePath(cx, cy, t) {
+      const N = 128;
+      ctx.beginPath();
+      for (let i = 0; i <= N; i++) {
+        const θ = (i / N) * Math.PI * 2;
+        const r = edgeOffset(θ, t);
+        const x = cx + r * Math.cos(θ);
+        const y = cy + r * Math.sin(θ);
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+    }
+
+    const PALETTE = [ROSE, LAV, SAGE, APRICOT, ROSE_S, LAV_S, APR_S];
+    const PARTICLES = Array.from({ length: 40 }, () => {
+      const orbitR  = R + 12 + Math.random() * 50;
+      return {
+        angle:  Math.random() * Math.PI * 2,
+        orbitR,
+        speed:  (Math.random() - 0.5) * 0.004,
+        size:   Math.random() * 1.5 + 0.5,
+        alpha:  Math.random() * 0.4 + 0.1,
+        col:    PALETTE[Math.floor(Math.random() * PALETTE.length)],
+        phase:  Math.random() * Math.PI * 2,
+        wobble: Math.random() * 6 + 2,
+      };
+    });
+
+    function drawParticles(cx, cy, t) {
+      for (const p of PARTICLES) {
+        p.angle += p.speed;
+        const wobble = Math.sin(t * 1.05 + p.phase) * p.wobble;
+        const dist   = p.orbitR + wobble;
+        const px = cx + dist * Math.cos(p.angle);
+        const py = cy + dist * Math.sin(p.angle);
+
+        if (Math.hypot(px - cx, py - cy) < R - 8) continue;
+
+        const a = p.alpha * (0.5 + 0.5 * Math.sin(t * 0.85 + p.phase));
+
+        ctx.beginPath();
+        ctx.arc(px, py, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = rgba(p.col, a);
+        ctx.fill();
+
+        const h = ctx.createRadialGradient(px, py, 0, px, py, p.size * 4);
+        h.addColorStop(0, rgba(p.col, a * 0.3));
+        h.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.beginPath();
+        ctx.arc(px, py, p.size * 4, 0, Math.PI * 2);
+        ctx.fillStyle = h;
+        ctx.fill();
+      }
+    }
+
+    let t = 0;
+    function draw() {
+      const W = canvas.width, H = canvas.height;
+      const cx = W / 2, cy = H / 2;
+
+      ctx.clearRect(0, 0, W, H);
+
+      // Outer Corona Bloom
+      const coronaColors = [ROSE, LAV, SAGE, APRICOT];
+      const ci = Math.floor((t * 0.15) % coronaColors.length);
+      const cf = (t * 0.15) % 1;
+      const coronaCol = lerpCol(coronaColors[ci], coronaColors[(ci + 1) % coronaColors.length], cf);
+
+      const corona = ctx.createRadialGradient(cx, cy, R * 0.8, cx, cy, R * 2.0);
+      corona.addColorStop(0,   rgba(coronaCol, 0.18));
+      corona.addColorStop(0.4, rgba(lerpCol(LAV, APRICOT, (Math.sin(t * 0.3) + 1) / 2), 0.07));
+      corona.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.beginPath();
+      ctx.arc(cx, cy, R * 2.0, 0, Math.PI * 2);
+      ctx.fillStyle = corona;
+      ctx.fill();
+
+      // Particles behind sphere
+      drawParticles(cx, cy, t);
+
+      // Sphere
+      ctx.save();
+      buildEdgePath(cx, cy, t);
+      ctx.clip();
+
+      const SR = R * 1.4;
+      const rx = cx - SR, ry = cy - SR, rw = SR * 2, rh = SR * 2;
+
+      // Layer 1: Base sweep
+      const baseAngle = t * 0.10;
+      const bx1 = cx + Math.cos(baseAngle) * SR;
+      const by1 = cy + Math.sin(baseAngle) * SR;
+      const bx2 = cx - Math.cos(baseAngle) * SR;
+      const by2 = cy - Math.sin(baseAngle) * SR;
+
+      const g1 = ctx.createLinearGradient(bx1, by1, bx2, by2);
+      g1.addColorStop(0.00, rgba(ROSE_D,   1));
+      g1.addColorStop(0.22, rgba(ROSE,     1));
+      g1.addColorStop(0.44, rgba(LAV,      1));
+      g1.addColorStop(0.66, rgba(SAGE,     1));
+      g1.addColorStop(0.85, rgba(APRICOT,  1));
+      g1.addColorStop(1.00, rgba(LAV_D,    1));
+      ctx.fillStyle = g1;
+      ctx.fillRect(rx, ry, rw, rh);
+
+      // Layer 2: Overlay gradient
+      const secAngle = -t * 0.065 + 1.8;
+      const g2 = ctx.createLinearGradient(
+        cx + Math.cos(secAngle) * SR * 0.9, cy + Math.sin(secAngle) * SR * 0.9,
+        cx - Math.cos(secAngle) * SR * 0.9, cy - Math.sin(secAngle) * SR * 0.9
+      );
+      g2.addColorStop(0.00, rgba(LAV,    0.55));
+      g2.addColorStop(0.40, rgba(SAGE,   0.30));
+      g2.addColorStop(0.70, rgba(APRICOT,0.40));
+      g2.addColorStop(1.00, rgba(ROSE,   0.25));
+      ctx.globalCompositeOperation = 'soft-light';
+      ctx.fillStyle = g2;
+      ctx.fillRect(rx, ry, rw, rh);
+      ctx.globalCompositeOperation = 'source-over';
+
+      // Layer 3: Shimmer bloom
+      const driftX = cx + Math.cos(t * 0.19 + 2.5) * R * 0.55;
+      const driftY = cy + Math.sin(t * 0.27 + 1.1) * R * 0.45;
+      const shimmerCol = lerpCol(
+        lerpCol(LAV, APRICOT, (Math.sin(t * 0.31) + 1) / 2),
+        SAGE,
+        (Math.sin(t * 0.17 + 1) + 1) / 2
+      );
+      const g3 = ctx.createRadialGradient(driftX, driftY, 0, driftX, driftY, R * 1.1);
+      g3.addColorStop(0,   rgba(shimmerCol, 0.45));
+      g3.addColorStop(0.6, rgba(shimmerCol, 0.12));
+      g3.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = g3;
+      ctx.fillRect(rx, ry, rw, rh);
+
+      // Layer 4: Diffuse light 3D
+      const lightX = cx - R * 0.52 + Math.cos(t * 0.16) * R * 0.14;
+      const lightY = cy - R * 0.50 + Math.sin(t * 0.21) * R * 0.11;
+
+      const diffuse = ctx.createRadialGradient(lightX, lightY, 0, cx, cy, R * 1.30);
+      diffuse.addColorStop(0.00, 'rgba(255,255,255,0.38)');
+      diffuse.addColorStop(0.30, 'rgba(255,255,255,0.08)');
+      diffuse.addColorStop(0.60, 'rgba(0,0,0,0)');
+      diffuse.addColorStop(1.00, 'rgba(0,0,0,0.58)');
+      ctx.fillStyle = diffuse;
+      ctx.fillRect(rx, ry, rw, rh);
+
+      // Layer 5: Specular highlight
+      const specX = lightX + R * 0.08;
+      const specY = lightY + R * 0.05;
+      const specGrad = ctx.createRadialGradient(specX, specY, 0, specX, specY, R * 0.34);
+      specGrad.addColorStop(0.00, 'rgba(255,255,255,0.95)');
+      specGrad.addColorStop(0.12, 'rgba(255,255,255,0.65)');
+      specGrad.addColorStop(0.35, 'rgba(255,255,255,0.20)');
+      specGrad.addColorStop(0.65, 'rgba(255,255,255,0.04)');
+      specGrad.addColorStop(1.00, 'rgba(255,255,255,0.00)');
+      ctx.fillStyle = specGrad;
+      ctx.fillRect(rx, ry, rw, rh);
+
+      // Layer 6: Rim light
+      const rimX = cx - lightX + cx + Math.cos(t * 0.09) * R * 0.08;
+      const rimY = cy - lightY + cy + Math.sin(t * 0.13) * R * 0.06;
+      const rimCol = lerpCol(APRICOT, LAV, (Math.sin(t * 0.38) + 1) / 2);
+      const rim = ctx.createRadialGradient(rimX, rimY, R * 0.55, rimX, rimY, R * 1.35);
+      rim.addColorStop(0,   rgba(rimCol, 0.48));
+      rim.addColorStop(0.5, rgba(rimCol, 0.18));
+      rim.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = rim;
+      ctx.fillRect(rx, ry, rw, rh);
+
+      // Layer 7: AO
+      const ao = ctx.createRadialGradient(cx + R * 0.45, cy + R * 0.50, 0, cx + R * 0.3, cy + R * 0.35, R * 1.15);
+      ao.addColorStop(0,   rgba(LAV_D, 0.50));
+      ao.addColorStop(0.4, rgba(ROSE_D, 0.18));
+      ao.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = ao;
+      ctx.fillRect(rx, ry, rw, rh);
+
+      ctx.restore(); // end clip
+
+      // Edge Glow
+      ctx.save();
+      buildEdgePath(cx, cy, t);
+      ctx.shadowColor = rgba(LAV, 0.85);
+      ctx.shadowBlur  = 16;
+      ctx.strokeStyle = rgba(lerpCol(LAV, APRICOT, (Math.sin(t * 0.28) + 1) / 2), 0.45);
+      ctx.lineWidth   = 2;
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.save();
+      buildEdgePath(cx, cy, t);
+      ctx.shadowColor = rgba(ROSE, 0.6);
+      ctx.shadowBlur  = 8;
+      ctx.strokeStyle = rgba(ROSE_S, 0.18);
+      ctx.lineWidth   = 1;
+      ctx.stroke();
+      ctx.restore();
+
+      t += 0.010;
+      requestAnimationFrame(draw);
+    }
+    draw();
   </script>
 </body>
 </html>

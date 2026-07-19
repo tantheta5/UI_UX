@@ -114,7 +114,7 @@
       max-width: 430px;
       width: 100%;
       min-height: 100vh;
-      background-color: var(--color-surface);
+      background-color: transparent;
       border-left: 1px solid var(--color-border);
       border-right: 1px solid var(--color-border);
       position: relative;
@@ -129,18 +129,21 @@
     header {
       position: fixed;
       top: 0;
+      left: 50%;
+      transform: translateX(-50%);
       max-width: 430px;
       width: 100%;
       height: 56px;
-      background-color: rgba(250, 248, 246, 0.85);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--color-border-soft);
+      background-color: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(24px) saturate(120%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
       display: flex;
       align-items: center;
       padding: 0 var(--sp-4);
       z-index: 10;
       justify-content: space-between;
       opacity: 0.5; /* Dimmed */
+      -webkit-backdrop-filter: blur(24px) saturate(120%);
     }
 
     .header-title {
@@ -245,16 +248,20 @@
 
     /* Modal Overlay Alert */
     .scrim {
-      position: absolute;
+      position: fixed;
       inset: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 430px;
+      width: 100%;
       background-color: rgba(31, 27, 22, 0.4);
       backdrop-filter: blur(2px);
-      z-index: 50;
+      z-index: 200;
       cursor: pointer;
     }
 
     .dialog-card {
-      position: absolute;
+      position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -264,7 +271,7 @@
       border: 2px solid var(--color-border);
       border-radius: var(--r-xl);
       padding: var(--sp-6) var(--sp-5);
-      z-index: 60;
+      z-index: 300;
       box-shadow: var(--sh-lg);
       display: flex;
       flex-direction: column;
@@ -375,18 +382,26 @@
     nav.bottom-nav {
       position: fixed;
       bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
       max-width: 430px;
       width: 100%;
       height: 64px;
-      background-color: var(--color-surface-2);
-      border-top: 1px solid var(--color-border-soft);
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-bottom: none;
       display: flex;
       justify-content: space-around;
       align-items: center;
       z-index: 10;
       padding: 0 var(--sp-4);
       opacity: 0.5; /* Dimmed */
-    }
+    
+      backdrop-filter: blur(5px) saturate(120%);
+      -webkit-backdrop-filter: blur(5px) saturate(120%);
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+      box-shadow: 0 -8px 32px rgba(31, 27, 22, 0.06);}
 
     .nav-item {
       display: flex;
@@ -428,11 +443,169 @@
       align-items: center;
       justify-content: center;
     }
-  </style>
+  
+    /* Dynamic Animated Gradient Background with Noise */
+    .dynamic-bg-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+      background-color: #FFFDE6; /* warm off-white cream base */
+    }
+
+    /* Stacking context fix to bring content above absolute background */
+    .mobile-container > *:not(.dynamic-bg-container):not(header):not(nav):not(.toast):not(.fab):not(.scrim):not(.dialog-card) {
+      position: relative;
+      z-index: 1;
+    }
+
+    .bg-gradient {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      filter: blur(60px);
+      opacity: 0.95;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.85;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+    }
+
+    .blob-1 {
+      top: -5%;
+      right: -15%;
+      width: 320px;
+      height: 320px;
+      background: #C98B86;
+      animation: move-1 16s infinite ease-in-out;
+    }
+
+    .blob-2 {
+      bottom: 10%;
+      right: -10%;
+      width: 380px;
+      height: 380px;
+      background: #D9A86A;
+      animation: move-2 18s infinite ease-in-out;
+    }
+
+    .blob-3 {
+      top: -10%;
+      left: -10%;
+      width: 350px;
+      height: 350px;
+      background: #FFF8D4;
+      animation: move-3 14s infinite ease-in-out;
+    }
+
+    .blob-4 {
+      top: 30%;
+      left: -15%;
+      width: 300px;
+      height: 300px;
+      background: #FFF8D4;
+      animation: move-4 15s infinite ease-in-out;
+    }
+
+    .blob-5 {
+      bottom: -10%;
+      left: -15%;
+      width: 360px;
+      height: 360px;
+      background: #D9A86A;
+      animation: move-5 17s infinite ease-in-out;
+    }
+
+    .blob-6 {
+      top: 35%;
+      right: -20%;
+      width: 280px;
+      height: 280px;
+      background: #ffb672;
+      animation: move-6 16s infinite ease-in-out;
+    }
+
+    @keyframes move-1 {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-140px, 180px) scale(1.2); }
+      66% { transform: translate(-40px, 240px) scale(0.85); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    @keyframes move-2 {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-180px, -140px) scale(0.85); }
+      66% { transform: translate(-90px, -240px) scale(1.15); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    @keyframes move-3 {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(160px, 120px) scale(1.25); }
+      66% { transform: translate(240px, 40px) scale(0.8); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    @keyframes move-4 {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(190px, 150px) scale(0.8); }
+      66% { transform: translate(120px, -80px) scale(1.2); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    @keyframes move-5 {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(180px, -180px) scale(1.3); }
+      66% { transform: translate(250px, -90px) scale(0.85); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    @keyframes move-6 {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-160px, 120px) scale(0.85); }
+      66% { transform: translate(-220px, -40px) scale(1.25); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    .noise-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 2;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+</style>
 </head>
 <body>
 
   <div class="mobile-container">
+    <!-- Dynamic background wrapper -->
+    <div class="dynamic-bg-container">
+      <div class="bg-gradient">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+        <div class="blob blob-5"></div>
+        <div class="blob blob-6"></div>
+      </div>
+      <!-- Grain/Noise Overlay -->
+      <div class="noise-overlay"></div>
+    </div>
     <!-- Header -->
     <header>
       <div class="header-title">Now Playing</div>
