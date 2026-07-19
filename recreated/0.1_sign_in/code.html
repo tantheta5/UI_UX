@@ -377,11 +377,13 @@
   
     /* Dynamic Animated Gradient Background with Noise */
     .dynamic-bg-container {
-      position: absolute;
+      position: fixed;
       top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      height: 100%;
       overflow: hidden;
       z-index: 0;
       pointer-events: none;
@@ -611,10 +613,6 @@
       </footer>
     </main>
 
-    <!-- Optional Atmospheric element -->
-    <div class="bg-visual-container">
-      <img class="bg-visual-img" data-alt="A subtle, minimalist colored abstract background featuring soft fluid curves and elegant geometric gradients." src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80">
-    </div>
   </div>
 
 </body>
