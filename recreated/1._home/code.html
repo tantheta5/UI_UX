@@ -159,7 +159,19 @@
       color: var(--color-ink);
       background: transparent;
       border: none;
+      padding: 0;
+      -webkit-appearance: none;
+      appearance: none;
       transition: background 150ms var(--ease-out);
+    }
+
+    .back-btn svg, .more-btn svg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      display: block;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .back-btn:hover, .more-btn:hover {
@@ -225,11 +237,90 @@
       color: var(--color-ink);
     }
 
+    /* Blend Callout Card */
+    .blend-card {
+      background: var(--grad-chrome-soft);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: var(--r-xl);
+      padding: var(--sp-5);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--sh-sm);
+      backdrop-filter: blur(16px) saturate(120%);
+      -webkit-backdrop-filter: blur(16px) saturate(120%);
+      transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out), border-color 200ms var(--ease-out);
+      cursor: pointer;
+    }
+
+    .blend-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--sh-md);
+      border-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .blend-card-content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2);
+      position: relative;
+      z-index: 2;
+    }
+
+    .blend-card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-semibold);
+      color: var(--color-primary-deep);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-wide);
+    }
+
+    .blend-card-title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-lg);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ink);
+      line-height: var(--lh-snug);
+    }
+
+    .blend-card-text {
+      font-size: var(--fs-xs);
+      color: var(--color-ink-2);
+      line-height: var(--lh-relaxed);
+    }
+
+    .blend-card-action {
+      margin-top: var(--sp-2);
+      display: flex;
+      align-items: center;
+    }
+
+    .blend-card-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      padding: var(--sp-2) var(--sp-4);
+      background-color: var(--color-surface);
+      color: var(--color-ink);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-semibold);
+      border-radius: var(--r-full);
+      box-shadow: var(--sh-xs);
+      transition: background-color 150ms var(--ease-out), transform 150ms var(--ease-out);
+    }
+
+    .blend-card:hover .blend-card-btn {
+      background-color: var(--color-surface-2);
+      transform: translateX(2px);
+    }
+
     /* Bento / Grid components */
     .bento-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: var(--sp-4);
+      gap: var(--sp-5);
     }
 
     .card {
@@ -661,19 +752,19 @@
     <!-- Header -->
     <header>
       <div class="header-left">
-        <button class="back-btn" onclick="location.href='../0.3_personalize_your_experience/code.html'">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="back-btn" onclick="location.href='../0.3_personalize_your_experience/code.html'" aria-label="Go back">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
         </button>
         <div class="header-title">Home</div>
       </div>
-      <button class="more-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="1"></circle>
-          <circle cx="12" cy="5" r="1"></circle>
-          <circle cx="12" cy="19" r="1"></circle>
+      <button class="more-btn" aria-label="More options">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <circle cx="12" cy="12" r="2"></circle>
+          <circle cx="12" cy="5" r="2"></circle>
+          <circle cx="12" cy="19" r="2"></circle>
         </svg>
       </button>
     </header>
@@ -684,6 +775,33 @@
       <section class="welcome-intro">
         <h2>Good Evening</h2>
         <p>Pick up where you left off</p>
+      </section>
+
+      <!-- Blend Callout Card -->
+      <section>
+        <div class="blend-card" onclick="location.href='../2._library/code.html'">
+          <div class="blend-card-content">
+            <div class="blend-card-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+              </svg>
+              <span>Music Blend</span>
+            </div>
+            <h3 class="blend-card-title">Want to create a Blend or know more about Blend?</h3>
+            <p class="blend-card-text">Click here to go directly to your Library to explore or create a Blend with friends. Alternatively, you can tap <strong>Library</strong> on the bottom navigation panel below if you prefer using standard navigation.</p>
+            <div class="blend-card-action">
+              <span class="blend-card-btn">
+                Go to Library
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- Recently Played Section -->
